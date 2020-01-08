@@ -26,6 +26,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-
-
-ng build --prod && docker build -t opinionatedstack/web-angular:latest -f Dockerfile.prod . && docker push opinionatedstack/web-angular:latest && say done
+ng build --prod && docker build -t datastrata/web-mobile:latest -f Dockerfile.prod . && docker push datastrata/web-mobile:latest && say done
