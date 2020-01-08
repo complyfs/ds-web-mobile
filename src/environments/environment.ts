@@ -14,7 +14,7 @@ export const environment = {
     apiIdentifier: 'https://rest.datastrata.io',
     callbackUri: 'http://localhost:4200/public/callback',
     requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write',
-    namespace: 'http://datastrata.io/'
+    namespace: 'https://datastrata.io/'
   },
 
   stripe: {
