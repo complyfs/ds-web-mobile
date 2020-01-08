@@ -25,8 +25,8 @@ import { BillingComponent } from './private/billing/billing.component';
 import { LogsComponent } from './admin/logs/logs.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/public/home', pathMatch: 'full' },
-  { path: 'public', component: PublicRootComponent,
+  { path: '', redirectTo: '/private', pathMatch: 'full' },
+/*  { path: 'public', component: PublicRootComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
@@ -34,23 +34,23 @@ const routes: Routes = [
       { path: 'callback', component: CallbackComponent },
       { path: 'loginerror/:errorType', component: LoginErrorComponent }
     ]
-  },
+  },*/
   {
     path: 'private', component: PrivateRootComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-      { path: 'basicsub', component: BasicSubscriberComponent },
+      { path: 'dashboard', component: DashboardComponent },
+/*      { path: 'basicsub', component: BasicSubscriberComponent },
       { path: 'premsub', component: PremiumSubscriberComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'account', component: AccountComponent },
       { path: 'billing', component: BillingComponent },
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'signup', component: SignupComponent },
       { path: 'signupthanks', component: StripeThanksComponent },
-      { path: 'signupcancel', component: StripeCancelComponent }
+      { path: 'signupcancel', component: StripeCancelComponent }*/
     ]
   },
-  {
+/*  {
     path: 'admin', component: AdminRootComponent,  canActivate: [AuthorizedGuard], canActivateChild: [AuthorizedGuard], data: {expectedRoles: ['Admin']},
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full'},
@@ -58,7 +58,7 @@ const routes: Routes = [
       { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin']} },
       { path: 'logs', component: LogsComponent, data: {expectedRoles: ['Admin']} }
     ]
-  }
+  }*/
 ];
 
 @NgModule({
