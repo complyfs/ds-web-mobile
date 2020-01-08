@@ -26,7 +26,7 @@ import { LogsComponent } from './admin/logs/logs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/private', pathMatch: 'full' },
-/*  { path: 'public', component: PublicRootComponent,
+  { path: 'public', component: PublicRootComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
@@ -34,15 +34,15 @@ const routes: Routes = [
       { path: 'callback', component: CallbackComponent },
       { path: 'loginerror/:errorType', component: LoginErrorComponent }
     ]
-  },*/
+  },
   {
     path: 'private', component: PrivateRootComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'profile', component: ProfileComponent },
 /*      { path: 'basicsub', component: BasicSubscriberComponent },
       { path: 'premsub', component: PremiumSubscriberComponent },
-      { path: 'profile', component: ProfileComponent },
       { path: 'account', component: AccountComponent },
       { path: 'billing', component: BillingComponent },
       { path: 'signup', component: SignupComponent },
@@ -50,15 +50,24 @@ const routes: Routes = [
       { path: 'signupcancel', component: StripeCancelComponent }*/
     ]
   },
-/*  {
-    path: 'admin', component: AdminRootComponent,  canActivate: [AuthorizedGuard], canActivateChild: [AuthorizedGuard], data: {expectedRoles: ['Admin']},
+  {
+    path: 'superadmin', component: AdminRootComponent,  canActivate: [AuthorizedGuard], canActivateChild: [AuthorizedGuard], data: {expectedRoles: ['Admin']},
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full'},
       { path: 'users', component: Auth0UsersComponent, data: {expectedRoles: ['Admin']} },
       { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin']} },
       { path: 'logs', component: LogsComponent, data: {expectedRoles: ['Admin']} }
     ]
-  }*/
+  },
+  {
+    path: 'admin', component: AdminRootComponent,  canActivate: [AuthorizedGuard], canActivateChild: [AuthorizedGuard], data: {expectedRoles: ['Tenant Admin']},
+    children: [
+      { path: '', redirectTo: 'users', pathMatch: 'full'},
+      { path: 'users', component: Auth0UsersComponent, data: {expectedRoles: ['Admin']} },
+      { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin']} },
+      { path: 'logs', component: LogsComponent, data: {expectedRoles: ['Admin']} }
+    ]
+  }
 ];
 
 @NgModule({
