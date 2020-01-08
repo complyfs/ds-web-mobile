@@ -5,20 +5,20 @@
 export const environment = {
   production: true,
   env: 'Prod',
-  companyName: 'Opinionated Stack',
-  contactUsEmail: 'info@example.com',
+  companyName: 'DataStrata.io',
+  contactUsEmail: 'info@datastrata.io',
 
   auth0: {
-    clientID: "YooMEqWTh4fd1XfQhUVBdhLxGxkFB19F",
-    domain: "opin-stack-demo.auth0.com",
-    apiIdentifier: 'https://test.opinionatedstack.com',
-    callbackUri: 'https://demo.opinionatedstack.com/public/callback',
-    requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write logs:read',
-    namespace: 'http://opinionatedstack.com/'
+    clientID: "0CTDYjMaai14Stae3Is4vFj5lJOkd9bx",
+    domain: "datastrata.auth0.com",
+    apiIdentifier: 'https://rest.datastrata.io',
+    callbackUri: 'http://localhost:4200/public/callback',
+    requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write',
+    namespace: 'http://datastrata.io/'
   },
 
   stripe: {
-    publishable_key: 'pk_test_EnH0bdIsW8lqtEl5XNfmSOwW00bW3vkXu7',
+    publishable_key: '',
     stripeRestServiceUrl: '/payments/webendpoints',
     purchaseableItems: {
       'one-day-purchase': {
