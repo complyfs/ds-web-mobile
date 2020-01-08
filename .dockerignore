@@ -1,2 +1,5 @@
 # Currently here for completeness
 .git
+src
+node_modules
+e2e
