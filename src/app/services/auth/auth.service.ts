@@ -226,4 +226,8 @@ export class AuthService {
     });
   }
 
+  getTenant(): string {
+    return 'bancobig';
+  }
+
 }
