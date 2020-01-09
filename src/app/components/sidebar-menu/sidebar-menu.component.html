@@ -6,9 +6,13 @@
   <a mat-list-item routerLink="/private/profile" *ngIf="auth.inRole(['User']) | async"><mat-icon>person</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Profile</span></a>
   <!--<a mat-list-item routerLink="/private/billing" *ngIf="auth.inRole(['User']) | async"><mat-icon>account_box</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Billing</span></a>-->
 
-  <a mat-list-item routerLink="/admin/users" *ngIf="auth.inRole(['Admin']) | async"><mat-icon>people</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Users</span></a>
-  <a mat-list-item routerLink="/admin/roles" *ngIf="auth.inRole(['Admin']) | async"><mat-icon>grain</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Roles</span></a>
-  <a mat-list-item routerLink="/admin/logs" *ngIf="auth.inRole(['Admin']) | async"><mat-icon>list</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Logs</span></a>
+  <a mat-list-item [routerLink]="['/admin/users', auth.getTenant()]" *ngIf="auth.inRole(['Tenant Admin']) | async"><mat-icon>people</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Users</span></a>
+  <a mat-list-item routerLink="/admin/roles" *ngIf="auth.inRole(['Tenant Admin']) | async"><mat-icon>grain</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Roles</span></a>
+  <a mat-list-item [routerLink]="['/admin/logs', auth.getTenant()]" *ngIf="auth.inRole(['Tenant Admin']) | async"><mat-icon>list</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Logs</span></a>
+
+  <a mat-list-item routerLink="/superadmin/users" *ngIf="auth.inRole(['Admin']) | async"><mat-icon>people</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> System Users</span></a>
+  <a mat-list-item routerLink="/superadmin/roles" *ngIf="auth.inRole(['Admin']) | async"><mat-icon>grain</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> System Roles</span></a>
+  <a mat-list-item routerLink="/superadmin/logs" *ngIf="auth.inRole(['Admin']) | async"><mat-icon>list</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> System Logs</span></a>
 
   <div *ngIf="auth.loggedIn">
     <a mat-list-item (click)="auth.logout(); router.navigate(['/public/home']);"><mat-icon>power_settings_new</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Logout</span></a>
