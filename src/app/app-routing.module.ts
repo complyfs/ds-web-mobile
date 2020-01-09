@@ -63,9 +63,9 @@ const routes: Routes = [
     path: 'admin', component: AdminRootComponent,  canActivate: [AuthorizedGuard], canActivateChild: [AuthorizedGuard], data: {expectedRoles: ['Tenant Admin']},
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full'},
-      { path: 'users', component: Auth0UsersComponent, data: {expectedRoles: ['Admin']} },
-      { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin']} },
-      { path: 'logs', component: LogsComponent, data: {expectedRoles: ['Admin']} }
+      { path: 'users/:tenant', component: Auth0UsersComponent, data: {expectedRoles: ['Tenant Admin']} },
+      { path: 'roles/:tenant', component: Auth0RolesComponent, data: {expectedRoles: ['Tenant Admin']} },
+      { path: 'logs/:tenant', component: LogsComponent, data: {expectedRoles: ['Tenant Admin']} }
     ]
   }
 ];
