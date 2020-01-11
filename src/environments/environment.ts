@@ -13,7 +13,7 @@ export const environment = {
     domain: "datastrata.auth0.com",
     apiIdentifier: 'https://rest.datastrata.io',
     callbackUri: 'http://localhost:4200/public/callback',
-    requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write',
+    requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write logs-tenant:read users-tenant:read users-tenant:write',
     namespace: 'https://datastrata.io/'
   },
 
