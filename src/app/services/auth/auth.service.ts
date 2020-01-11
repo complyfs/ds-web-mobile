@@ -17,6 +17,7 @@ export class AuthService {
 
   private jwtHelper = new JwtHelperService();
 
+
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
@@ -49,6 +50,9 @@ export class AuthService {
 
   // Create a local property for login status
   loggedIn: boolean = null;
+
+  tenant: string;
+
 
   constructor(private router: Router) { }
 
@@ -215,7 +219,7 @@ export class AuthService {
     });
   }
 
-  getTokenClaim(claim): Promise<any> {
+  getTokenClaim(claim: string): Promise<any> {
     return new Promise ( async (resolve, reject) => {
       try {
         const token = await this.decodeToken();
@@ -226,8 +230,23 @@ export class AuthService {
     });
   }
 
-  getTenant(): string {
-    return 'bancobig';
+  public getTenant(): Observable<string> {
+    return this.userProfile$.pipe (
+      map ( (user) => {
+        if (!user) {
+          // console.log('auth.inRole returns false');
+          return null;
+        }
+
+        if (!user[environment.auth0.namespace + 'app_metadata']) { return null; }
+
+        const appMetadata = user[environment.auth0.namespace + 'app_metadata'];
+
+        if (!('tenant' in appMetadata)) { return null; }
+
+        return appMetadata.tenant;
+      })
+    );
   }
 
 }
