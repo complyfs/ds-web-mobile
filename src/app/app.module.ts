@@ -46,6 +46,9 @@ import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subsc
 import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
 import { BillingComponent } from './private/billing/billing.component';
 import { LogsComponent } from './admin/logs/logs.component';
+import { TenantsComponent } from './admin/tenants/tenants.component';
+import { DialogTemplateComponent } from './components/dialog-template/dialog-template.component';
+import { ApplicationsComponent } from './admin/applications/applications.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +87,9 @@ import { LogsComponent } from './admin/logs/logs.component';
     PremiumSubscriberComponent,
     BillingComponent,
     LogsComponent,
+    TenantsComponent,
+    DialogTemplateComponent,
+    ApplicationsComponent,
   ],
   imports: [
     BrowserModule,
