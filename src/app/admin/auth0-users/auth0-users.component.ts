@@ -24,7 +24,7 @@ export class Auth0UsersComponent implements OnInit {
   pageIndex: number = 0;
   pageSizeOptions: number [] = [5, 10, 25];
 
-  constructor(private rest: RestService,
+  constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
 
   ngOnInit() {
@@ -37,7 +37,7 @@ export class Auth0UsersComponent implements OnInit {
       email: ( (this.searchEmail && this.searchEmail.length > 0 ) ? this.searchEmail : null)
     }};
 
-    this.rest.adminGetUsers(params)
+    this.restService.adminGetUsers(params)
       .pipe(
         finalize(() => { this.usersLoading = false; })
       )
@@ -63,7 +63,7 @@ export class Auth0UsersComponent implements OnInit {
 
     const params = { user_id: clickedUser.user_id };
 
-    this.rest.adminGetUser(params)
+    this.restService.adminGetUser(params)
       .pipe(
         finalize(() => { this.selectedUserLoading = false; })
       )
@@ -80,7 +80,7 @@ export class Auth0UsersComponent implements OnInit {
   }
 
   updateSelectedUser() {
-    this.rest.adminUpdateUser(this.selectedUser)
+    this.restService.adminUpdateUser(this.selectedUser)
       .subscribe( r => {
         this.snackMessage.open('User updated', null,{verticalPosition: 'bottom', duration:  environment.snackBarDuration});
       }, e => {
