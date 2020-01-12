@@ -9,11 +9,13 @@ export const environment = {
   contactUsEmail: 'info@datastrata.io',
 
   auth0: {
-    clientID: "0CTDYjMaai14Stae3Is4vFj5lJOkd9bx",
-    domain: "datastrata.auth0.com",
+    clientID: '0CTDYjMaai14Stae3Is4vFj5lJOkd9bx',
+    domain: 'datastrata.auth0.com',
     apiIdentifier: 'https://rest.datastrata.io',
     callbackUri: 'http://localhost:4200/public/callback',
-    requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write logs-tenant:read users-tenant:read users-tenant:write',
+    requestedScopes:  'openid profile email post:read post:write roles:read users:read ' +
+      'users:write logs-tenant:read users-tenant:read users-tenant:write logs:read ' +
+      'tenants:read tenants:write',
     namespace: 'https://datastrata.io/'
   },
 
