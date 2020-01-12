@@ -58,4 +58,16 @@ export class RestService {
   adminGetLogs(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/getLogs', params);
   }
+
+  superadminGetTenants(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/superadmin/getTenants', params);
+  }
+
+  superadminGetTenant(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/superadmin/getTenant', params);
+  }
+
+  superadminSaveTenant(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/superadmin/saveTenant', params);
+  }
 }
