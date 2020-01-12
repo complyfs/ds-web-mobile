@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RestService} from '../../services/rest/rest.service';
 import {PageEvent} from '@angular/material/paginator';
 import {finalize} from 'rxjs/operators';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-logs',
@@ -29,7 +30,8 @@ export class LogsComponent implements OnInit {
     'silly'
   ];
 
-  constructor(private restService: RestService) { }
+  constructor(private restService: RestService,
+              private snackMessage: MatSnackBar) { }
 
   ngOnInit() {
     this.loadData();
@@ -51,6 +53,7 @@ export class LogsComponent implements OnInit {
         this.itemsFound = r.itemsFound;
       }, e => {
         console.log(e);
+        this.snackMessage.open('Error loading logs', 'x',{verticalPosition: 'top'});
       });
   }
 
