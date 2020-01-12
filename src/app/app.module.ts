@@ -49,6 +49,9 @@ import { DateDisplayComponent } from './components/display-fields/date-display/d
 import { BooleanDisplayComponent } from './components/display-fields/boolean-display/boolean-display.component';
 import { TextAreaDisplayComponent } from './components/display-fields/text-area-display/text-area-display.component';
 import { TextFieldDisplayComponent } from './components/display-fields/text-field-display/text-field-display.component';
+import { TenantsComponent } from './admin/tenants/tenants.component';
+import { DialogTemplateComponent } from './components/dialog-template/dialog-template.component';
+import { ApplicationsComponent } from './admin/applications/applications.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +93,9 @@ import { TextFieldDisplayComponent } from './components/display-fields/text-fiel
     BooleanDisplayComponent,
     TextAreaDisplayComponent,
     TextFieldDisplayComponent,
+    TenantsComponent,
+    DialogTemplateComponent,
+    ApplicationsComponent,
   ],
   imports: [
     BrowserModule,

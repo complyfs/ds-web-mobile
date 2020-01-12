@@ -23,6 +23,7 @@ import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subsc
 import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
 import { BillingComponent } from './private/billing/billing.component';
 import { LogsComponent } from './admin/logs/logs.component';
+import { TenantsComponent } from './admin/tenants/tenants.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/private', pathMatch: 'full' },
@@ -53,19 +54,16 @@ const routes: Routes = [
   {
     path: 'superadmin', component: AdminRootComponent,  canActivate: [AuthorizedGuard], canActivateChild: [AuthorizedGuard], data: {expectedRoles: ['Admin']},
     children: [
-      { path: '', redirectTo: 'users', pathMatch: 'full'},
-      { path: 'users', component: Auth0UsersComponent, data: {expectedRoles: ['Admin']} },
-      { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin']} },
-      { path: 'logs', component: LogsComponent, data: {expectedRoles: ['Admin']} }
+      { path: 'tenants', component: TenantsComponent, data: {expectedRoles: ['Admin']} }
     ]
   },
   {
     path: 'admin', component: AdminRootComponent,  canActivate: [AuthorizedGuard], canActivateChild: [AuthorizedGuard], data: {expectedRoles: ['Tenant Admin']},
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full'},
-      { path: 'users/:tenant', component: Auth0UsersComponent, data: {expectedRoles: ['Tenant Admin']} },
-      { path: 'roles/:tenant', component: Auth0RolesComponent, data: {expectedRoles: ['Tenant Admin']} },
-      { path: 'logs/:tenant', component: LogsComponent, data: {expectedRoles: ['Tenant Admin']} }
+      { path: 'users', component: Auth0UsersComponent, data: {expectedRoles: ['Admin', 'Tenant Admin']} },
+      { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin', 'Tenant Admin']} },
+      { path: 'logs', component: LogsComponent, data: {expectedRoles: ['Admin', 'Tenant Admin']} },
     ]
   }
 ];
