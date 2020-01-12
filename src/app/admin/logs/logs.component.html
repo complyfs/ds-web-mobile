@@ -52,7 +52,7 @@
             </div>
             <div fxFlex="100%" class="no-overflow">
               <div fxLayout="row" fxLayoutGap="5%">
-                <div fxFlex="33%" fxFlexAlign="end" class="text-truncate">Error Message:</div>
+                <div fxFlex="33%" fxFlexAlign="end" class="text-truncate">Message:</div>
                 <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{log.message}}</div>
               </div>
             </div>
@@ -91,10 +91,10 @@
         <!--<pre class="prettyprint linenums:1 lang-js"><code class="language-js">module.exports = {{ test: () => {{ console.log(); }} }};</code></pre>-->
         <pre class="prettyprint linenums:1 lang-js"><code class="language-js">{{selectedLog.meta|json}}</code></pre>
 
-        <div *ngIf="selectedLog.meta.stack">
-          <div class="section-header">Call Stack:</div>
-          <pre class="prettyprint">{{selectedLog.meta.stack}}</pre>
-        </div>
+<!--        <div *ngIf="selectedLog.meta.stack">-->
+<!--          <div class="section-header">Call Stack:</div>-->
+<!--          <pre class="prettyprint">{{selectedLog.meta.stack}}</pre>-->
+<!--        </div>-->
       </div>
     </mat-card>
   </div>
