@@ -27,23 +27,11 @@ import { AdminRootComponent } from './admin/admin-root/admin-root.component';
 import { LoginErrorComponent } from './public/login-error/login-error.component';
 import { Auth0RolesComponent } from './admin/auth0-roles/auth0-roles.component';
 
-import { SignupComponent } from './private/subscribe/signup/signup.component';
-import { StripeThanksComponent } from './private/subscribe/stripe-thanks/stripe-thanks.component';
-import { StripeCancelComponent } from './private/subscribe/stripe-cancel/stripe-cancel.component';
 import { AccountComponent } from './private/account/account.component';
 import { SidebarDividerComponent } from './components/sidebar-divider/sidebar-divider.component';
-import { PaymentHistoryComponent } from './components/payments/payment-history/payment-history.component';
-import { SubscriptionHistoryComponent } from './components/payments/subscription-history/subscription-history.component';
-import { StripeSessionComponent } from './components/payments/stripe-session/stripe-session.component';
 import { DemoRestCallComponent } from './components/demo-rest-call/demo-rest-call.component';
-import { SubscriptionDetailComponent } from './components/payments/subscription-detail/subscription-detail.component';
-import { PlanDetailComponent } from './components/payments/plan-detail/plan-detail.component';
-import { ProductDetailComponent } from './components/payments/product-detail/product-detail.component';
-import { CustomerDetailComponent } from './components/payments/customer-detail/customer-detail.component';
-import { InvoiceHistoryComponent } from './components/payments/invoice-history/invoice-history.component';
 import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subscriber.component';
 import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
-import { BillingComponent } from './private/billing/billing.component';
 import { LogsComponent } from './admin/logs/logs.component';
 import { DateDisplayComponent } from './components/display-fields/date-display/date-display.component';
 import { BooleanDisplayComponent } from './components/display-fields/boolean-display/boolean-display.component';
@@ -71,23 +59,11 @@ import { ApplicationsComponent } from './admin/applications/applications.compone
     AdminRootComponent,
     LoginErrorComponent,
     Auth0RolesComponent,
-    SignupComponent,
-    StripeThanksComponent,
-    StripeCancelComponent,
     AccountComponent,
     SidebarDividerComponent,
-    PaymentHistoryComponent,
-    SubscriptionHistoryComponent,
-    StripeSessionComponent,
     DemoRestCallComponent,
-    SubscriptionDetailComponent,
-    PlanDetailComponent,
-    ProductDetailComponent,
-    CustomerDetailComponent,
-    InvoiceHistoryComponent,
     BasicSubscriberComponent,
     PremiumSubscriberComponent,
-    BillingComponent,
     LogsComponent,
     DateDisplayComponent,
     BooleanDisplayComponent,
