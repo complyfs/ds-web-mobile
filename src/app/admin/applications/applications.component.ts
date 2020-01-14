@@ -68,20 +68,7 @@ export class ApplicationsComponent implements OnInit {
   }
 
   select(clickedItem) {
-    this.selected = null;
-    this.selectedLoading = true;
-
-    const params = { _id: clickedItem._id };
-
-    this.restService.adminGetApplication(params)
-      .pipe(
-        finalize(() => { this.selectedLoading = false; })
-      )
-      .subscribe ( r => {
-        this.selected = r;
-      }, e => {
-        this.snackMessage.open('Error getting application data', 'x', {verticalPosition: 'top'});
-      });
+    this.selected = clickedItem;
   }
 
   pageChange(event: PageEvent) {
@@ -111,8 +98,6 @@ export class ApplicationsComponent implements OnInit {
   checkUnique(id) {
     this.proposedId.next(id);
   }
-
-
 
   onResult($event): void {
     if (!$event) { return; }
