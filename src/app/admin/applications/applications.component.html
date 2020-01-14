@@ -11,15 +11,17 @@
           </div>
         </div>
       </mat-card-title>
-      <div>
-        <!--appearance="fill"-->
-        <mat-form-field  floatLabel="always">
-          <mat-label>Search by name</mat-label>
-          <input matInput type="email" placeholder="Name" [(ngModel)]="searchName" >
-        </mat-form-field>
-        <button id="searchBtn" class="floatRight" (click)="loadData()" mat-mini-fab color="primary"><mat-icon>search</mat-icon></button>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex="1 1 auto" fxFlexAlign="start">
+          <mat-form-field  floatLabel="always">
+            <mat-label>Search by name</mat-label>
+            <input matInput type="email" placeholder="Name" [(ngModel)]="searchName" >
+          </mat-form-field>
+        </div>
+        <div fxFlex="0 0 auto" fxFlexAlign="end">
+          <button id="searchBtn" class="floatRight" (click)="loadData()" mat-mini-fab color="primary"><mat-icon>search</mat-icon></button>
+        </div>
       </div>
-
 
       <div>
         <mat-card class="list-mat-card" *ngFor="let app of applications" (click)="select(app)" [class.selected]="isSelectedItem(app)">
@@ -64,7 +66,7 @@
     </mat-card>
 
     <mat-card *ngIf="selected">
-      <mat-card-title>Selected User: {{selected.name}}</mat-card-title>
+      <mat-card-title>Selected App: {{selected.name}}</mat-card-title>
 
       <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
         <div fxFlex="100%">
