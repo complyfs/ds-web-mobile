@@ -15,7 +15,7 @@ export const environment = {
     callbackUri: 'http://localhost:4200/public/callback',
     requestedScopes:  'openid profile email post:read post:write roles:read users:read ' +
       'users:write logs-tenant:read users-tenant:read users-tenant:write logs:read ' +
-      'tenants:read tenants:write',
+      'tenants:read tenants:write applications:read applications:write applications:delete',
     namespace: 'https://datastrata.io/'
   },
 
