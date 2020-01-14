@@ -46,6 +46,8 @@ import { TextFieldComponent } from './components/field-display/text-field/text-f
 import { TextAreaComponent } from './components/field-display/text-area/text-area.component';
 import { ApplicationPanelComponent } from './components/application-panel/application-panel.component';
 import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
+import { ApplicationUsersComponent } from './components/application-users/application-users.component';
+import { ApplicationDataStoresComponent } from './components/application-data-stores/application-data-stores.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,8 @@ import { ApplicationDetailComponent } from './components/application-detail/appl
     TextAreaComponent,
     ApplicationPanelComponent,
     ApplicationDetailComponent,
+    ApplicationUsersComponent,
+    ApplicationDataStoresComponent,
   ],
   imports: [
     BrowserModule,

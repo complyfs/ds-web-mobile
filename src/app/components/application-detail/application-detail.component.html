@@ -1,0 +1,36 @@
+<mat-card *ngIf="loading" fxLayout="row" fxLayoutAlign="center" >
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
+  </div>
+</mat-card>
+
+<mat-card *ngIf="application">
+  <mat-card-title>Selected App: {{application.name}}</mat-card-title>
+
+  <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
+    <div fxFlex="100%">
+      <app-text-field [label]="'Name:'" [(value)]="application.name" [readOnly]="false"></app-text-field>
+    </div>
+    <div fxFlex="100%">
+      <app-text-area [label]="'Description:'" [(value)]="application.description" [readOnly]="false"></app-text-area>
+    </div>
+  </div>
+
+  <mat-tab-group>
+    <mat-tab label="Users">
+      <app-application-users></app-application-users>
+    </mat-tab>
+    <mat-tab label="Data Stores">
+      <app-application-data-stores></app-application-data-stores>
+    </mat-tab>
+    <mat-tab label="Reports">
+      <app-application-panel [application]="application"></app-application-panel>
+    </mat-tab>
+  </mat-tab-group>
+
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="saveApplication()">Save</button>
+  </mat-card-actions>
+
+</mat-card>
