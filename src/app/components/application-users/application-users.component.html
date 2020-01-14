@@ -1,0 +1,38 @@
+
+<div fxLayout="row" fxLayoutGap="5%">
+  <div fxFlex="33%">
+    <div>
+      <mat-card class="list-mat-card list-header-mat-card">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <div fxFlex="100%">Email</div>
+        </div>
+      </mat-card>
+    </div>
+
+    <div>
+      <mat-card class="list-mat-card" *ngFor="let user of users" (click)="selectUser(user)" [class.selected]="isSelectedItem(user)">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <div fxFlex="100%" class="text-truncate">{{user.email}}</div>
+          <div fxFlex fxFlexAlign="end">
+
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+
+
+    <div *ngIf="users && users.length>0">
+      <mat-card class="list-paginator">
+        <mat-paginator [length]="itemsFound"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="pageSizeOptions"
+                       (page)="pageChange($event)" >
+        </mat-paginator>
+      </mat-card>
+    </div>
+  </div>
+  <div fxFlex="1 1 auto">
+
+  </div>
+</div>
