@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from '../../services/rest/rest.service';
+import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as uuid from 'uuid';
 import { PageEvent } from '@angular/material/paginator';
@@ -67,13 +68,13 @@ export class TenantsComponent implements OnInit {
     this.selectedTenant = $event;
     //this.selectedTenant._id = uuid.v4();
     this.saveTenant();
-    setTimeout( () => { this.loadData(); }, 2000);
   }
 
   saveTenant() {
     this.restService.superadminSaveTenant(this.selectedTenant)
       .subscribe( r => {
-
+        this.snackMessage.open('Tenant saved', null,{ duration: environment.snackBarDuration, verticalPosition: 'bottom' });
+        this.loadData();
       }, err => {
         this.snackMessage.open('Error saving tenants', 'x',{verticalPosition: 'top'});
       });
