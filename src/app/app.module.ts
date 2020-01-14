@@ -6,6 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialIoModule } from './material-io.module';
@@ -40,6 +42,7 @@ import { ApplicationsComponent } from './admin/applications/applications.compone
 import { TextFieldComponent } from './components/field-display/text-field/text-field.component';
 import { TextAreaComponent } from './components/field-display/text-area/text-area.component';
 import { ApplicationPanelComponent } from './components/application-panel/application-panel.component';
+import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +75,7 @@ import { ApplicationPanelComponent } from './components/application-panel/applic
     TextFieldComponent,
     TextAreaComponent,
     ApplicationPanelComponent,
+    ApplicationDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +85,8 @@ import { ApplicationPanelComponent } from './components/application-panel/applic
     FlexLayoutModule,
     HttpClientModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
