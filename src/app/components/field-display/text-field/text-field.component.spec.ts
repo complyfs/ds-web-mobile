@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BillingComponent } from './billing.component';
+import { TextFieldComponent } from './text-field.component';
 
-describe('BillingComponent', () => {
-  let component: BillingComponent;
-  let fixture: ComponentFixture<BillingComponent>;
+describe('TextFieldComponent', () => {
+  let component: TextFieldComponent;
+  let fixture: ComponentFixture<TextFieldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BillingComponent ]
+      declarations: [ TextFieldComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BillingComponent);
+    fixture = TestBed.createComponent(TextFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
