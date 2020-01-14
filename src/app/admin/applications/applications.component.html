@@ -1,1 +1,113 @@
-<p>applications works!</p>
+<div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="center">
+  <div fxFlex="1 1 33%" fxFlex.lt-lg="0 0 100%">
+    <mat-card>
+      <mat-card-title>
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div fxFlex="1 1 auto" fxFlexAlign="start">
+            Applications
+          </div>
+          <div fxFlex="0 0 auto" fxFlexAlign="end">
+            <button id="newButton" class="floatRight" (click)="newItem.open()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+          </div>
+        </div>
+      </mat-card-title>
+      <div>
+        <!--appearance="fill"-->
+        <mat-form-field  floatLabel="always">
+          <mat-label>Search by name</mat-label>
+          <input matInput type="email" placeholder="Name" [(ngModel)]="searchName" >
+        </mat-form-field>
+        <button id="searchBtn" class="floatRight" (click)="loadData()" mat-mini-fab color="primary"><mat-icon>search</mat-icon></button>
+      </div>
+
+
+      <div>
+        <mat-card class="list-mat-card" *ngFor="let app of applications" (click)="select(app)" [class.selected]="isSelectedItem(app)">
+          <div fxLayout="column" fxLayoutAlign="space-between">
+            <div fxFlex="100%">
+              <app-text-field [value]="app.name" [label]="'Name:'" [readOnly]="true"></app-text-field>
+            </div>
+            <div fxFlex="100%">
+              <app-application-panel [application]="app"></app-application-panel>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <mat-card *ngIf="loading" fxLayout="row" fxLayoutAlign="center" >
+        <div fxLayout="row" fxLayoutAlign="center">
+          <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
+        </div>
+      </mat-card>
+
+      <div *ngIf="applications && applications.length>0">
+        <mat-card class="list-paginator">
+          <mat-paginator [length]="itemsFound"
+                         [pageSize]="pageSize"
+                         [pageSizeOptions]="pageSizeOptions"
+                         (page)="pageChange($event)" >
+          </mat-paginator>
+        </mat-card>
+      </div>
+
+    </mat-card>
+
+    <!--
+    <mat-card *ngIf="selectedUser">
+      <mat-card-title>Selected user json</mat-card-title>
+      <pre>{{selectedUser|json:"pretty"}}</pre>
+    </mat-card>
+    -->
+  </div>
+  <div fxFlex>
+    <mat-card *ngIf="selectedLoading" fxLayout="row" fxLayoutAlign="center" >
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
+      </div>
+    </mat-card>
+
+    <mat-card *ngIf="selected">
+      <mat-card-title>Selected User: {{selected.name}}</mat-card-title>
+
+      <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
+        <div fxFlex="100%">
+          <app-text-field [label]="'Name:'" [(value)]="selected.name" [readOnly]="false"></app-text-field>
+        </div>
+        <div fxFlex="100%">
+          <app-text-area [label]="'Description:'" [(value)]="selected.description" [readOnly]="false"></app-text-area>
+        </div>
+      </div>
+
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="saveApplication()">Save</button>
+      </mat-card-actions>
+
+    </mat-card>
+  </div>
+</div>
+
+<app-dialog-template #newItem (result)="onResult($event)">
+  <ng-template>
+    <div fxLayout="column">
+      <div fxFlex>
+        <mat-form-field class="full-width-150-500">
+          <input #uniqueIdBox matInput placeholder="Unique ID" [(ngModel)]="newApplication._id" (input)="checkUnique(uniqueIdBox.value)">
+          <mat-hint >No spaces, use underscores. <div class="tmp-error-msg" *ngIf="!(uniqueID$|async)">ID must be unique.</div></mat-hint>
+          <mat-error *ngIf="false">
+            ID is not unique.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field class="full-width-150-500">
+          <input matInput placeholder="Channel Label" [(ngModel)]="newApplication.name">
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <button mat-raised-button color="primary" [mat-dialog-close]="">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="( !(uniqueID$|async) || !newApplication.name)" [mat-dialog-close]="newApplication">Save</button>
+      </div>
+    </div>
+  </ng-template>
+</app-dialog-template>
