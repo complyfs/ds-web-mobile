@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StripeThanksComponent } from './stripe-thanks.component';
+import { ApplicationPanelComponent } from './application-panel.component';
 
-describe('StripeThanksComponent', () => {
-  let component: StripeThanksComponent;
-  let fixture: ComponentFixture<StripeThanksComponent>;
+describe('ApplicationPanelComponent', () => {
+  let component: ApplicationPanelComponent;
+  let fixture: ComponentFixture<ApplicationPanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StripeThanksComponent ]
+      declarations: [ ApplicationPanelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StripeThanksComponent);
+    fixture = TestBed.createComponent(ApplicationPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
