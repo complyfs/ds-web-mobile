@@ -70,4 +70,24 @@ export class RestService {
   superadminSaveTenant(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/superadmin/saveTenant', params);
   }
+
+  adminGetApplications(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getApplications', params);
+  }
+
+  adminGetApplication(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getApplication', params);
+  }
+
+  adminSaveApplication(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/saveApplication', params);
+  }
+
+  adminDeleteApplication(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteApplication', params);
+  }
+
+  getApplicationGraphs(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getApplicationGraphs', params);
+  }
 }
