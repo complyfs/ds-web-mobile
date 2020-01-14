@@ -25,9 +25,6 @@
         <mat-card class="list-mat-card" *ngFor="let app of applications" (click)="select(app)" [class.selected]="isSelectedItem(app)">
           <div fxLayout="column" fxLayoutAlign="space-between">
             <div fxFlex="100%">
-              <app-text-field [value]="app.name" [label]="'Name:'" [readOnly]="true"></app-text-field>
-            </div>
-            <div fxFlex="100%">
               <app-application-panel [application]="app"></app-application-panel>
             </div>
           </div>
