@@ -1,3 +1,78 @@
+<mat-drawer-container class="applications-container">
+  <mat-drawer #drawer mode="side" opened class="applications-drawer">
+    <mat-card>
+      <mat-card-title>
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div fxFlex="1 1 auto" fxFlexAlign="start">
+            Applications
+          </div>
+          <div fxFlex="0 0 auto" fxFlexAlign="end">
+            <button id="newButton" class="floatRight" (click)="newItem.open()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+          </div>
+        </div>
+      </mat-card-title>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex="1 1 auto" fxFlexAlign="start">
+          <mat-form-field  floatLabel="always">
+            <mat-label>Search by name</mat-label>
+            <input matInput type="email" placeholder="Name" [(ngModel)]="searchName" >
+          </mat-form-field>
+        </div>
+        <div fxFlex="0 0 auto" fxFlexAlign="end">
+          <button id="searchBtn" class="floatRight" (click)="loadData()" mat-mini-fab color="primary"><mat-icon>search</mat-icon></button>
+        </div>
+      </div>
+
+      <div>
+        <mat-card class="list-mat-card" *ngFor="let app of applications" (click)="select(app)" [class.selected]="isSelectedItem(app)">
+          <div fxLayout="column" fxLayoutAlign="space-between">
+            <div fxFlex="100%">
+              <app-application-panel [application]="app"></app-application-panel>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <mat-card *ngIf="loading" fxLayout="row" fxLayoutAlign="center" >
+        <div fxLayout="row" fxLayoutAlign="center">
+          <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
+        </div>
+      </mat-card>
+
+      <div *ngIf="applications && applications.length>0">
+        <mat-card class="list-paginator">
+          <mat-paginator [length]="itemsFound"
+                         [pageSize]="pageSize"
+                         [pageSizeOptions]="pageSizeOptions"
+                         (page)="pageChange($event)" >
+          </mat-paginator>
+        </mat-card>
+      </div>
+
+    </mat-card>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div fxLayout="row">
+      <div fxFlex="0 0 auto">
+        <button (click)="drawer.toggle()" mat-mini-fab color="white" class="drawer-button"><mat-icon>settings_ethernet</mat-icon></button>
+      </div>
+      <div fxFlex="1 1 auto">
+        <div *ngIf="selected">
+          <app-application-detail [applicationId]="selected._id"></app-application-detail>
+        </div>
+        <div *ngIf="!selected">
+          <mat-card>
+            <mat-card-title>Selected Application: </mat-card-title>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+<!--
 <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="center">
   <div fxFlex="1 1 33%" fxFlex.lt-lg="0 0 100%">
     <mat-card>
@@ -51,40 +126,13 @@
 
     </mat-card>
 
-    <!--
-    <mat-card *ngIf="selectedUser">
-      <mat-card-title>Selected user json</mat-card-title>
-      <pre>{{selectedUser|json:"pretty"}}</pre>
-    </mat-card>
-    -->
   </div>
-  <div fxFlex>
-    <mat-card *ngIf="selectedLoading" fxLayout="row" fxLayoutAlign="center" >
-      <div fxLayout="row" fxLayoutAlign="center">
-        <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
-      </div>
-    </mat-card>
-
-    <mat-card *ngIf="selected">
-      <mat-card-title>Selected App: {{selected.name}}</mat-card-title>
-
-      <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
-        <div fxFlex="100%">
-          <app-text-field [label]="'Name:'" [(value)]="selected.name" [readOnly]="false"></app-text-field>
-        </div>
-        <div fxFlex="100%">
-          <app-text-area [label]="'Description:'" [(value)]="selected.description" [readOnly]="false"></app-text-area>
-        </div>
-      </div>
-
-
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="saveApplication()">Save</button>
-      </mat-card-actions>
-
-    </mat-card>
+  <div fxFlex *ngIf="selected">
+    <app-application-detail [applicationId]="selected._id"></app-application-detail>
   </div>
 </div>
+
+-->
 
 <app-dialog-template #newItem (result)="onResult($event)">
   <ng-template>
