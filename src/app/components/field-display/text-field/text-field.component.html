@@ -6,8 +6,8 @@
     </div>
   </div>
   <div *ngIf="readOnly" fxFlex fxFlexAlign="start" class="user-data text-truncate valueFlex" >{{value}}</div>
-  <div *ngIf="!readOnly" fxFlex fxFlexAlign="start" class="user-data text-truncate valueFlex" >
-    <mat-form-field floatLabel="always">
+  <div *ngIf="!readOnly" fxFlex fxFlexAlign="start" class="user-data valueFlex full-width" >
+    <mat-form-field floatLabel="always" class="full-width">
       <input matInput [(ngModel)]="value" (ngModelChange)="valueChange.emit(value)">
     </mat-form-field>
   </div>
