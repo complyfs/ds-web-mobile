@@ -18,6 +18,7 @@ import { Auth0RolesComponent } from './admin/auth0-roles/auth0-roles.component';
 import { LogsComponent } from './admin/logs/logs.component';
 import { TenantsComponent } from './admin/tenants/tenants.component';
 import { ApplicationsComponent } from './admin/applications/applications.component';
+import { CredentialsComponent } from './admin/credentials/credentials.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/private', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       { path: 'dashboard', component: DashboardComponent },
       { path: 'applications', component: ApplicationsComponent },
+      { path: 'credentials', component: CredentialsComponent },
       { path: 'profile', component: ProfileComponent },
     ]
   },
