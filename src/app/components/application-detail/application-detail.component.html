@@ -17,11 +17,11 @@
   </div>
 
   <mat-tab-group>
-    <mat-tab label="Users">
-      <app-application-users></app-application-users>
-    </mat-tab>
     <mat-tab label="Data Stores">
       <app-application-data-stores></app-application-data-stores>
+    </mat-tab>
+    <mat-tab label="Users">
+      <app-application-users [application]="application"></app-application-users>
     </mat-tab>
     <mat-tab label="Reports">
       <app-application-panel [application]="application"></app-application-panel>

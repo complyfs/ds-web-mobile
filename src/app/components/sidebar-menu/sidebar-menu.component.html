@@ -2,6 +2,7 @@
   <a mat-list-item (click)="toggleText()"><mat-icon>settings_ethernet</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Collapse</span></a>
   <a mat-list-item routerLink="/private/dashboard"><mat-icon>dashboard</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Dashboard</span></a>
   <a mat-list-item routerLink="/private/applications"><mat-icon>apps</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Applications</span></a>
+  <a mat-list-item routerLink="/private/credentials"><mat-icon>vpn_key</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Credentials</span></a>
 
   <a mat-list-item routerLink="/private/profile" *ngIf="auth.inRole(['User']) | async"><mat-icon>person</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Profile</span></a>
   <!--<a mat-list-item routerLink="/private/billing" *ngIf="auth.inRole(['User']) | async"><mat-icon>account_box</mat-icon><span class="sidenav-text" *ngIf="sidenavBroadcaster.showTextDescriptions"> Billing</span></a>-->

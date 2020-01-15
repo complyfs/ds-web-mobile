@@ -8,6 +8,11 @@ export const environment = {
   companyName: 'DataStrata.io',
   contactUsEmail: 'info@datastrata.io',
 
+  providers: [
+    {id: 'aws', name: 'AWS'},
+    {id: 'azure', name: 'Azure'},
+  ],
+
   auth0: {
     clientID: '0CTDYjMaai14Stae3Is4vFj5lJOkd9bx',
     domain: 'datastrata.auth0.com',

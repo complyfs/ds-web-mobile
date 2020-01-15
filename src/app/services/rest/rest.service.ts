@@ -90,4 +90,20 @@ export class RestService {
   getApplicationGraphs(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/getApplicationGraphs', params);
   }
+
+  adminGetCredentials(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getCredentials', params);
+  }
+
+  adminGetCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getCredential', params);
+  }
+
+  adminSaveCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/saveCredential', params);
+  }
+
+  adminDeleteCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteCredential', params);
+  }
 }
