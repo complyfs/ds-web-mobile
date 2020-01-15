@@ -48,6 +48,7 @@ import { ApplicationPanelComponent } from './components/application-panel/applic
 import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
 import { ApplicationUsersComponent } from './components/application-users/application-users.component';
 import { ApplicationDataStoresComponent } from './components/application-data-stores/application-data-stores.component';
+import { CredentialsComponent } from './admin/credentials/credentials.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { ApplicationDataStoresComponent } from './components/application-data-st
     ApplicationDetailComponent,
     ApplicationUsersComponent,
     ApplicationDataStoresComponent,
+    CredentialsComponent,
   ],
   imports: [
     BrowserModule,
