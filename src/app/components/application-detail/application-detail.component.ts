@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, } from '@angular/core';
 import {RestService} from "../../services/rest/rest.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {finalize} from "rxjs/operators";
@@ -9,7 +9,7 @@ import {environment} from "../../../environments/environment";
   templateUrl: './application-detail.component.html',
   styleUrls: ['./application-detail.component.scss']
 })
-export class ApplicationDetailComponent implements OnInit {
+export class ApplicationDetailComponent implements OnInit, OnChanges {
 
   @Input() applicationId: string;
   application: any;
@@ -20,6 +20,10 @@ export class ApplicationDetailComponent implements OnInit {
               private snackMessage: MatSnackBar) { }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.loadData();
   }
 
