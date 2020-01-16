@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {RestService} from "../../services/rest/rest.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, finalize, switchMap} from "rxjs/operators";
 import {PageEvent} from "@angular/material/paginator";
 
 @Component({
@@ -13,6 +13,8 @@ export class ApplicationUsersComponent implements OnInit {
 
   @Input() application: any;
   users: any[];
+  searchSystemUserEmail: string;
+  systemUsersLoading = false;
 
   itemsFound: number = 0;
   pageSize: number = 5;
@@ -23,16 +25,18 @@ export class ApplicationUsersComponent implements OnInit {
               private snackMessage: MatSnackBar) { }
 
   ngOnInit() {
-    this.loadData();
+    this.searchSystemUsers();
   }
 
-  loadData() {
-    const params: any = {
-      from: (this.pageIndex * this.pageSize), size: this.pageSize,
-      searchTerms: {}
-    };
+  searchSystemUsers() {
+    this.systemUsersLoading = true;
+    this.users = null;
+    const params = { pageIndex: this.pageIndex, pageSize: this.pageSize, searchTerms: {
+        email: ( (this.searchSystemUserEmail && this.searchSystemUserEmail.length > 0 ) ? this.searchSystemUserEmail : null)
+      }};
 
     this.restService.adminGetUsers(params)
+      .pipe( finalize(() => { this.systemUsersLoading = false; }) )
       .subscribe( r => {
         const response = JSON.parse(r);
         this.users = response.users;
@@ -45,7 +49,7 @@ export class ApplicationUsersComponent implements OnInit {
   pageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadData();
+    this.searchSystemUsers();
   }
 
   selectuser(user) {

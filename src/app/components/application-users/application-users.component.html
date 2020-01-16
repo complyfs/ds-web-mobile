@@ -14,7 +14,7 @@
     <div>
       <mat-card class="list-mat-card" *ngFor="let user of application.users" [class.selected]="isSelectedItem(user)">
         <div fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex class="text-truncate" fxFlexAlign="start center">
+          <div fxFlex="0 0 auto" class="text-truncate" fxFlexAlign="start center">
             <app-user-name [user_id]="user.user_id"></app-user-name>
           </div>
           <div fxFlex class="text-truncate" fxFlexAlign="start center">{{user.appRole}}</div>
@@ -34,6 +34,17 @@
           <div fxFlex="100%">System Users</div>
         </div>
       </mat-card>
+
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlex="1 1 auto">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" [(ngModel)]="searchSystemUserEmail">
+          </mat-form-field>
+        </div>
+        <div fxFlex>
+          <button mat-mini-fab color="primary" (click)="searchSystemUsers()" ><mat-icon>search</mat-icon></button>
+        </div>
+      </div>
     </div>
 
     <div>
@@ -44,6 +55,14 @@
             <button mat-mini-fab color="primary" (click)="addUserToApplication(user)" [disabled]="userInApplication(user)">+</button>
           </div>
         </div>
+      </mat-card>
+
+      <mat-card class="list-mat-card" *ngIf="users && users.length===0" >
+        No users found.
+      </mat-card>
+
+      <mat-card *ngIf="systemUsersLoading">
+        <mat-spinner></mat-spinner>
       </mat-card>
     </div>
 
