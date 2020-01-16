@@ -54,6 +54,7 @@ export class ApplicationPanelComponent implements OnInit {
     //[55, 25, 20]
   //];
   doughnutChartType: ChartType = 'doughnut';
+  doughnutChartLegend = false;
 
   constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
