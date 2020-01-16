@@ -45,6 +45,7 @@ import { ApplicationDetailComponent } from './components/application-detail/appl
 import { ApplicationUsersComponent } from './components/application-users/application-users.component';
 import { ApplicationDataStoresComponent } from './components/application-data-stores/application-data-stores.component';
 import { CredentialsComponent } from './admin/credentials/credentials.component';
+import { UserNameComponent } from './components/auth0/user-name/user-name.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { CredentialsComponent } from './admin/credentials/credentials.component'
     ApplicationUsersComponent,
     ApplicationDataStoresComponent,
     CredentialsComponent,
+    UserNameComponent,
   ],
   imports: [
     BrowserModule,
