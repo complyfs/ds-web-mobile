@@ -29,6 +29,7 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
 
   loadData() {
     this.loading = true;
+    this.application = null;
 
     const params = { _id: this.applicationId };
 
