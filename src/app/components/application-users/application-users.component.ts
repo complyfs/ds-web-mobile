@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {RestService} from "../../services/rest/rest.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {debounceTime, distinctUntilChanged, finalize, switchMap} from "rxjs/operators";
-import {PageEvent} from "@angular/material/paginator";
+import { RestService } from '../../services/rest/rest.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
+import { PageEvent } from '@angular/material/paginator';
+import { Application } from '../../objects/application';
 
 @Component({
   selector: 'app-application-users',
@@ -11,15 +12,20 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class ApplicationUsersComponent implements OnInit {
 
-  @Input() application: any;
+  @Input() application: Application;
   users: any[];
   searchSystemUserEmail: string;
   systemUsersLoading = false;
 
-  itemsFound: number = 0;
-  pageSize: number = 5;
-  pageIndex: number = 0;
+  itemsFound = 0;
+  pageSize = 5;
+  pageIndex = 0;
   pageSizeOptions: number [] = [5, 10, 25];
+
+  appRoles = [
+    {id: 'readonly', name: 'Read Only'},
+    {id: 'edit', name: 'Edit'}
+  ];
 
   constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
@@ -42,7 +48,7 @@ export class ApplicationUsersComponent implements OnInit {
         this.users = response.users;
         this.itemsFound = response.total;
       }, err => {
-        this.snackMessage.open('Error loading users', 'x',{verticalPosition: 'top'});
+        this.snackMessage.open('Error loading users', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -69,7 +75,6 @@ export class ApplicationUsersComponent implements OnInit {
   }
 
   userInApplication(user) {
-    if (!('users' in this.application)) { this.application.users = []; }
     const matchingUsers = this.application.users.filter( u => u.user_id === user.user_id);
     return matchingUsers.length > 0;
   }

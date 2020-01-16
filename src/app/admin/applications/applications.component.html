@@ -58,7 +58,7 @@
       </div>
       <div fxFlex="1 1 auto">
         <div *ngIf="selected">
-          <app-application-detail [applicationId]="selected._id"></app-application-detail>
+          <app-application-detail [applicationId]="selected._id" (reloadApps)="loadData()"></app-application-detail>
         </div>
         <div *ngIf="!selected">
           <mat-card>

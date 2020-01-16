@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { RestService } from '../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, Subject } from 'rxjs';
+import {Application} from "../../objects/application";
 
 @Component({
   selector: 'app-applications',
@@ -13,9 +14,9 @@ import { Observable, of, Subject } from 'rxjs';
 })
 export class ApplicationsComponent implements OnInit {
 
-  applications: any[];
-  selected: any;
-  newApplication = { _id: '', name: ''};
+  applications: Application[];
+  selected: Application;
+  newApplication = { _id: '', name: '', users: [], dataStores: [] };
 
   searchName: string;
 
@@ -49,12 +50,16 @@ export class ApplicationsComponent implements OnInit {
   }
 
   loadData() {
+    this.loading = true;
+    this.applications = null;
+
     const params: any = { from: (this.pageIndex * this.pageSize), size: this.pageSize };
     if (this.searchName && this.searchName.length > 0) {
       params.searchTerm = this.searchName;
     }
 
     this.restService.adminGetApplications(params)
+      .pipe( finalize(() => { this.loading = false; }) )
       .subscribe( r => {
         this.itemsFound = r.itemsFound;
         this.applications = r.hits;
