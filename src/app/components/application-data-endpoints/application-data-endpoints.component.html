@@ -1,0 +1,137 @@
+<div fxLayout="column" fxLayout.lt-lg="column" fxLayoutAlign="center">
+  <div fxFlex="1 1 100" fxFlex.lt-lg="0 0 100%">
+    <mat-card>
+      <mat-card-title>
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div fxFlex="1 1 auto" fxFlexAlign="start">
+            Data Endpoints
+          </div>
+          <div fxFlex="0 0 auto" fxFlexAlign="end">
+            <button id="newPatientButton" class="floatRight" (click)="newItem.open()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+          </div>
+        </div>
+      </mat-card-title>
+
+      <div >
+
+        <mat-card class="list-mat-card list-header-mat-card">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex>Name</div>
+            <div fxFlex>Credential</div>
+            <div fxFlex>Type</div>
+            <div fxflex>Active</div>
+          </div>
+        </mat-card>
+
+        <mat-card class="list-mat-card" *ngFor="let de of dataStore.dataEndpoints" (click)="select(de)" [class.selected]="isSelectedItem(de)">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex class="text-truncate">{{de.name}}</div>
+            <div fxFlex class="text-truncate">
+              <app-credential-name [credentialId]="de.credentialId"></app-credential-name>
+            </div>
+            <div fxFlex class="text-truncate">{{de.type}}</div>
+            <div fxFlex class="text-truncate">
+              <mat-checkbox [checked]="de.active"></mat-checkbox>
+            </div>
+          </div>
+        </mat-card>
+
+      </div>
+
+      <div fxHide>
+        <mat-card class="list-mat-card" *ngFor="let de of dataStore.dataEndpoints" (click)="select(de)" [class.selected]="isSelectedItem(de)">
+          <div fxLayout="column" fxLayoutAlign="space-between">
+            <div fxFlex class="text-truncate">{{de.id}}</div>
+            <div fxFlex="100%">
+              <app-text-field [readOnly]="true" [label]="'ID'" [value]="de.id"></app-text-field>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+    </mat-card>
+
+  </div>
+
+  <div fxFlex>
+    <mat-card *ngIf="loading" fxLayout="row" fxLayoutAlign="center" >
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
+      </div>
+    </mat-card>
+
+    <mat-card *ngIf="selected">
+      <mat-card-title>Selected Data Store: {{selected.name}}</mat-card-title>
+
+      <div fxLayout="column">
+
+        <div fxFlex="95%">
+          <app-text-field [readOnly]="true" [label]="'ID'" [(value)]="selected.id"></app-text-field>
+        </div>
+
+        <div fxFlex="95%">
+          <app-text-field [readOnly]="false" [label]="'Name'" [(value)]="selected.name"></app-text-field>
+        </div>
+
+        <div fxFlex="95%">
+          <app-boolean [readOnly]="false" [label]="'Active'" [(value)]="selected.active"></app-boolean>
+        </div>
+
+      </div>
+
+    </mat-card>
+  </div>
+</div>
+
+
+
+<app-dialog-template #newItem (result)="onResult($event)">
+  <ng-template>
+    <div fxLayout="column">
+      <div fxFlex>
+        <mat-form-field class="full-width-150-500">
+          <input #uniqueNameBox matInput placeholder="Unique Name" [(ngModel)]="newDataEndpoint.name" (input)="checkUnique(uniqueNameBox.value)">
+          <mat-hint *ngIf="!(uniqueName$|async)"> <div class="tmp-error-msg">Name must be unique to the data store.</div></mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field>
+          <mat-label>Credential</mat-label>
+          <mat-select [(ngModel)]="newDataEndpoint.credentialId">
+            <mat-option *ngFor="let credential of credentials" [value]="credential._id">
+              {{credential.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field>
+          <mat-label>Region</mat-label>
+          <mat-select [(ngModel)]="newDataEndpoint.region" [disabled]="!newDataEndpoint.credentialId">
+            <mat-option *ngFor="let region of getRegionsForProvider()" [value]="region.region">
+              {{region.region}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field>
+          <mat-label>Type</mat-label>
+          <mat-select [(ngModel)]="newDataEndpoint.type" [disabled]="!newDataEndpoint.credentialId">
+            <mat-option *ngFor="let type of getTypesForProvider()" [value]="type.type">
+              {{type.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <button mat-raised-button color="primary" [mat-dialog-close]="">Cancel</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="newDataEndpoint" [disabled]="!(this.uniqueName$ | async)">Save</button>
+      </div>
+    </div>
+  </ng-template>
+</app-dialog-template>

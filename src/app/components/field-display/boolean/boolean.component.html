@@ -1,0 +1,16 @@
+
+<div fxLayout="row" fxLayoutGap="5%">
+  <div fxFlex="33%" class="labelFlex">
+    <div fxLayout="row" fxLayoutAlign="end center" class="labelLayout">
+      <div fxFlex="0 0 auto">{{label}}</div>
+    </div>
+  </div>
+
+  <mat-slide-toggle [disabled]="readOnly" [(ngModel)]="value" (ngModelChange)="valueChange.emit(value)" fxFlex fxFlexAlign="start" class="user-data text-truncate valueFlex" ></mat-slide-toggle>
+  <!--
+  <div *ngIf="readOnly" fxFlex fxFlexAlign="start" class="user-data text-truncate valueFlex" >{{value}}</div>
+  <div *ngIf="!readOnly" fxFlex fxFlexAlign="start" class="user-data valueFlex full-width" >
+    <mat-slide-toggle [disabled]="readOnly">Slide me!</mat-slide-toggle>
+  </div>
+  -->
+</div>

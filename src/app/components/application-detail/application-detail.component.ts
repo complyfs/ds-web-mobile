@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, } from '@angular/core';
-import {RestService} from "../../services/rest/rest.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {finalize} from "rxjs/operators";
-import {environment} from "../../../environments/environment";
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { RestService } from '../../services/rest/rest.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { finalize } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { Application } from '../../objects/application';
 
 @Component({
   selector: 'app-application-detail',
@@ -12,9 +13,10 @@ import {environment} from "../../../environments/environment";
 export class ApplicationDetailComponent implements OnInit, OnChanges {
 
   @Input() applicationId: string;
-  application: any;
+  application: Application;
+  @Output() reloadApps = new EventEmitter<void>();
 
-  loading: boolean = false;
+  loading = false;
 
   constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
@@ -47,10 +49,22 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
   saveApplication() {
     this.restService.adminSaveApplication(this.application)
       .subscribe( r => {
-        this.snackMessage.open('Application saved', null,{ duration: environment.snackBarDuration, verticalPosition: 'bottom' });
+        this.snackMessage.open('Application saved', null, { duration: environment.snackBarDuration, verticalPosition: 'bottom' });
         this.loadData();
       }, err => {
         this.snackMessage.open('Error saving Application', 'x', {verticalPosition: 'top'});
       });
+  }
+
+  deleteApplication() {
+    if (confirm('Are you sure you want to delete this application?')) {
+      this.restService.adminDeleteApplication(this.application)
+        .subscribe ( r => {
+          this.application = null;
+          this.reloadApps.emit();
+        }, err => {
+          this.snackMessage.open('Error deleting channel', 'X', {verticalPosition: 'top'});
+        });
+    }
   }
 }

@@ -3,6 +3,7 @@ import { RestService } from '../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, MultiDataSet, Label } from 'ng2-charts';
+import { Application } from '../../objects/application';
 
 @Component({
   selector: 'app-application-panel',
@@ -11,7 +12,7 @@ import { Color, MultiDataSet, Label } from 'ng2-charts';
 })
 export class ApplicationPanelComponent implements OnInit {
 
-  @Input() application: any;
+  @Input() application: Application;
   dataBuckets: any;
   dataRates: any;
 
@@ -51,8 +52,8 @@ export class ApplicationPanelComponent implements OnInit {
 
   doughnutChartLabels: Label[] = null; // ['BMW', 'Ford', 'Tesla'];
   doughnutChartData: MultiDataSet = null; // [
-    //[55, 25, 20]
-  //];
+    // [55, 25, 20]
+  // ];
   doughnutChartType: ChartType = 'doughnut';
   doughnutChartLegend = false;
 
@@ -71,13 +72,12 @@ export class ApplicationPanelComponent implements OnInit {
         this.dataBuckets = r.dataBuckets;
         this.dataRates = r.dataRates;
 
-        this.lineChartLabels = this.dataRates.map( r => { return new Date(r.periodStart); });
-        this.lineChartData[0] = { data: this.dataRates.map( r => { return r.docs; }), label: 'Docs per day' };
+        this.lineChartLabels = this.dataRates.map( r => new Date(r.periodStart));
+        this.lineChartData[0] = { data: this.dataRates.map( r => r.docs), label: 'Docs per day' };
 
-        this.doughnutChartLabels = this.dataBuckets.map ( r => { return r.name; });
-        this.doughnutChartData = [this.dataBuckets.map ( r => { return r.docs; })];
+        this.doughnutChartLabels = this.dataBuckets.map ( r => r.name);
+        this.doughnutChartData = [this.dataBuckets.map ( r => r.docs)];
 
-        console.log('this.doughnutChartData[0]', JSON.stringify(this.doughnutChartData[0], null, 4));
       }, err => {
         this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
       });

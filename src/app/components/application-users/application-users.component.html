@@ -13,11 +13,21 @@
 
     <div>
       <mat-card class="list-mat-card" *ngFor="let user of application.users" [class.selected]="isSelectedItem(user)">
-        <div fxLayout="row" fxLayoutAlign="space-between">
+        <div fxLayout="row" class="full-width" fxLayoutAlign="space-between">
           <div fxFlex="0 0 auto" class="text-truncate" fxFlexAlign="start center">
             <app-user-name [user_id]="user.user_id"></app-user-name>
           </div>
-          <div fxFlex class="text-truncate" fxFlexAlign="start center">{{user.appRole}}</div>
+          <div fxFlex class="text-truncate" fxFlexAlign="start center">
+            <mat-form-field>
+              <mat-label>Rights</mat-label>
+              <mat-select [(ngModel)]="user.appRole">
+                <mat-option *ngFor="let appRole of appRoles" [value]="appRole.id">
+                  {{appRole.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            {{user.appRole}}</div>
           <div fxFlex fxFlexAlign="end">
             <button mat-mini-fab color="primary" (click)="removeUserFromApplication(user)">-</button>
           </div>

@@ -13,13 +13,30 @@ export const environment = {
     {id: 'azure', name: 'Azure'},
   ],
 
+  providerRegions: [
+    { provider: 'aws', region: 'us-west-1'},
+    { provider: 'aws', region: 'eu-frankfurt-1'},
+    { provider: 'aws', region: 'as-tokyo-1'},
+    { provider: 'azure', region: 'us-seattle'},
+    { provider: 'azure', region: 'eu-london'},
+    { provider: 'azure', region: 'as-shanghai'},
+  ],
+
+  providerEndpointTypes: [
+    { provider: 'aws', type: 'aws-s3', label: 'AWS S3'},
+    { provider: 'aws', type: 'aws-glacier', label: 'AWS Glacier'},
+    { provider: 'azure', type: 'azure-blob', label: 'Azure Blob'},
+  ],
+
   auth0: {
-    clientID: "0CTDYjMaai14Stae3Is4vFj5lJOkd9bx",
-    domain: "datastrata.auth0.com",
+    clientID: '0CTDYjMaai14Stae3Is4vFj5lJOkd9bx',
+    domain: 'datastrata.auth0.com',
     apiIdentifier: 'https://rest.datastrata.io',
-    callbackUri: 'http://localhost:4200/public/callback',
-    requestedScopes:  'openid profile email post:read post:write roles:read users:read users:write',
-    namespace: 'http://datastrata.io/'
+    callbackUri: 'https://app.datastrata.io/public/callback',
+    requestedScopes:  'openid profile email post:read post:write roles:read users:read ' +
+      'users:write logs-tenant:read users-tenant:read users-tenant:write logs:read ' +
+      'tenants:read tenants:write applications:read applications:write applications:delete',
+    namespace: 'https://datastrata.io/'
   },
 
   stripe: {

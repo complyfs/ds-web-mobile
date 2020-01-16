@@ -13,6 +13,21 @@ export const environment = {
     {id: 'azure', name: 'Azure'},
   ],
 
+  providerRegions: [
+    { provider: 'aws', region: 'us-west-1'},
+    { provider: 'aws', region: 'eu-frankfurt-1'},
+    { provider: 'aws', region: 'as-tokyo-1'},
+    { provider: 'azure', region: 'us-seattle'},
+    { provider: 'azure', region: 'eu-london'},
+    { provider: 'azure', region: 'as-shanghai'},
+  ],
+
+  providerEndpointTypes: [
+    { provider: 'aws', type: 'aws-s3', label: 'AWS S3'},
+    { provider: 'aws', type: 'aws-glacier', label: 'AWS Glacier'},
+    { provider: 'azure', type: 'azure-blob', label: 'Azure Blob'},
+  ],
+
   auth0: {
     clientID: '0CTDYjMaai14Stae3Is4vFj5lJOkd9bx',
     domain: 'datastrata.auth0.com',

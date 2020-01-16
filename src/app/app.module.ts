@@ -50,6 +50,10 @@ import { ApplicationUsersComponent } from './components/application-users/applic
 import { ApplicationDataStoresComponent } from './components/application-data-stores/application-data-stores.component';
 import { CredentialsComponent } from './admin/credentials/credentials.component';
 import { UserNameComponent } from './components/auth0/user-name/user-name.component';
+import { BooleanComponent } from './components/field-display/boolean/boolean.component';
+import { ApplicationDataEndpointsComponent } from './components/application-data-endpoints/application-data-endpoints.component';
+import { CredentialNameComponent } from './components/credential-name/credential-name.component';
+import { ApplicationInfoComponent } from './components/application-info/application-info.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +94,10 @@ import { UserNameComponent } from './components/auth0/user-name/user-name.compon
     ApplicationDataStoresComponent,
     CredentialsComponent,
     UserNameComponent,
+    BooleanComponent,
+    ApplicationDataEndpointsComponent,
+    CredentialNameComponent,
+    ApplicationInfoComponent,
   ],
   imports: [
     BrowserModule,
