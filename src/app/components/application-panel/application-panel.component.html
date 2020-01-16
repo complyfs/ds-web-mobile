@@ -20,7 +20,8 @@
         <canvas baseChart
                 [data]="doughnutChartData"
                 [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType">
+                [chartType]="doughnutChartType"
+                [legend]="doughnutChartLegend">
         </canvas>
       </div>
       <div *ngIf="!doughnutChartData"><mat-spinner></mat-spinner></div>
