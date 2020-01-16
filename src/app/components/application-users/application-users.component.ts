@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {RestService} from "../../services/rest/rest.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
@@ -11,6 +11,7 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class ApplicationUsersComponent implements OnInit {
 
+  @Input() application: any;
   users: any[];
 
   itemsFound: number = 0;
@@ -52,6 +53,25 @@ export class ApplicationUsersComponent implements OnInit {
   }
   isSelectedItem(item) {
     return false;
+  }
+
+  addUserToApplication(user) {
+    const userObj = {
+      user_id: user.user_id,
+      appRole: 'readonly'
+    };
+
+    this.application.users.push(userObj);
+  }
+
+  userInApplication(user) {
+    if (!('users' in this.application)) { this.application.users = []; }
+    const matchingUsers = this.application.users.filter( u => u.user_id === user.user_id);
+    return matchingUsers.length > 0;
+  }
+
+  removeUserFromApplication(user) {
+    this.application.users = this.application.users.filter( u => u.user_id !== user.user_id);
   }
 
 }

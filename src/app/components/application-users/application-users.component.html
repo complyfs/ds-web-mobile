@@ -1,20 +1,47 @@
-
-<div fxLayout="row" fxLayoutGap="5%">
-  <div fxFlex="33%">
+<mat-card>
+  Define access rules to the management console of this application.
+</mat-card>
+<div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="space-around">
+  <div fxFlex="60%">
     <div>
       <mat-card class="list-mat-card list-header-mat-card">
         <div fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex="100%">Email</div>
+          <div fxFlex="100%">Application Users</div>
         </div>
       </mat-card>
     </div>
 
     <div>
-      <mat-card class="list-mat-card" *ngFor="let user of users" (click)="selectUser(user)" [class.selected]="isSelectedItem(user)">
+      <mat-card class="list-mat-card" *ngFor="let user of application.users" [class.selected]="isSelectedItem(user)">
         <div fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex="100%" class="text-truncate">{{user.email}}</div>
+          <div fxFlex class="text-truncate" fxFlexAlign="start center">
+            <app-user-name [user_id]="user.user_id"></app-user-name>
+          </div>
+          <div fxFlex class="text-truncate" fxFlexAlign="start center">{{user.appRole}}</div>
           <div fxFlex fxFlexAlign="end">
+            <button mat-mini-fab color="primary" (click)="removeUserFromApplication(user)">-</button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
 
+
+  <div fxFlex="33%" fxFlexAlign="end">
+    <div>
+      <mat-card class="list-mat-card list-header-mat-card">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <div fxFlex="100%">System Users</div>
+        </div>
+      </mat-card>
+    </div>
+
+    <div>
+      <mat-card class="list-mat-card" *ngFor="let user of users"  [class.selected]="isSelectedItem(user)">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+          <div fxFlex="0 0 auto" class="text-truncate" fxFlexAlign="start center">{{user.email}}</div>
+          <div fxFlex fxFlexAlign="end">
+            <button mat-mini-fab color="primary" (click)="addUserToApplication(user)" [disabled]="userInApplication(user)">+</button>
           </div>
         </div>
       </mat-card>
