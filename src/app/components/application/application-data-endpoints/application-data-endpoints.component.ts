@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { DataEndpoint, DataStore } from '../../objects/application';
+import { DataEndpoint, DataStore } from '../../../objects/application';
 import * as uuid from 'uuid';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { RestService } from '../../services/rest/rest.service';
+import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-application-data-endpoints',

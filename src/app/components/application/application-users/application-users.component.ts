@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RestService } from '../../services/rest/rest.service';
+import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
-import { Application } from '../../objects/application';
+import { Application } from '../../../objects/application';
 
 @Component({
   selector: 'app-application-users',

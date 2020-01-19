@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RestService } from '../../services/rest/rest.service';
+import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
 import * as uuid from 'uuid';
 import { Observable, of, Subject } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { Application, DataStore } from '../../objects/application';
+import { environment } from '../../../../environments/environment';
+import { Application, DataStore } from '../../../objects/application';
 
 @Component({
   selector: 'app-application-data-stores',

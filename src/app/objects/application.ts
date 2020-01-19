@@ -1,9 +1,17 @@
+import {stringify} from "querystring";
+
 export interface Application {
   _id: string;
   name: string;
   description: string;
   users: AppUser[];
   dataStores: DataStore[];
+  appContacts: AppContact[];
+  lineOfBusiness: string;
+  subLineOfBusiness: string;
+  costCenter: string;
+  appId: string;
+  appRegistryId: string;
 }
 
 export interface AppUser {
@@ -27,3 +35,21 @@ export interface DataEndpoint {
   type: string;
   active: string;
 }
+
+export interface AppContact {
+  id: string;
+  firstName: string;
+  lastName: string;
+  tel1: string;
+  tel2: string;
+  email: string;
+  title: string;
+  contactRole: string;
+}
+
+export const contactRoles = [
+  { id: 'business-owner', label: 'Business Owner'},
+  { id: 'application-owner', label: 'Application Owner'},
+  { id: 'production-manager', label: 'Production Manager'},
+  { id: 'cto-owner', label: 'CTO Owner'},
+];

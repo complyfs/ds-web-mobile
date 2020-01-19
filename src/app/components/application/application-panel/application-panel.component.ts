@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RestService } from '../../services/rest/rest.service';
+import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, MultiDataSet, Label } from 'ng2-charts';
-import { Application } from '../../objects/application';
+import { Application } from '../../../objects/application';
 
 @Component({
   selector: 'app-application-panel',
