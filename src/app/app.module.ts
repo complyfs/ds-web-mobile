@@ -42,7 +42,6 @@ import { TextFieldDisplayComponent } from './components/display-fields/text-fiel
 import { TenantsComponent } from './admin/tenants/tenants.component';
 import { DialogTemplateComponent } from './components/dialog-template/dialog-template.component';
 import { ApplicationsComponent } from './admin/applications/applications.component';
-import { TextFieldComponent } from './components/field-display/text-field/text-field.component';
 import { TextAreaComponent } from './components/field-display/text-area/text-area.component';
 import { ApplicationPanelComponent } from './components/application/application-panel/application-panel.component';
 import { ApplicationDetailComponent } from './components/application/application-detail/application-detail.component';
@@ -89,7 +88,6 @@ import { ApplicationContactComponent } from './components/application/applicatio
     TenantsComponent,
     DialogTemplateComponent,
     ApplicationsComponent,
-    TextFieldComponent,
     TextAreaComponent,
     ApplicationPanelComponent,
     ApplicationDetailComponent,
