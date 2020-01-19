@@ -43,7 +43,7 @@
           <div fxLayout="column" fxLayoutAlign="space-between">
             <div fxFlex class="text-truncate">{{de.id}}</div>
             <div fxFlex="100%">
-              <app-text-field [readOnly]="true" [label]="'ID'" [value]="de.id"></app-text-field>
+              <app-text-field-display [readOnly]="true" [label]="'ID'" [value]="de.id"></app-text-field-display>
             </div>
           </div>
         </mat-card>
@@ -66,15 +66,15 @@
       <div fxLayout="column">
 
         <div fxFlex="95%">
-          <app-text-field [readOnly]="true" [label]="'ID'" [(value)]="selected.id"></app-text-field>
+          <app-text-field-display [readOnly]="true" [label]="'ID'" [(value)]="selected.id"></app-text-field-display>
         </div>
 
         <div fxFlex="95%">
-          <app-text-field [readOnly]="false" [label]="'Name'" [(value)]="selected.name"></app-text-field>
+          <app-text-field-display [readOnly]="false" [label]="'Name'" [(value)]="selected.name"></app-text-field-display>
         </div>
 
         <div fxFlex="95%">
-          <app-boolean [readOnly]="false" [label]="'Active'" [(value)]="selected.active"></app-boolean>
+          <app-boolean-display [readOnly]="false" [label]="'Active'" [(value)]="selected.active"></app-boolean-display>
         </div>
 
       </div>

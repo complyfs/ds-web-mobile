@@ -100,12 +100,6 @@
 
     </mat-card>
 
-    <!--
-    <mat-card *ngIf="selectedUser">
-      <mat-card-title>Selected user json</mat-card-title>
-      <pre>{{selectedUser|json:"pretty"}}</pre>
-    </mat-card>
-    -->
   </div>
   <div fxFlex>
     <mat-card *ngIf="selectedUserLoading" fxLayout="row" fxLayoutAlign="center" >
@@ -117,76 +111,55 @@
     <mat-card *ngIf="selectedUser">
       <mat-card-title>Selected User: {{selectedUser.email}}</mat-card-title>
 
-      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
-        <div fxFlex="45%">
-          <div fxLayout="column">
+      <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
 
-            <div fxFlex="95%">
 
-              <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Name" [(ngModel)]="selectedUser.name" >
-              </mat-form-field>
+        <div fxFlex="95%">
 
-            </div>
-
-            <div fxFlex="95%">
-
-              <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" [(ngModel)]="selectedUser.email">
-              </mat-form-field>
-
-            </div>
-
-            <div fxFlex="95%">
-
-              <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Given Name</mat-label>
-                <input matInput placeholder="Email" [(ngModel)]="selectedUser.given_name">
-              </mat-form-field>
-
-            </div>
-
-            <div fxFlex="95%">
-
-              <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Family Name</mat-label>
-                <input matInput placeholder="Email" [(ngModel)]="selectedUser.family_name">
-              </mat-form-field>
-
-            </div>
-
-            <div fxFlex="95%">
-
-              <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Nickname</mat-label>
-                <input matInput placeholder="Email" [(ngModel)]="selectedUser.nickname">
-              </mat-form-field>
-
-            </div>
-
-          </div>
+          <app-text-field-display [readOnly]="false" [label]="'Name'" [(value)]="selectedUser.name"></app-text-field-display>
 
         </div>
-        <div fxFlex="45%">
-          <div fxLayout="column">
-            <div fxFlex="95%">
-              <mat-slide-toggle [(ngModel)]="selectedUser.blocked">Administrative Block</mat-slide-toggle>
-            </div>
-            <div fxFlex="95%">
-              <mat-slide-toggle [(ngModel)]="selectedUser.email_verified">Email Verified</mat-slide-toggle>
-            </div>
-            <div fxFlex="95%">
-              Created: {{selectedUser.created_at|date:"medium"}}
-            </div>
-            <div fxFlex="95%">
-              Updated: {{selectedUser.updated_at|date:"medium"}}
-            </div>
-            <div fxFlex="95%">
-              Last Login: {{selectedUser.last_login|date:"medium"}}
-            </div>
-          </div>
+
+        <div fxFlex="95%">
+
+          <app-text-field-display [readOnly]="false" [label]="'Email'" [(value)]="selectedUser.email"></app-text-field-display>
+
+        </div>
+
+        <div fxFlex="95%">
+
+          <app-text-field-display [readOnly]="false" [label]="'Given Name'" [(value)]="selectedUser.given_name"></app-text-field-display>
+
+        </div>
+
+        <div fxFlex="95%">
+
+          <app-text-field-display [readOnly]="false" [label]="'Family Name'" [(value)]="selectedUser.family_name"></app-text-field-display>
+
+        </div>
+
+        <div fxFlex="95%">
+
+          <app-text-field-display [readOnly]="false" [label]="'Nickname'" [(value)]="selectedUser.nickname"></app-text-field-display>
+
+        </div>
+
+        <div fxFlex="95%">
+          <app-boolean-display [readOnly]="false" [label]="'Administrative Block'" [(value)]="selectedUser.blocked"></app-boolean-display>
+        </div>
+
+        <div fxFlex="95%">
+          <app-boolean-display [readOnly]="false" [label]="'Email Verified'" [(value)]="selectedUser.email_verified"></app-boolean-display>
+        </div>
+
+        <div fxFlex="95%">
+          <app-date-display [readOnly]="true" [label]="'Created'" [(value)]="selectedUser.created_at"></app-date-display>
+        </div>
+        <div fxFlex="95%">
+          <app-date-display [readOnly]="true" [label]="'Updated'" [(value)]="selectedUser.updated_at"></app-date-display>
+        </div>
+        <div fxFlex="95%">
+          <app-date-display [readOnly]="true" [label]="'Last Login'" [(value)]="selectedUser.last_login"></app-date-display>
         </div>
       </div>
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextAreaComponent } from './text-area.component';
+import { BooleanDisplayComponent } from './boolean-display.component';
 
-describe('TextAreaComponent', () => {
-  let component: TextAreaComponent;
-  let fixture: ComponentFixture<TextAreaComponent>;
+describe('BooleanDisplayComponent', () => {
+  let component: BooleanDisplayComponent;
+  let fixture: ComponentFixture<BooleanDisplayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextAreaComponent ]
+      declarations: [ BooleanDisplayComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TextAreaComponent);
+    fixture = TestBed.createComponent(BooleanDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -35,18 +35,19 @@ import { DemoRestCallComponent } from './components/demo-rest-call/demo-rest-cal
 import { BasicSubscriberComponent } from './private/basic-subscriber/basic-subscriber.component';
 import { PremiumSubscriberComponent } from './private/premium-subscriber/premium-subscriber.component';
 import { LogsComponent } from './admin/logs/logs.component';
+import { DateDisplayComponent } from './components/display-fields/date-display/date-display.component';
+import { BooleanDisplayComponent } from './components/display-fields/boolean-display/boolean-display.component';
+import { TextAreaDisplayComponent } from './components/display-fields/text-area-display/text-area-display.component';
+import { TextFieldDisplayComponent } from './components/display-fields/text-field-display/text-field-display.component';
 import { TenantsComponent } from './admin/tenants/tenants.component';
 import { DialogTemplateComponent } from './components/dialog-template/dialog-template.component';
 import { ApplicationsComponent } from './admin/applications/applications.component';
-import { TextFieldComponent } from './components/field-display/text-field/text-field.component';
-import { TextAreaComponent } from './components/field-display/text-area/text-area.component';
 import { ApplicationPanelComponent } from './components/application/application-panel/application-panel.component';
 import { ApplicationDetailComponent } from './components/application/application-detail/application-detail.component';
 import { ApplicationUsersComponent } from './components/application/application-users/application-users.component';
 import { ApplicationDataStoresComponent } from './components/application/application-data-stores/application-data-stores.component';
 import { CredentialsComponent } from './admin/credentials/credentials.component';
 import { UserNameComponent } from './components/auth0/user-name/user-name.component';
-import { BooleanComponent } from './components/field-display/boolean/boolean.component';
 import { ApplicationDataEndpointsComponent } from './components/application/application-data-endpoints/application-data-endpoints.component';
 import { CredentialNameComponent } from './components/credential-name/credential-name.component';
 import { ApplicationInfoComponent } from './components/application/application-info/application-info.component';
@@ -78,18 +79,19 @@ import { ApplicationContactComponent } from './components/application/applicatio
     BasicSubscriberComponent,
     PremiumSubscriberComponent,
     LogsComponent,
+    DateDisplayComponent,
+    BooleanDisplayComponent,
+    TextAreaDisplayComponent,
+    TextFieldDisplayComponent,
     TenantsComponent,
     DialogTemplateComponent,
     ApplicationsComponent,
-    TextFieldComponent,
-    TextAreaComponent,
     ApplicationPanelComponent,
     ApplicationDetailComponent,
     ApplicationUsersComponent,
     ApplicationDataStoresComponent,
     CredentialsComponent,
     UserNameComponent,
-    BooleanComponent,
     ApplicationDataEndpointsComponent,
     CredentialNameComponent,
     ApplicationInfoComponent,
