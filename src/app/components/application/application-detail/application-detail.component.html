@@ -9,10 +9,10 @@
 
   <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
     <div fxFlex="100%">
-      <app-text-field [label]="'Name:'" [(value)]="application.name" [readOnly]="false"></app-text-field>
+      <app-text-field-display [label]="'Name:'" [(value)]="application.name" [readOnly]="false"></app-text-field-display>
     </div>
     <div fxFlex="100%">
-      <app-text-area [label]="'Description:'" [(value)]="application.description" [readOnly]="false"></app-text-area>
+      <app-text-area-display [label]="'Description:'" [(value)]="application.description" [readOnly]="false"></app-text-area-display>
     </div>
   </div>
 
