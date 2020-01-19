@@ -106,4 +106,16 @@ export class RestService {
   adminDeleteCredential(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/deleteCredential', params);
   }
+
+  adminGetAuth0Clients(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getAuth0Clients', params);
+  }
+
+  adminGetAuth0Client(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getAuth0Client', params);
+  }
+
+  adminCreateAuth0Client(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/createAuth0Client', params);
+  }
 }

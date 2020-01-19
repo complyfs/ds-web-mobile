@@ -40,16 +40,19 @@ import { DialogTemplateComponent } from './components/dialog-template/dialog-tem
 import { ApplicationsComponent } from './admin/applications/applications.component';
 import { TextFieldComponent } from './components/field-display/text-field/text-field.component';
 import { TextAreaComponent } from './components/field-display/text-area/text-area.component';
-import { ApplicationPanelComponent } from './components/application-panel/application-panel.component';
-import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
-import { ApplicationUsersComponent } from './components/application-users/application-users.component';
-import { ApplicationDataStoresComponent } from './components/application-data-stores/application-data-stores.component';
+import { ApplicationPanelComponent } from './components/application/application-panel/application-panel.component';
+import { ApplicationDetailComponent } from './components/application/application-detail/application-detail.component';
+import { ApplicationUsersComponent } from './components/application/application-users/application-users.component';
+import { ApplicationDataStoresComponent } from './components/application/application-data-stores/application-data-stores.component';
 import { CredentialsComponent } from './admin/credentials/credentials.component';
 import { UserNameComponent } from './components/auth0/user-name/user-name.component';
 import { BooleanComponent } from './components/field-display/boolean/boolean.component';
-import { ApplicationDataEndpointsComponent } from './components/application-data-endpoints/application-data-endpoints.component';
+import { ApplicationDataEndpointsComponent } from './components/application/application-data-endpoints/application-data-endpoints.component';
 import { CredentialNameComponent } from './components/credential-name/credential-name.component';
-import { ApplicationInfoComponent } from './components/application-info/application-info.component';
+import { ApplicationInfoComponent } from './components/application/application-info/application-info.component';
+import { ApplicationContactsComponent } from './components/application/application-contacts/application-contacts.component';
+import { ApplicationCredentialsComponent } from './components/application/application-credentials/application-credentials.component';
+import { ApplicationContactComponent } from './components/application/application-contact/application-contact.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +93,9 @@ import { ApplicationInfoComponent } from './components/application-info/applicat
     ApplicationDataEndpointsComponent,
     CredentialNameComponent,
     ApplicationInfoComponent,
+    ApplicationContactsComponent,
+    ApplicationCredentialsComponent,
+    ApplicationContactComponent,
   ],
   imports: [
     BrowserModule,

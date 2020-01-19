@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
-import { RestService } from '../../services/rest/rest.service';
+import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
-import { Application } from '../../objects/application';
+import { environment } from '../../../../environments/environment';
+import { Application } from '../../../objects/application';
 
 @Component({
   selector: 'app-application-detail',
