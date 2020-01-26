@@ -35,7 +35,7 @@ const routes: Routes = [
   {
     path: 'private', component: PrivateRootComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+      { path: '', redirectTo: 'applications', pathMatch: 'full'},
       { path: 'dashboard', component: DashboardComponent },
       { path: 'applications', component: ApplicationsComponent },
       { path: 'credentials', component: ProviderCredentialsComponent },
