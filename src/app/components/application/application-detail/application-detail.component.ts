@@ -36,9 +36,7 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
     const params = { _id: this.applicationId };
 
     this.restService.adminGetApplication(params)
-      .pipe(
-        finalize(() => { this.loading = false; })
-      )
+      .pipe( finalize(() => { this.loading = false; }) )
       .subscribe ( r => {
         this.application = r;
       }, e => {

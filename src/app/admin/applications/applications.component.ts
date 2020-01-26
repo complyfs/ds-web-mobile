@@ -5,7 +5,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { RestService } from '../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, Subject } from 'rxjs';
-import {Application} from "../../objects/application";
+import { Application } from '../../objects/application';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-applications',
@@ -108,7 +109,7 @@ export class ApplicationsComponent implements OnInit {
     if (!$event) { return; }
 
     this.selected = $event;
-    // this.selectedTenant._id = uuid.v4();
+    this.selected._id = uuid.v4();
 
     this.saveApplication();
   }

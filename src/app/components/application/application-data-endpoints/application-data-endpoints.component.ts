@@ -60,7 +60,7 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
     // TODO: this must eventually handle large credential sets differently
     const params: any = { from: 0, size: 1000 };
 
-    this.restService.adminGetCredentials(params)
+    this.restService.adminGetProviderCredentials(params)
       .subscribe( r => {
         this.credentials = r.hits;
       }, err => {

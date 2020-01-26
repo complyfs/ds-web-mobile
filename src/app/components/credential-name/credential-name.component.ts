@@ -27,7 +27,7 @@ export class CredentialNameComponent implements OnInit {
 
     const params = { _id: this.credentialId };
 
-    this.restService.adminGetCredential(params)
+    this.restService.adminGetProviderCredential(params)
       .pipe(
         finalize(() => { this.loading = false; })
       )

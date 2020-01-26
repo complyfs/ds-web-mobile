@@ -137,6 +137,7 @@
 <app-dialog-template #newItem (result)="onResult($event)">
   <ng-template>
     <div fxLayout="column">
+      <!--
       <div fxFlex>
         <mat-form-field class="full-width-150-500">
           <input #uniqueIdBox matInput placeholder="Unique ID" [(ngModel)]="newApplication._id" (input)="checkUnique(uniqueIdBox.value)">
@@ -146,6 +147,8 @@
           </mat-error>
         </mat-form-field>
       </div>
+      -->
+
       <div fxFlex>
         <mat-form-field class="full-width-150-500">
           <input matInput placeholder="Channel Label" [(ngModel)]="newApplication.name">
@@ -153,7 +156,7 @@
       </div>
       <div fxFlex>
         <button mat-raised-button color="primary" [mat-dialog-close]="">Cancel</button>
-        <button mat-raised-button color="primary" [disabled]="( !(uniqueID$|async) || !newApplication.name)" [mat-dialog-close]="newApplication">Save</button>
+        <button mat-raised-button color="primary" [disabled]="(!newApplication.name)" [mat-dialog-close]="newApplication">Save</button>
       </div>
     </div>
   </ng-template>
