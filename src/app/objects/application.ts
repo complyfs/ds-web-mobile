@@ -16,7 +16,7 @@ export interface Application {
 
 export interface AppUser {
   user_id: string;
-  appRole: string;
+  appRights: string;
 }
 
 export interface DataStore {
@@ -47,7 +47,14 @@ export interface AppContact {
   contactRole: string;
 }
 
-export const contactRoles = [
+export interface Credential {
+  _id: string;
+  name: string;
+  applicationId: string;
+}
+
+
+export const appContactRoles = [
   { id: 'business-owner', label: 'Business Owner'},
   { id: 'application-owner', label: 'Application Owner'},
   { id: 'production-manager', label: 'Production Manager'},
