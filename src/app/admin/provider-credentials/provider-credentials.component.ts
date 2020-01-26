@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable, of, Subject} from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { Observable, of, Subject } from 'rxjs';
 import { RestService } from '../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { debounceTime, distinctUntilChanged, finalize, map, switchMap, tap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { debounceTime, distinctUntilChanged, finalize, map, switchMap, tap} from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
 import * as uuid from 'uuid';
 
 @Component({
-  selector: 'app-credentials',
-  templateUrl: './credentials.component.html',
-  styleUrls: ['./credentials.component.scss']
+  selector: 'app-provider-credentials',
+  templateUrl: './provider-credentials.component.html',
+  styleUrls: ['./provider-credentials.component.scss']
 })
-export class CredentialsComponent implements OnInit {
+export class ProviderCredentialsComponent implements OnInit {
   env = environment;
 
   credentials: any[];
@@ -52,7 +52,7 @@ export class CredentialsComponent implements OnInit {
   loadData() {
     const params: any = { from: (this.pageIndex * this.pageSize), size: this.pageSize };
 
-    this.restService.adminGetCredentials(params)
+    this.restService.adminGetProviderCredentials(params)
       .subscribe( r => {
         this.itemsFound = r.itemsFound;
         this.credentials = r.hits;
@@ -70,7 +70,7 @@ export class CredentialsComponent implements OnInit {
   }
 
   save() {
-    this.restService.adminSaveCredential(this.selected)
+    this.restService.adminSaveProviderCredential(this.selected)
       .subscribe( r => {
         this.snackMessage.open('Credential saved', null, { duration: environment.snackBarDuration, verticalPosition: 'bottom' });
         this.loadData();
@@ -89,14 +89,14 @@ export class CredentialsComponent implements OnInit {
 
     const params = { _id: clickedItem._id };
 
-    this.restService.adminGetCredential(params)
+    this.restService.adminGetProviderCredential(params)
       .pipe(
         finalize(() => { this.selectedLoading = false; })
       )
       .subscribe ( r => {
         this.selected = r;
       }, e => {
-        this.snackMessage.open('Error getting tenant', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error getting Provider Credential', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -106,6 +106,7 @@ export class CredentialsComponent implements OnInit {
     this.loadData();
   }
 
+  // TODO: sould get credential
   isNameUnique(Id): Observable<boolean> {
     if (!Id) {
       return of (false);
@@ -119,8 +120,7 @@ export class CredentialsComponent implements OnInit {
       .pipe(
         tap(_ => console.log('fetched tenant')),
         map( r => {
-          if (r) { return (false); }
-          else { return (true); }
+          if (r) { return (false); } else { return (true); }
         })
       );
   }

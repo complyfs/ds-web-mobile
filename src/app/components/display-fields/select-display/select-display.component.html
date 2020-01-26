@@ -1,0 +1,19 @@
+
+
+
+<div fxLayout="row" fxLayoutGap="5%">
+  <div fxFlex="33%" class="labelFlex">
+    <div fxLayout="row" fxLayoutAlign="end center" class="labelLayout">
+      <div fxFlex="0 0 auto">{{label}}</div>
+    </div>
+  </div>
+  <div fxFlex fxFlexAlign="start" class="user-data valueFlex full-width" >
+    <mat-form-field>
+      <mat-select [disabled]="readOnly" [(ngModel)]="value" (ngModelChange)="valueChange.emit(value)">
+        <mat-option *ngFor="let option of optionsArray" [value]="option.id">
+          {{option.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

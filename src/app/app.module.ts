@@ -46,14 +46,16 @@ import { ApplicationPanelComponent } from './components/application/application-
 import { ApplicationDetailComponent } from './components/application/application-detail/application-detail.component';
 import { ApplicationUsersComponent } from './components/application/application-users/application-users.component';
 import { ApplicationDataStoresComponent } from './components/application/application-data-stores/application-data-stores.component';
-import { CredentialsComponent } from './admin/credentials/credentials.component';
 import { UserNameComponent } from './components/auth0/user-name/user-name.component';
 import { ApplicationDataEndpointsComponent } from './components/application/application-data-endpoints/application-data-endpoints.component';
 import { CredentialNameComponent } from './components/credential-name/credential-name.component';
 import { ApplicationInfoComponent } from './components/application/application-info/application-info.component';
 import { ApplicationContactsComponent } from './components/application/application-contacts/application-contacts.component';
-import { ApplicationCredentialsComponent } from './components/application/application-credentials/application-credentials.component';
 import { ApplicationContactComponent } from './components/application/application-contact/application-contact.component';
+import { ApplicationRestCredentialsComponent } from './components/application/application-rest-credentials/application-rest-credentials.component';
+import { ProviderCredentialsComponent } from './admin/provider-credentials/provider-credentials.component';
+import { SelectDisplayComponent } from './components/display-fields/select-display/select-display.component';
+import { TestPageComponent } from './admin/test-page/test-page.component';
 
 @NgModule({
   declarations: [
@@ -90,14 +92,16 @@ import { ApplicationContactComponent } from './components/application/applicatio
     ApplicationDetailComponent,
     ApplicationUsersComponent,
     ApplicationDataStoresComponent,
-    CredentialsComponent,
     UserNameComponent,
     ApplicationDataEndpointsComponent,
     CredentialNameComponent,
     ApplicationInfoComponent,
     ApplicationContactsComponent,
-    ApplicationCredentialsComponent,
     ApplicationContactComponent,
+    ApplicationRestCredentialsComponent,
+    ProviderCredentialsComponent,
+    SelectDisplayComponent,
+    TestPageComponent,
   ],
   imports: [
     BrowserModule,
