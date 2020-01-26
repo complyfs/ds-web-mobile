@@ -26,7 +26,6 @@ export class ApplicationContactsComponent implements OnInit {
               private snackMessage: MatSnackBar) { }
 
   ngOnInit() {
-    console.log( JSON.stringify(this.application.appContacts, null, 4));
   }
 
   isSelectedItem(item) {

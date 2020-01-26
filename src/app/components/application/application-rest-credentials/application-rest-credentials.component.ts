@@ -99,9 +99,6 @@ export class ApplicationRestCredentialsComponent implements OnInit {
 
   async onResult($event: any) {
     if (!$event) { return; }
-
-    $event.applicationId = this.application._id;
-    $event._id = uuid.v4();
     this.createAuth0Client($event);
   }
 
@@ -182,14 +179,19 @@ export class ApplicationRestCredentialsComponent implements OnInit {
     this.loadingSelectedAuth0ClientGrants = true;
 
     const params = $dialogResult;
-    params._id = uuid.v4();
+    params.applicationId = this.application._id;
 
-    this.restService.adminCreateAuth0Client(params)
-      .pipe(finalize(() => { /*this.loading = false;*/ }))
+    this.restService.adminCreateRestCredAuth0Client(params)
+      .pipe(finalize(() => {
+        this.loadingSelectedRestCredential = false;
+        this.loadingSelectedAuth0Client = false;
+        this.loadingSelectedAuth0ClientGrants = false;
+      }))
       .subscribe(r => {
         const result = (r);
         this.newCredential  = JSON.parse(JSON.stringify(this.emptyNewCredential));
         this.select({_id: result.upserted[0]._id });
+        this.loadData();
       }, err => {
         this.snackMessage.open('Error creating credential', 'x', {verticalPosition: 'top'});
       });
@@ -240,7 +242,41 @@ export class ApplicationRestCredentialsComponent implements OnInit {
   }
 
   hasAccessToDataStore(datastore) {
-    return true;
+    if (datastore.id in this.selectedAuth0Client.client_metadata
+      && this.selectedAuth0Client.client_metadata[datastore.id] === 'has_access') { return true; }
+    else { return false; }
+  }
+
+  updateDataStoreAccess(datastore, $event) {
+    // console.log(JSON.stringify(datastore));
+    // console.log($event);
+    if ($event.checked) {
+      this.selectedAuth0Client.client_metadata[datastore.id] = 'has_access';
+    }
+    else {
+      delete this.selectedAuth0Client.client_metadata[datastore.id];
+    }
+
+    console.log(JSON.stringify(this.selectedAuth0Client.client_metadata, null, 4));
+
+    this.updateAuth0Client();
+  }
+
+  updateAuth0Client() {
+    const params = {
+      updateBody: {
+        client_metadata: this.selectedAuth0Client.client_metadata
+      },
+      client_id: this.selectedAuth0Client.client_id
+    };
+
+    this.restService.adminUpdateAuth0Client(params)
+      .pipe( finalize(() => { /* this.updatingRestCredential = false; */ }) )
+      .subscribe( r => {
+
+      }, err => {
+        this.snackMessage.open('Error updating rest credential', 'x', {verticalPosition: 'top'});
+      });
   }
 
   deleteRestCredential(restCredential) {
@@ -248,13 +284,17 @@ export class ApplicationRestCredentialsComponent implements OnInit {
 
     const params = {
       restCredential_id: this.selectedRestCredential._id,
-      auth0_client_id: this.selectedAuth0Client.id,
+      auth0_client_id: this.selectedAuth0Client.client_id,
       auth0_client_grants_id: this.selectedAuth0ClientGrants.id
     };
 
-    this.restService.adminDeleteAuth0Client(params)
+    this.restService.adminDeleteRestCredAuth0Client(params)
       .subscribe (r => {
+        this.selectedRestCredential = null;
+        this.selectedAuth0Client = null;
+        this.selectedAuth0ClientGrants = null;
 
+        this.loadData();
       }, err => {
         this.snackMessage.open('Error deleting credential', 'x', {verticalPosition: 'top'});
       });
