@@ -18,7 +18,8 @@ import { Auth0RolesComponent } from './admin/auth0-roles/auth0-roles.component';
 import { LogsComponent } from './admin/logs/logs.component';
 import { TenantsComponent } from './admin/tenants/tenants.component';
 import { ApplicationsComponent } from './admin/applications/applications.component';
-import { CredentialsComponent } from './admin/credentials/credentials.component';
+import { ProviderCredentialsComponent } from './admin/provider-credentials/provider-credentials.component';
+import {TestPageComponent} from "./admin/test-page/test-page.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/private', pathMatch: 'full' },
@@ -37,7 +38,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       { path: 'dashboard', component: DashboardComponent },
       { path: 'applications', component: ApplicationsComponent },
-      { path: 'credentials', component: CredentialsComponent },
+      { path: 'credentials', component: ProviderCredentialsComponent },
       { path: 'profile', component: ProfileComponent },
     ]
   },
@@ -54,6 +55,7 @@ const routes: Routes = [
       { path: 'users', component: Auth0UsersComponent, data: {expectedRoles: ['Admin', 'Tenant Admin']} },
       { path: 'roles', component: Auth0RolesComponent, data: {expectedRoles: ['Admin', 'Tenant Admin']} },
       { path: 'logs', component: LogsComponent, data: {expectedRoles: ['Admin', 'Tenant Admin']} },
+      { path: 'test', component: TestPageComponent, data: {expectedRoles: ['Admin', 'Tenant Admin']} },
     ]
   }
 ];
