@@ -91,20 +91,20 @@ export class RestService {
     return this.http.post(environment.restServiceURL + '/admin/getApplicationGraphs', params);
   }
 
-  adminGetCredentials(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/getCredentials', params);
+  adminGetProviderCredentials(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getProviderCredentials', params);
   }
 
-  adminGetCredential(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/getCredential', params);
+  adminGetProviderCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getProviderCredential', params);
   }
 
-  adminSaveCredential(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/saveCredential', params);
+  adminSaveProviderCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/saveProviderCredential', params);
   }
 
-  adminDeleteCredential(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/deleteCredential', params);
+  adminDeleteProviderCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteProviderCredential', params);
   }
 
   adminGetAuth0Clients(params: any): Observable <any> {
@@ -115,7 +115,39 @@ export class RestService {
     return this.http.post(environment.restServiceURL + '/admin/getAuth0Client', params);
   }
 
-  adminCreateAuth0Client(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/createAuth0Client', params);
+  adminGetAuth0ClientGrants(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getAuth0ClientGrants', params);
+  }
+
+  adminCreateRestCredAuth0Client(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/createRestCredAuth0Client', params);
+  }
+
+  adminDeleteRestCredAuth0Client(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteRestCredAuth0Client', params);
+  }
+
+  adminUpdateAuth0Client(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/updateAuth0Client', params);
+  }
+
+  adminUpdateAuth0ClientGrants(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/updateAuth0ClientGrants', params);
+  }
+
+  adminGetRestCredentials(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getRestCredentials', params);
+  }
+
+  adminGetRestCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getRestCredential', params);
+  }
+
+  adminSaveRestCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/saveRestCredential', params);
+  }
+
+  adminDeleteRestCredential(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteRestCredential', params);
   }
 }
