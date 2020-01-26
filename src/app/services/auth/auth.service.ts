@@ -69,7 +69,7 @@ export class AuthService {
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#gettokensilently
   getTokenSilently$(options?): Observable<string> {
-    console.log('in getTokenSilently$');
+    // console.log('in getTokenSilently$');
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
     );
