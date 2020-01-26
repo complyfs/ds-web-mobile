@@ -22,7 +22,7 @@ export class ApplicationUsersComponent implements OnInit {
   pageIndex = 0;
   pageSizeOptions: number [] = [5, 10, 25];
 
-  appRoles = [
+  appRights = [
     {id: 'readonly', name: 'Read Only'},
     {id: 'edit', name: 'Edit'}
   ];
@@ -68,7 +68,7 @@ export class ApplicationUsersComponent implements OnInit {
   addUserToApplication(user) {
     const userObj = {
       user_id: user.user_id,
-      appRole: 'readonly'
+      appRights: 'readonly'
     };
 
     this.application.users.push(userObj);

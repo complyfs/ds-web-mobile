@@ -2,6 +2,7 @@
   <mat-card-subtitle>Application Management Console Users</mat-card-subtitle>
   Define access rules to the management console of this application.
 </mat-card>
+
 <div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="space-around">
   <div fxFlex="60%">
     <div>
@@ -15,21 +16,21 @@
     <div>
       <mat-card class="list-mat-card" *ngFor="let user of application.users" [class.selected]="isSelectedItem(user)">
         <div fxLayout="row" class="full-width" fxLayoutAlign="space-between">
-          <div fxFlex="0 0 auto" class="text-truncate" fxFlexAlign="start center">
+          <div fxFlex="50%" class="text-truncate " fxFlexAlign="start center">
             <app-user-name [user_id]="user.user_id"></app-user-name>
           </div>
-          <div fxFlex class="text-truncate" fxFlexAlign="start center">
+          <div fxFlex="25%" class="text-truncate " fxFlexAlign="start center">
             <mat-form-field>
               <mat-label>Rights</mat-label>
-              <mat-select [(ngModel)]="user.appRole">
-                <mat-option *ngFor="let appRole of appRoles" [value]="appRole.id">
-                  {{appRole.name}}
+              <mat-select [(ngModel)]="user.appRights">
+                <mat-option *ngFor="let appRight of appRights" [value]="appRight.id">
+                  {{appRight.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-            {{user.appRole}}</div>
-          <div fxFlex fxFlexAlign="end">
+            {{user.appRights}}</div>
+          <div fxFlex="10%" fxFlexAlign="end center" class="">
             <button mat-mini-fab color="primary" (click)="removeUserFromApplication(user)">-</button>
           </div>
         </div>
@@ -61,8 +62,8 @@
     <div>
       <mat-card class="list-mat-card" *ngFor="let user of users"  [class.selected]="isSelectedItem(user)">
         <div fxLayout="row" fxLayoutAlign="space-between">
-          <div fxFlex="0 0 auto" class="text-truncate" fxFlexAlign="start center">{{user.email}}</div>
-          <div fxFlex fxFlexAlign="end">
+          <div fxFlex="80%" class="text-truncate" fxFlexAlign="start center">{{user.email}}</div>
+          <div fxFlex="20%" fxFlexAlign="end">
             <button mat-mini-fab color="primary" (click)="addUserToApplication(user)" [disabled]="userInApplication(user)">+</button>
           </div>
         </div>
