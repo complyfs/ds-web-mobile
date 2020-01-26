@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class TextFieldDisplayComponent implements OnInit {
 
   @Input() readOnly: boolean;
+  @Input() type = 'text';
   @Input() label: string;
   @Input() value: string;
   @Output() valueChange = new EventEmitter<string>();

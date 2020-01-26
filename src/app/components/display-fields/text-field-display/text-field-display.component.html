@@ -8,7 +8,7 @@
   <div *ngIf="readOnly" fxFlex fxFlexAlign="start" class="user-data text-truncate valueFlex" >{{value}}</div>
   <div *ngIf="!readOnly" fxFlex fxFlexAlign="start" class="user-data valueFlex full-width" >
     <mat-form-field floatLabel="always" class="full-width">
-      <input matInput [(ngModel)]="value" (ngModelChange)="valueChange.emit(value)">
+      <input matInput [(ngModel)]="value" (ngModelChange)="valueChange.emit(value)" [type]="type">
     </mat-form-field>
   </div>
 </div>
