@@ -1,26 +1,26 @@
-
-<!--
-<p>profile works</p>
 <mat-card>
-  hello
-</mat-card>
--->
-<div fxLayout="row">
-  <mat-card *ngIf="auth.userProfile$ | async as profile">
-
-    <div>
+  <mat-card-title>Profile</mat-card-title>
+  <div fxLayout="row" *ngIf="auth.userProfile$ | async as profile">
+    <div fxFlex="0 0 auto">
       <div>
         <img [src]="profile.picture" />
       </div>
-      <div >
-        <h2>{{ profile.name }}</h2>
-        <p >{{ profile.email }}</p>
+    </div>
+    <div fxFlex="1 1 auto">
+      <div fxLayout="column">
+        <div fxFlex>
+          <app-text-field-display [readOnly]="true" [label]="'Nickname'" [(value)]="profile.nickname"></app-text-field-display>
+        </div>
+        <div fxFlex>
+          <app-text-field-display [readOnly]="true" [label]="'Name'" [(value)]="profile.name"></app-text-field-display>
+        </div>
+        <div fxFlex>
+          <app-text-field-display [readOnly]="true" [label]="'Email'" [(value)]="profile.email"></app-text-field-display>
+        </div>
+        <div fxFlex>
+          <app-text-field-display [readOnly]="true" [label]="'User ID'" [(value)]="profile.sub"></app-text-field-display>
+        </div>
       </div>
     </div>
-
-    <div *ngIf="profileJson">
-      <pre class="rounded"><code class="json">{{profileJson}}</code></pre>
-    </div>
-
-  </mat-card>
-</div>
+  </div>
+</mat-card>

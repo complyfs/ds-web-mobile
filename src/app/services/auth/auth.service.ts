@@ -50,6 +50,7 @@ export class AuthService {
 
   // Create a local property for login status
   loggedIn: boolean = null;
+  userId: any = null;
 
   tenant: string;
 
@@ -88,10 +89,13 @@ export class AuthService {
         return of(loggedIn);
       })
     );
-    checkAuth$.subscribe((response: { [key: string]: any } | boolean) => {
+    checkAuth$.subscribe((response: any | { [key: string]: any } | boolean) => {
       // If authenticated, response will be user object
       // If not authenticated, response will be 'false'
       this.loggedIn = !!response;
+      if (response) {
+        this.userId = response.sub;
+      }
     });
   }
 
