@@ -88,9 +88,11 @@
       <div>Description: <strong>{{selectedLog.message}}</strong></div>
       <div *ngIf="selectedLog.meta">
         <div class="section-header">Error Object:</div>
+        {{selectedLog.meta|json}}
+        <!--{{selectedLog.meta|json}}-->
         <!--<pre class="prettyprint linenums:1 lang-js"><code class="language-js">module.exports = {{ test: () => {{ console.log(); }} }};</code></pre>-->
-        <pre class="prettyprint linenums:1 lang-js"><code class="language-js">{{selectedLog.meta|json}}</code></pre>
-
+       <!-- <pre class="prettyprint linenums:1 lang-js"><code class="language-js">{{selectedLog.meta|json}}</code></pre>
+-->
 <!--        <div *ngIf="selectedLog.meta.stack">-->
 <!--          <div class="section-header">Call Stack:</div>-->
 <!--          <pre class="prettyprint">{{selectedLog.meta.stack}}</pre>-->
