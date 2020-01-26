@@ -37,7 +37,8 @@
           <div fxLayout="column" fxLayoutAlign="space-between">
             <div fxFlex class="text-truncate">{{ac.firstName}} {{ac.lastName}}</div>
             <div fxFlex="100%">
-              {{ac.fistName}} {{ac.lastName}}
+              {{ac.firstName}} {{ac.lastName}}<br/>
+              {{ getContactRole(ac.contactRole) }}
             </div>
           </div>
         </mat-card>
@@ -66,6 +67,9 @@
       <div fxLayout="column">
         <div fxFlex="95%">
           <app-application-contact [appContact]="selected"></app-application-contact>
+        </div>
+        <div fxFlex="95%">
+          <button mat-raised-button color="warn" (click)="removeContact(selected)">Remove Contact</button>
         </div>
       </div>
 

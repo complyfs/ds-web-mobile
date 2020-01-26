@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AppContact, Application } from '../../../objects/application';
+import { AppContact, Application, appContactRoles } from '../../../objects/application';
 import { environment } from '../../../../environments/environment';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,6 +15,7 @@ export class ApplicationContactsComponent implements OnInit {
 
   @Input() application: Application;
   selected: AppContact;
+  appRoles = appContactRoles;
 
   loading = false;
 
@@ -48,5 +49,15 @@ export class ApplicationContactsComponent implements OnInit {
 
   newDataComplete() {
     return false;
+  }
+
+  getContactRole( contactRoleId) {
+    const roles =  appContactRoles.filter( cr => cr.id === contactRoleId);
+    return (roles.length !== 1) ?  null : roles[0].label;
+  }
+
+  removeContact (selected) {
+    this.application.appContacts = this.application.appContacts.filter( ac => ac.id !== selected.id);
+    this.selected = null;
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AppContact } from "../../../objects/application";
+import { AppContact, appContactRoles } from '../../../objects/application';
 
 @Component({
   selector: 'app-application-contact',
@@ -11,6 +11,8 @@ export class ApplicationContactComponent implements OnInit {
   @Input() appContact: AppContact;
 
   @Input() readOnly = true;
+
+  appRoles = appContactRoles;
 
   constructor() { }
 

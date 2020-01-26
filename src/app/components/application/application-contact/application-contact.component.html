@@ -18,6 +18,6 @@
     <app-text-field-display [readOnly]="readOnly" [label]="' Mobile'" [(value)]="appContact.tel2"></app-text-field-display>
   </div>
   <div fxFlex>
-    <app-text-field-display [readOnly]="readOnly" [label]="'Role'" [(value)]="appContact.contactRole"></app-text-field-display>
+    <app-select-display [readOnly]="readOnly" [label]="'App Role'" [(value)]="appContact.contactRole" [optionsArray]="appRoles"></app-select-display>
   </div>
 </div>
