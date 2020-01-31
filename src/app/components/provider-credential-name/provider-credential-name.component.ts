@@ -1,18 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {finalize} from "rxjs/operators";
 import {RestService} from "../../services/rest/rest.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {finalize} from "rxjs/operators";
 
 @Component({
-  selector: 'app-credential-name',
-  templateUrl: './credential-name.component.html',
-  styleUrls: ['./credential-name.component.scss']
+  selector: 'app-provider-credential-name',
+  templateUrl: './provider-credential-name.component.html',
+  styleUrls: ['./provider-credential-name.component.scss']
 })
-export class CredentialNameComponent implements OnInit {
+export class ProviderCredentialNameComponent implements OnInit {
 
   @Input() credentialId: string;
   loading = false;
-  credential: any;
+  providerCredential: any;
 
   constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
@@ -22,7 +22,7 @@ export class CredentialNameComponent implements OnInit {
   }
 
   loadData() {
-    this.credential = null;
+    this.providerCredential = null;
     this.loading = true;
 
     const params = { _id: this.credentialId };
@@ -32,9 +32,9 @@ export class CredentialNameComponent implements OnInit {
         finalize(() => { this.loading = false; })
       )
       .subscribe ( r => {
-        this.credential = r;
+        this.providerCredential = r;
       }, e => {
-        this.snackMessage.open('Error getting credentials', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error getting provider credentials', 'x', {verticalPosition: 'top'});
       });
   }
 }
