@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Application, Credential } from '../../../objects/application';
+import { Application } from '../../../objects/application';
 import { Observable, of, Subject } from 'rxjs';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
 import * as uuid from 'uuid';
+import { RestCredential} from '../../../objects/restCredential';
+import { DataStore } from '../../../objects/dataStore';
 
 @Component({
   selector: 'app-application-rest-credentials',
@@ -14,8 +16,9 @@ import * as uuid from 'uuid';
 export class ApplicationRestCredentialsComponent implements OnInit {
 
   @Input() application: Application;
-  restCredentials: Credential[];
-  selectedRestCredential: Credential;
+  restCredentials: RestCredential[];
+  selectedRestCredential: RestCredential;
+  dataStores: DataStore[];
   selectedAuth0Client: any;
   selectedAuth0ClientGrants: any;
   loadingRestCredentials = false;
@@ -41,6 +44,7 @@ export class ApplicationRestCredentialsComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+    this.loadDataStores();
 
     this.uniqueName$ = this.proposedName.pipe(
       // wait 300ms after each keystroke before considering the term
@@ -68,6 +72,23 @@ export class ApplicationRestCredentialsComponent implements OnInit {
         this.itemsFound = r.itemsFound;
       }, err => {
         this.snackMessage.open('Error getting Rest Credentials', 'x', {verticalPosition: 'top'});
+      });
+  }
+
+  loadDataStores() {
+    //this.loading = true;
+    const params = {
+      from: (this.pageIndex * this.pageSize), size: this.pageSize,
+      applicationId: this.application._id
+    };
+
+    this.restService.adminGetDataStores(params)
+      .pipe(finalize(() => {  }))
+      .subscribe ( r => {
+        this.dataStores = r.hits;
+        this.itemsFound = r.count;
+      }, err => {
+        this.snackMessage.open('Error loading Data Stores', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -241,20 +262,29 @@ export class ApplicationRestCredentialsComponent implements OnInit {
       });
   }
 
-  hasAccessToDataStore(datastore) {
-    if (datastore.id in this.selectedAuth0Client.client_metadata
-      && this.selectedAuth0Client.client_metadata[datastore.id] === 'has_access') { return true; }
-    else { return false; }
+  hasAccessToDataStore(datastore: DataStore) {
+    return this.selectedAuth0Client.client_metadata.dataStores.indexOf(datastore._id) > -1;
+
+/*    if (datastore._id in this.selectedAuth0Client.client_metadata
+      && this.selectedAuth0Client.client_metadata[datastore._id] === 'has_access') { return true; }
+    else { return false; }*/
   }
 
-  updateDataStoreAccess(datastore, $event) {
+  updateDataStoreAccess(datastore: DataStore, $event) {
     // console.log(JSON.stringify(datastore));
     // console.log($event);
     if ($event.checked) {
-      this.selectedAuth0Client.client_metadata[datastore.id] = 'has_access';
+      // this.selectedAuth0Client.client_metadata[datastore._id] = 'has_access';
+      this.selectedAuth0Client.client_metadata.dataStores += datastore._id + ' ';
     }
     else {
-      delete this.selectedAuth0Client.client_metadata[datastore.id];
+      // delete this.selectedAuth0Client.client_metadata[datastore._id];
+      // this.selectedAuth0Client.client_metadata[datastore._id] = 'no_access';
+
+      const startLoc = this.selectedAuth0Client.client_metadata.dataStores.indexOf(datastore._id);
+      this.selectedAuth0Client.client_metadata.dataStores =
+        this.selectedAuth0Client.client_metadata.dataStores.substring(0, startLoc) +
+        this.selectedAuth0Client.client_metadata.dataStores.substring(startLoc + datastore._id.length + 1);
     }
 
     console.log(JSON.stringify(this.selectedAuth0Client.client_metadata, null, 4));
@@ -273,7 +303,7 @@ export class ApplicationRestCredentialsComponent implements OnInit {
     this.restService.adminUpdateAuth0Client(params)
       .pipe( finalize(() => { /* this.updatingRestCredential = false; */ }) )
       .subscribe( r => {
-
+        // console.log('r', JSON.stringify(r, null, 4));
       }, err => {
         this.snackMessage.open('Error updating rest credential', 'x', {verticalPosition: 'top'});
       });
