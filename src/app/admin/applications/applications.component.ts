@@ -17,7 +17,7 @@ export class ApplicationsComponent implements OnInit {
 
   applications: Application[];
   selected: Application;
-  newApplication = { _id: '', name: '', users: [], dataStores: [], appContacts: [] };
+  newApplication = { _id: '', name: '', users: [], appContacts: [] };
 
   searchName: string;
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { DataEndpoint, DataStore } from '../../../objects/application';
+import { DataEndpoint, DataStore } from '../../../objects/dataStore';
 import * as uuid from 'uuid';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
