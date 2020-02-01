@@ -49,7 +49,6 @@ import { ApplicationUsersComponent } from './components/application/application-
 import { ApplicationDataStoresComponent } from './components/application/application-data-stores/application-data-stores.component';
 import { UserNameComponent } from './components/auth0/user-name/user-name.component';
 import { ApplicationDataEndpointsComponent } from './components/application/application-data-endpoints/application-data-endpoints.component';
-import { CredentialNameComponent } from './components/credential-name/credential-name.component';
 import { ApplicationInfoComponent } from './components/application/application-info/application-info.component';
 import { ApplicationContactsComponent } from './components/application/application-contacts/application-contacts.component';
 import { ApplicationContactComponent } from './components/application/application-contact/application-contact.component';
@@ -57,6 +56,7 @@ import { ApplicationRestCredentialsComponent } from './components/application/ap
 import { ProviderCredentialsComponent } from './admin/provider-credentials/provider-credentials.component';
 import { SelectDisplayComponent } from './components/display-fields/select-display/select-display.component';
 import { TestPageComponent } from './admin/test-page/test-page.component';
+import { ProviderCredentialNameComponent } from './components/provider-credential-name/provider-credential-name.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +96,6 @@ import { TestPageComponent } from './admin/test-page/test-page.component';
     ApplicationDataStoresComponent,
     UserNameComponent,
     ApplicationDataEndpointsComponent,
-    CredentialNameComponent,
     ApplicationInfoComponent,
     ApplicationContactsComponent,
     ApplicationContactComponent,
@@ -104,6 +103,7 @@ import { TestPageComponent } from './admin/test-page/test-page.component';
     ProviderCredentialsComponent,
     SelectDisplayComponent,
     TestPageComponent,
+    ProviderCredentialNameComponent,
   ],
   imports: [
     BrowserModule,
