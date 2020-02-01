@@ -150,4 +150,20 @@ export class RestService {
   adminDeleteRestCredential(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/deleteRestCredential', params);
   }
+
+  adminGetDataStores(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getDataStores', params);
+  }
+
+  adminGetDataStore(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getDataStore', params);
+  }
+
+  adminSaveDataStore(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/saveDataStore', params);
+  }
+
+  adminDeleteDataStore(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteDataStore', params);
+  }
 }

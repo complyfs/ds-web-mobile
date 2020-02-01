@@ -18,7 +18,7 @@
         </div>
       </mat-card-title>
 
-      <div fxHide fxShow.lt-lg>
+      <div fxHide fxShow.lt-lg *ngIf="dataStores">
 
         <mat-card class="list-mat-card list-header-mat-card">
           <div fxLayout="row" fxLayoutAlign="space-between">
@@ -26,15 +26,15 @@
           </div>
         </mat-card>
 
-        <mat-card class="list-mat-card" *ngFor="let ds of application.dataStores" (click)="select(ds)" [class.selected]="isSelectedItem(ds)">
+        <mat-card class="list-mat-card" *ngFor="let ds of dataStores" (click)="select(ds)" [class.selected]="isSelectedItem(ds)">
           <div fxLayout="row" fxLayoutAlign="space-between">
             <div fxFlex class="text-truncate">{{ds.name}}</div>
           </div>
         </mat-card>
       </div>
 
-      <div fxHide.lt-lg>
-        <mat-card class="list-mat-card" *ngFor="let ds of application.dataStores" (click)="select(ds)" [class.selected]="isSelectedItem(ds)">
+      <div fxHide.lt-lg *ngIf="dataStores">
+        <mat-card class="list-mat-card" *ngFor="let ds of dataStores" (click)="select(ds)" [class.selected]="isSelectedItem(ds)">
           <div fxLayout="column" fxLayoutAlign="space-between">
             <div fxFlex class="text-truncate">{{ds.name}}</div>
             <div fxFlex="100%">
@@ -68,7 +68,7 @@
       <div fxLayout="column">
 
         <div fxFlex="95%">
-          <app-text-field-display [readOnly]="true" [label]="'ID'" [(value)]="selected.id"></app-text-field-display>
+          <app-text-field-display [readOnly]="true" [label]="'Data Store ID'" [(value)]="selected._id"></app-text-field-display>
         </div>
 
         <div fxFlex="95%">
@@ -92,6 +92,11 @@
           </mat-card>
         </mat-tab>
       </mat-tab-group>
+
+      <mat-card-actions>
+        <button mat-raised-button color="warn" (click)="deleteSelectedDataStore()">Delete</button>
+        <button mat-raised-button color="primary" (click)="saveSelectedDataStore()">Save</button>
+      </mat-card-actions>
 
     </mat-card>
   </div>

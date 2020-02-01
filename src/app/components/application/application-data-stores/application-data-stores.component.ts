@@ -6,7 +6,8 @@ import { PageEvent } from '@angular/material/paginator';
 import * as uuid from 'uuid';
 import { Observable, of, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { Application, DataStore } from '../../../objects/application';
+import { Application } from '../../../objects/application';
+import { DataStore } from '../../../objects/dataStore';
 
 @Component({
   selector: 'app-application-data-stores',
@@ -16,7 +17,8 @@ import { Application, DataStore } from '../../../objects/application';
 export class ApplicationDataStoresComponent implements OnInit {
   env = environment;
 
-  @Input() application: Application;
+  @Input() applicationId: string;
+  dataStores: DataStore[];
   selected: DataStore;
 
   emptyNewDataStore: any = { name: '', encrypted: false, dataEndpoints: [] };
@@ -26,6 +28,11 @@ export class ApplicationDataStoresComponent implements OnInit {
 
   private proposedName = new Subject<string>();
   uniqueName$: Observable<boolean>;
+
+  itemsFound = 0;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number [] = [5, 10, 25];
 
   constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
@@ -41,10 +48,29 @@ export class ApplicationDataStoresComponent implements OnInit {
       // switch to new search observable each time the term changes
       switchMap((proposedName: string) => this.isNameUnique(proposedName)),
     );
+
+    this.loadData();
+  }
+
+  loadData() {
+    this.loading = true;
+    const params = {
+      from: (this.pageIndex * this.pageSize), size: this.pageSize,
+      applicationId: this.applicationId
+    };
+
+    this.restService.adminGetDataStores(params)
+      .pipe(finalize(() => { this.loading = false; }))
+      .subscribe ( r => {
+        this.dataStores = r.hits;
+        this.itemsFound = r.count;
+      }, err => {
+        this.snackMessage.open('Error loading Data Stores', 'x', {verticalPosition: 'top'});
+      });
   }
 
   isSelectedItem(item) {
-    if (!this.selected || this.selected.id !== item.id) { return false; } else { return true; }
+    if (!this.selected || this.selected._id !== item._id) { return false; } else { return true; }
   }
 
   select(clickedItem) {
@@ -55,8 +81,12 @@ export class ApplicationDataStoresComponent implements OnInit {
     if (!$event) { return; }
 
     this.selected = $event;
-    this.selected.id = uuid.v4();
-    this.application.dataStores.push(this.selected);
+    this.selected._id = uuid.v4();
+    this.selected.applicationId = this.applicationId;
+
+    this.saveSelectedDataStore();
+
+    setTimeout(() => this.saveSelectedDataStore(), 3000);
 
     this.newDataStore  = JSON.parse(JSON.stringify(this.emptyNewDataStore));
   }
@@ -73,13 +103,32 @@ export class ApplicationDataStoresComponent implements OnInit {
       return of(false);
     }
 
-    const matchingNames = this.application.dataStores.filter( ds => ds.name === name );
-    if ( matchingNames.length > 0) { return of(false); }
+    //const matchingNames = this.application.dataStores.filter( ds => ds.name === name );
+    //if ( matchingNames.length > 0) { return of(false); }
 
     return of (true);
   }
 
   checkUnique(id) {
     this.proposedName.next(id);
+  }
+
+  pageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadData();
+  }
+
+  deleteSelectedDataStore() {
+
+  }
+
+  saveSelectedDataStore() {
+    this.restService.adminSaveDataStore(this.selected)
+      .pipe(finalize(() => {  }))
+      .subscribe ( r => {
+      }, err => {
+        this.snackMessage.open('Error saving Data Store', 'x', {verticalPosition: 'top'});
+      });
   }
 }

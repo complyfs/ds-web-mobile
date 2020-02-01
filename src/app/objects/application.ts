@@ -1,11 +1,9 @@
-import {stringify} from "querystring";
 
 export interface Application {
   _id: string;
   name: string;
   description: string;
   users: AppUser[];
-  dataStores: DataStore[];
   appContacts: AppContact[];
   lineOfBusiness: string;
   subLineOfBusiness: string;
@@ -19,23 +17,6 @@ export interface AppUser {
   appRights: string;
 }
 
-export interface DataStore {
-  id: string;
-  name: string;
-  description: string;
-  encrypted: string;
-  dataEndpoints: DataEndpoint[];
-}
-
-export interface DataEndpoint {
-  id: string;
-  name: string;
-  credentialId: string; //this includes the provider
-  region: string; // flexible with AWS, fixed by credential for Azure
-  type: string;
-  active: string;
-}
-
 export interface AppContact {
   id: string;
   firstName: string;
@@ -45,12 +26,6 @@ export interface AppContact {
   email: string;
   title: string;
   contactRole: string;
-}
-
-export interface Credential {
-  _id: string;
-  name: string;
-  applicationId: string;
 }
 
 
