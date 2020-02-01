@@ -264,23 +264,13 @@ export class ApplicationRestCredentialsComponent implements OnInit {
 
   hasAccessToDataStore(datastore: DataStore) {
     return this.selectedAuth0Client.client_metadata.dataStores.indexOf(datastore._id) > -1;
-
-/*    if (datastore._id in this.selectedAuth0Client.client_metadata
-      && this.selectedAuth0Client.client_metadata[datastore._id] === 'has_access') { return true; }
-    else { return false; }*/
   }
 
   updateDataStoreAccess(datastore: DataStore, $event) {
-    // console.log(JSON.stringify(datastore));
-    // console.log($event);
     if ($event.checked) {
-      // this.selectedAuth0Client.client_metadata[datastore._id] = 'has_access';
       this.selectedAuth0Client.client_metadata.dataStores += datastore._id + ' ';
     }
     else {
-      // delete this.selectedAuth0Client.client_metadata[datastore._id];
-      // this.selectedAuth0Client.client_metadata[datastore._id] = 'no_access';
-
       const startLoc = this.selectedAuth0Client.client_metadata.dataStores.indexOf(datastore._id);
       this.selectedAuth0Client.client_metadata.dataStores =
         this.selectedAuth0Client.client_metadata.dataStores.substring(0, startLoc) +
@@ -303,7 +293,7 @@ export class ApplicationRestCredentialsComponent implements OnInit {
     this.restService.adminUpdateAuth0Client(params)
       .pipe( finalize(() => { /* this.updatingRestCredential = false; */ }) )
       .subscribe( r => {
-        // console.log('r', JSON.stringify(r, null, 4));
+
       }, err => {
         this.snackMessage.open('Error updating rest credential', 'x', {verticalPosition: 'top'});
       });
