@@ -41,3 +41,12 @@
 -->
   </div>
 </mat-card>
+
+<app-application-contacts [application]="application"></app-application-contacts>
+
+<app-application-users [application]="application"></app-application-users>
+
+<div>
+  <button mat-raised-button color="warn" (click)="emitDeleteApplication()">Delete</button>
+  <button mat-raised-button color="primary" (click)="emitSaveApplication()">Save</button>
+</div>

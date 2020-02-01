@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Application } from '../../../objects/application';
 
 @Component({
@@ -9,10 +9,20 @@ import { Application } from '../../../objects/application';
 export class ApplicationInfoComponent implements OnInit {
 
   @Input() application: Application;
+  @Output() saveApplication = new EventEmitter<void>();
+  @Output() deleteApplication = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  emitDeleteApplication() {
+    this.deleteApplication.emit();
+  }
+
+  emitSaveApplication() {
+    this.saveApplication.emit();
   }
 
 }

@@ -18,17 +18,22 @@
 
   <div >
     <mat-tab-group>
-      <mat-tab label="Info">
-        <app-application-info [application]="application"></app-application-info>
+      <mat-tab label="General">
+        <app-application-info
+          [application]="application"
+          (saveApplication)="saveApplication()"
+          (deleteApplication)="deleteApplication()"></app-application-info>
       </mat-tab>
+<!--
       <mat-tab label="Contacts">
         <app-application-contacts [application]="application"></app-application-contacts>
       </mat-tab>
       <mat-tab label="Users">
         <app-application-users [application]="application"></app-application-users>
       </mat-tab>
+      -->
       <mat-tab label="Data Stores">
-        <app-application-data-stores [application]="application"></app-application-data-stores>
+        <app-application-data-stores [applicationId]="application._id"></app-application-data-stores>
       </mat-tab>
       <mat-tab label="Credentials">
         <app-application-rest-credentials [application]="application"></app-application-rest-credentials>
@@ -39,10 +44,5 @@
     </mat-tab-group>
   </div>
 
-
-  <mat-card-actions>
-    <button mat-raised-button color="warn" (click)="deleteApplication()">Delete</button>
-    <button mat-raised-button color="primary" (click)="saveApplication()">Save</button>
-  </mat-card-actions>
 
 </mat-card>
