@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {Component, Input, Output, OnInit, OnChanges, SimpleChanges, EventEmitter} from '@angular/core';
 import { DataEndpoint, DataStore } from '../../../objects/dataStore';
 import * as uuid from 'uuid';
 import { Observable, of, Subject } from 'rxjs';
@@ -16,10 +16,11 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
   env = environment;
 
   @Input() dataStore: DataStore;
+  @Output() reloadDataStore = new EventEmitter<void>();
   selected: DataEndpoint;
   emptyNewDataEndpoint: any = {
     name: '',
-    credentialId: null,
+    providerCredentialId: null,
     region: null,
     type: null,
     active: false
@@ -27,7 +28,7 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
 
   newDataEndpoint: any = JSON.parse(JSON.stringify(this.emptyNewDataEndpoint));
 
-  credentials: any[];
+  providerCredentials: any[];
 
   loading = false;
 
@@ -52,20 +53,20 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
     this.loadData();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.selected = null;
-  }
-
   loadData() {
     // TODO: this must eventually handle large credential sets differently
     const params: any = { from: 0, size: 1000 };
 
     this.restService.adminGetProviderCredentials(params)
       .subscribe( r => {
-        this.credentials = r.hits;
+        this.providerCredentials = r.hits;
       }, err => {
-        this.snackMessage.open('Error loading credentials', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading provider credentials', 'x', {verticalPosition: 'top'});
       });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.selected = null;
   }
 
   isSelectedItem(item) {
@@ -80,10 +81,24 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
     if (!$event) { return; }
 
     this.selected = $event;
-    this.selected.id = uuid.v4();
-    this.dataStore.dataEndpoints.push(this.selected);
+    this.selected.id = 'ds-' + uuid.v4();
+    this.createDataEndpoint();
 
     this.newDataEndpoint = JSON.parse(JSON.stringify(this.emptyNewDataEndpoint));
+  }
+
+  createDataEndpoint() {
+    const params = {
+      dataStore: this.dataStore,
+      dataEndpoint: this.selected
+    };
+
+    this.restService.adminCreateDataEndpoint(params)
+      .subscribe( r => {
+        this.reloadDataStore.emit();
+      }, err => {
+        this.snackMessage.open('Error creating endpoints', 'x', {verticalPosition: 'top'});
+      });
   }
 
   isNameUnique(name): Observable<boolean> {
@@ -108,34 +123,34 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
   }
 
   getRegionsForProvider() {
-    const credentials = this.getCredentials();
+    const providerCredentials = this.getCredentials();
 
-    if (!credentials) return [];
+    if (!providerCredentials) return [];
 
     const providerRegions = environment.providerRegions.filter( r => {
-      return r.provider === credentials.provider;
+      return r.provider === providerCredentials.provider;
     } );
 
     return providerRegions;
   }
 
   getTypesForProvider() {
-    const credentials = this.getCredentials();
+    const providerCredentials = this.getCredentials();
 
-    if (!credentials) return [];
+    if (!providerCredentials) return [];
 
     const providerTypes = environment.providerEndpointTypes.filter( r => {
-      return r.provider === credentials.provider;
+      return r.provider === providerCredentials.provider;
     } );
 
     return providerTypes;
   }
 
   getCredentials() {
-    if (!this.newDataEndpoint.credentialId) { return null; }
+    if (!this.newDataEndpoint.providerCredentialId) { return null; }
 
-    const selectedCredentials = this.credentials.filter( cr => {
-      return cr._id === this.newDataEndpoint.credentialId;
+    const selectedCredentials = this.providerCredentials.filter( cr => {
+      return cr._id === this.newDataEndpoint.providerCredentialId;
     });
 
     if (selectedCredentials.length !== 1) {

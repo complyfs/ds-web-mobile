@@ -63,7 +63,16 @@
     </mat-card>
 
     <mat-card *ngIf="selected">
-      <mat-card-title>Selected Data Store: {{selected.name}}</mat-card-title>
+      <mat-card-title>
+        Selected Data Store: {{selected.name}}
+        <div class="float-right">
+          <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+        </div>
+      </mat-card-title>
 
       <div fxLayout="column">
 
@@ -76,14 +85,14 @@
         </div>
 
         <div fxFlex="95%">
-          <app-boolean-display [readOnly]="false" [label]="'Encrypted'" [(value)]="selected.encrypted"></app-boolean-display>
+          <app-boolean-display [readOnly]="true" [label]="'Encrypted'" [(value)]="selected.encrypted" (click)="comingSoon()"></app-boolean-display>
         </div>
 
       </div>
 
       <mat-tab-group>
         <mat-tab [label]="'Data Endpoints'">
-          <app-application-data-endpoints [dataStore]="selected"></app-application-data-endpoints>
+          <app-application-data-endpoints [dataStore]="selected" (reloadDataStore)="loadDataStore(this.selected._id)"></app-application-data-endpoints>
         </mat-tab>
         <mat-tab [label]="'Encryption Settings'" [disabled]="!selected.encrypted">
           <mat-card>

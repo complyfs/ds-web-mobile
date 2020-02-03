@@ -16,22 +16,22 @@
 
         <mat-card class="list-mat-card list-header-mat-card">
           <div fxLayout="row" fxLayoutAlign="space-between">
-            <div fxFlex>Name</div>
-            <div fxFlex>Credential</div>
-            <div fxFlex>Type</div>
-            <div fxflex>Active</div>
+            <div fxFlex="25%">Name</div>
+            <div fxFlex="25%">Credential</div>
+            <div fxFlex="25%">Type</div>
+            <div fxflex="25%">Active</div>
           </div>
         </mat-card>
 
         <mat-card class="list-mat-card" *ngFor="let de of dataStore.dataEndpoints" (click)="select(de)" [class.selected]="isSelectedItem(de)">
           <div fxLayout="row" fxLayoutAlign="space-between">
-            <div fxFlex class="text-truncate">{{de.name}}</div>
-            <div fxFlex class="text-truncate">
-              <app-provider-credential-name [credentialId]="de.credentialId"></app-provider-credential-name>
+            <div fxFlex="25%" class="text-truncate">{{de.name}}</div>
+            <div fxFlex="25%" class="text-truncate">
+              <app-provider-credential-name [providerCredentialId]="de.providerCredentialId"></app-provider-credential-name>
             </div>
-            <div fxFlex class="text-truncate">{{de.type}}</div>
-            <div fxFlex class="text-truncate">
-              <mat-checkbox [checked]="de.active"></mat-checkbox>
+            <div fxFlex="25%" class="text-truncate">{{de.type}}</div>
+            <div fxFlex="25%" class="text-truncate">
+              <mat-checkbox [checked]="de.active" disabled="true"></mat-checkbox>
             </div>
           </div>
         </mat-card>
@@ -98,9 +98,9 @@
       <div fxFlex>
         <mat-form-field>
           <mat-label>Credential</mat-label>
-          <mat-select [(ngModel)]="newDataEndpoint.credentialId">
-            <mat-option *ngFor="let credential of credentials" [value]="credential._id">
-              {{credential.name}}
+          <mat-select [(ngModel)]="newDataEndpoint.providerCredentialId">
+            <mat-option *ngFor="let pc of providerCredentials" [value]="pc._id">
+              {{pc.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -109,7 +109,7 @@
       <div fxFlex>
         <mat-form-field>
           <mat-label>Region</mat-label>
-          <mat-select [(ngModel)]="newDataEndpoint.region" [disabled]="!newDataEndpoint.credentialId">
+          <mat-select [(ngModel)]="newDataEndpoint.region" [disabled]="!newDataEndpoint.providerCredentialId">
             <mat-option *ngFor="let region of getRegionsForProvider()" [value]="region.region">
               {{region.region}}
             </mat-option>
@@ -120,7 +120,7 @@
       <div fxFlex>
         <mat-form-field>
           <mat-label>Type</mat-label>
-          <mat-select [(ngModel)]="newDataEndpoint.type" [disabled]="!newDataEndpoint.credentialId">
+          <mat-select [(ngModel)]="newDataEndpoint.type" [disabled]="!newDataEndpoint.providerCredentialId">
             <mat-option *ngFor="let type of getTypesForProvider()" [value]="type.type">
               {{type.label}}
             </mat-option>

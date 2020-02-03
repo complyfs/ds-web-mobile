@@ -21,7 +21,7 @@ export class ApplicationPanelComponent implements OnInit {
     { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
   ];
 
-  lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
+  lineChartLabels: Label[] = ['2019-08-01', '2019-09-01', '2019-10-01', '2019-11-01', '2019-12-01', '2020-01-01'];
 
   lineChartOptions = {
     responsive: true,
@@ -72,11 +72,11 @@ export class ApplicationPanelComponent implements OnInit {
         this.dataBuckets = r.dataBuckets;
         this.dataRates = r.dataRates;
 
-        this.lineChartLabels = this.dataRates.map( r => new Date(r.periodStart));
-        this.lineChartData[0] = { data: this.dataRates.map( r => r.docs), label: 'Docs per day' };
+        this.lineChartLabels = this.dataRates.map( i => i.periodStart );
+        this.lineChartData[0] = { data: this.dataRates.map( i => i.docs), label: 'Docs per day' };
 
-        this.doughnutChartLabels = this.dataBuckets.map ( r => r.name);
-        this.doughnutChartData = [this.dataBuckets.map ( r => r.docs)];
+        this.doughnutChartLabels = this.dataBuckets.map ( i => i.name);
+        this.doughnutChartData = [this.dataBuckets.map ( i => i.docs)];
 
       }, err => {
         this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});

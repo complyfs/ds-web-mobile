@@ -25,6 +25,7 @@ export class ApplicationDataStoresComponent implements OnInit {
   newDataStore: any = JSON.parse(JSON.stringify(this.emptyNewDataStore));
 
   loading = false;
+  loadingSelected = false;
 
   private proposedName = new Subject<string>();
   uniqueName$: Observable<boolean>;
@@ -69,12 +70,24 @@ export class ApplicationDataStoresComponent implements OnInit {
       });
   }
 
+  loadDataStore(dataStoreId: string) {
+    this.loadingSelected = true;
+
+    this.restService.adminGetDataStore({ _id: dataStoreId })
+      .pipe(finalize(() => { this.loadingSelected = false; }))
+      .subscribe( r => {
+        this.selected = r;
+      }, err => {
+        this.snackMessage.open('Error loading selected Data Store', 'x', {verticalPosition: 'top'});
+      });
+  }
+
   isSelectedItem(item) {
     if (!this.selected || this.selected._id !== item._id) { return false; } else { return true; }
   }
 
   select(clickedItem) {
-    this.selected = clickedItem;
+    this.loadDataStore(clickedItem._id);
   }
 
   onResult($event): void {
@@ -84,9 +97,8 @@ export class ApplicationDataStoresComponent implements OnInit {
     this.selected._id = uuid.v4();
     this.selected.applicationId = this.applicationId;
 
-    this.saveSelectedDataStore();
-
-    setTimeout(() => this.saveSelectedDataStore(), 3000);
+    this.saveDataStore();
+    setTimeout( () => this.loadData(), 3000);
 
     this.newDataStore  = JSON.parse(JSON.stringify(this.emptyNewDataStore));
   }
@@ -123,12 +135,26 @@ export class ApplicationDataStoresComponent implements OnInit {
 
   }
 
-  saveSelectedDataStore() {
+  createDataEndpoint() {
+    this.restService.adminCreateDataEndpoint(this.selected)
+      .pipe(finalize(() => {  }))
+      .subscribe ( r => {
+        this.loadData();
+      }, err => {
+        this.snackMessage.open('Error saving Data Store', 'x', {verticalPosition: 'top'});
+      });
+  }
+
+  saveDataStore() {
     this.restService.adminSaveDataStore(this.selected)
       .pipe(finalize(() => {  }))
       .subscribe ( r => {
       }, err => {
         this.snackMessage.open('Error saving Data Store', 'x', {verticalPosition: 'top'});
       });
+  }
+
+  comingSoon() {
+    alert('Awaiting implementation.');
   }
 }

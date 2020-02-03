@@ -10,7 +10,7 @@ import {finalize} from "rxjs/operators";
 })
 export class ProviderCredentialNameComponent implements OnInit {
 
-  @Input() credentialId: string;
+  @Input() providerCredentialId: string;
   loading = false;
   providerCredential: any;
 
@@ -25,7 +25,7 @@ export class ProviderCredentialNameComponent implements OnInit {
     this.providerCredential = null;
     this.loading = true;
 
-    const params = { _id: this.credentialId };
+    const params = { _id: this.providerCredentialId };
 
     this.restService.adminGetProviderCredential(params)
       .pipe(
