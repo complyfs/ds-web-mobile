@@ -132,7 +132,19 @@ export class ApplicationDataStoresComponent implements OnInit {
   }
 
   deleteSelectedDataStore() {
+    if (this.selected.dataEndpoints.length > 0 ) {
+      alert('You cannot delete a data store with endpoints.\n\nRemove all endpoints and try again.');
+      return;
+    }
 
+    this.restService.adminDeleteDataStore({ _id: this.selected._id })
+      .pipe(finalize(() => {  }))
+      .subscribe ( r => {
+        this.selected = null
+        this.loadData();
+      }, err => {
+        this.snackMessage.open('Error saving Data Store', 'x', {verticalPosition: 'top'});
+      });
   }
 
   createDataEndpoint() {

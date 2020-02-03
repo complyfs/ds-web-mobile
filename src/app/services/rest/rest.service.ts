@@ -170,4 +170,8 @@ export class RestService {
   adminCreateDataEndpoint(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/createDataEndpoint', params);
   }
+
+  adminDeleteDataEndpoint(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteDataEndpoint', params);
+  }
 }

@@ -66,10 +66,9 @@
       <mat-card-title>
         Selected Data Store: {{selected.name}}
         <div class="float-right">
-          <button mat-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+          <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>Item 1</button>
-            <button mat-menu-item>Item 2</button>
+            <button mat-menu-item (click)="deleteSelectedDataStore()">Delete Date Store</button>
           </mat-menu>
         </div>
       </mat-card-title>
@@ -90,6 +89,11 @@
 
       </div>
 
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="saveDataStore()">Save</button>
+      </mat-card-actions>
+
       <mat-tab-group>
         <mat-tab [label]="'Data Endpoints'">
           <app-application-data-endpoints [dataStore]="selected" (reloadDataStore)="loadDataStore(this.selected._id)"></app-application-data-endpoints>
@@ -101,11 +105,6 @@
           </mat-card>
         </mat-tab>
       </mat-tab-group>
-
-      <mat-card-actions>
-        <button mat-raised-button color="warn" (click)="deleteSelectedDataStore()">Delete</button>
-        <button mat-raised-button color="primary" (click)="saveSelectedDataStore()">Save</button>
-      </mat-card-actions>
 
     </mat-card>
   </div>

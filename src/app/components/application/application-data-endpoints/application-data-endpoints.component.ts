@@ -2,7 +2,7 @@ import {Component, Input, Output, OnInit, OnChanges, SimpleChanges, EventEmitter
 import { DataEndpoint, DataStore } from '../../../objects/dataStore';
 import * as uuid from 'uuid';
 import { Observable, of, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, finalize, switchMap} from 'rxjs/operators';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../../../environments/environment';
@@ -160,4 +160,16 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
     return selectedCredentials[0];
   }
 
+  deleteDataEndpoint(deToDelete) {
+    if (!confirm('Delete Date Endpoint: ' + deToDelete.name)) { return; }
+
+    this.restService.adminDeleteDataEndpoint({dataStore: this.dataStore, dataEndpoint: deToDelete })
+      .pipe(finalize(() => {  }))
+      .subscribe ( r => {
+        this.reloadDataStore.emit();
+        this.selected = null;
+      }, err => {
+        this.snackMessage.open('Error deleting Data Endpoint', 'x', {verticalPosition: 'top'});
+      });
+  }
 }
