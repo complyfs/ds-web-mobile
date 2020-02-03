@@ -201,6 +201,7 @@ export class ApplicationRestCredentialsComponent implements OnInit {
 
     const params = $dialogResult;
     params.applicationName = this.application.name;
+    params.applicationId = this.application._id;
 
     this.restService.adminCreateRestCredAuth0Client(params)
       .pipe(finalize(() => {
