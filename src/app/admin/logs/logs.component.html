@@ -87,7 +87,7 @@
       <div>Date: <strong>{{selectedLog.timestamp|date:'long'}}</strong></div>
       <div>Description: <strong>{{selectedLog.message}}</strong></div>
       <div *ngIf="selectedLog.meta">
-        <div class="section-header">Error Object:</div>
+        <div class="section-header">Metadata:</div>
         {{selectedLog.meta|json}}
         <!--{{selectedLog.meta|json}}-->
         <!--<pre class="prettyprint linenums:1 lang-js"><code class="language-js">module.exports = {{ test: () => {{ console.log(); }} }};</code></pre>-->
