@@ -14,5 +14,5 @@ export interface DataEndpoint {
   providerCredentialId: string; // this includes the provider
   region: string; // flexible with AWS, fixed by credential for Azure
   type: string;
-  active: string;
+  active: boolean;
 }
