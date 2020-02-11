@@ -89,7 +89,7 @@
         </div>
 
         <div fxFlex="95%">
-          <app-boolean-display [readOnly]="true" [label]="'Encrypted'" [(value)]="selected.encrypted" (click)="comingSoon()"></app-boolean-display>
+          <app-boolean-display [readOnly]="false" [label]="'Encrypted'" [(value)]="selected.encrypted"></app-boolean-display>
         </div>
 
       </div>
@@ -103,12 +103,12 @@
         <mat-tab [label]="'Data Endpoints'">
           <app-application-data-endpoints [dataStore]="selected" (reloadDataStore)="loadDataStore(this.selected._id)"></app-application-data-endpoints>
         </mat-tab>
-        <mat-tab [label]="'Encryption Settings'" [disabled]="!selected.encrypted">
+<!--        <mat-tab [label]="'Encryption Settings'" [disabled]="!selected.encrypted">
           <mat-card>
             <mat-card-subtitle>Encryption</mat-card-subtitle>
             To be copied from complyfs...
           </mat-card>
-        </mat-tab>
+        </mat-tab>-->
       </mat-tab-group>
 
     </mat-card>
