@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material';
+import { MatDrawer } from '@angular/material/sidenav';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth/auth.service';
-import { MatSidenavContainer, MatSidenav } from '@angular/material';
+import { MatSidenavContainer, MatSidenav } from '@angular/material/sidenav';
 import { SidebarMenuComponent } from '../../components/sidebar-menu/sidebar-menu.component';
 import { SidenavBroadcastService } from '../../services/sidenav-broadcast/sidenav-broadcast.service';
 

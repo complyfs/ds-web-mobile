@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { SidebarMenuComponent } from '../../components/sidebar-menu/sidebar-menu.component';
-import { MatSidenav, MatSidenavContainer } from '@angular/material';
+import { MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth/auth.service';
