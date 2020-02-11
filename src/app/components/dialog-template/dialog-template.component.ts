@@ -9,7 +9,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogTemplateComponent implements OnInit {
 
-  @ContentChild(TemplateRef, /* TODO: add static flag */ { static: false }) template: TemplateRef<{}>;
+  @ContentChild(TemplateRef) template: TemplateRef<{}>;
   @Output() result = new EventEmitter();
 
   dRef: MatDialogRef<any>;

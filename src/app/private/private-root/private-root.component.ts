@@ -13,9 +13,9 @@ import { SidenavBroadcastService } from '../../services/sidenav-broadcast/sidena
   styleUrls: ['./private-root.component.scss']
 })
 export class PrivateRootComponent implements OnInit, OnDestroy {
-  @ViewChild(SidebarMenuComponent, {static: false}) sidebarMenu: SidebarMenuComponent;
+  @ViewChild(SidebarMenuComponent) sidebarMenu: SidebarMenuComponent;
   @ViewChild(MatSidenav, { static: true }) sidenav: MatSidenav;
-  @ViewChild(MatSidenavContainer, {static: false}) sidenavContainer: MatSidenavContainer;
+  @ViewChild(MatSidenavContainer) sidenavContainer: MatSidenavContainer;
 
   menuToggleBroadcastSubscription: Subscription;
 
