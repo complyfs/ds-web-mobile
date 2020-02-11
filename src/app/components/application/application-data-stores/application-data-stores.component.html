@@ -69,11 +69,16 @@
           <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="deleteSelectedDataStore()">Delete Date Store</button>
+            <button mat-menu-item (click)="emptySelectedDataStore()">Empty Date Store</button>
           </mat-menu>
         </div>
       </mat-card-title>
 
       <div fxLayout="column">
+
+        <div fxFlex="95%">
+          <app-data-store-socket [dataStoreId]="selected._id"></app-data-store-socket>
+        </div>
 
         <div fxFlex="95%">
           <app-text-field-display [readOnly]="true" [label]="'Data Store ID'" [(value)]="selected._id"></app-text-field-display>

@@ -62,14 +62,20 @@
     </mat-card>
 
     <mat-card *ngIf="selected">
-      <mat-card-title>Selected Data Store: {{selected.firstName}} {{selected.lastName}}</mat-card-title>
+      <mat-card-title>
+        Selected Contact: {{selected.firstName}} {{selected.lastName}}
+
+        <div class="float-right">
+          <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="removeContact(selected)">Delete Contact</button>
+          </mat-menu>
+        </div>
+      </mat-card-title>
 
       <div fxLayout="column">
         <div fxFlex="95%">
           <app-application-contact [appContact]="selected"></app-application-contact>
-        </div>
-        <div fxFlex="95%">
-          <button mat-raised-button color="warn" (click)="removeContact(selected)">Remove Contact</button>
         </div>
       </div>
 

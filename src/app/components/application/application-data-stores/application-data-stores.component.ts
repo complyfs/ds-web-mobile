@@ -169,4 +169,8 @@ export class ApplicationDataStoresComponent implements OnInit {
   comingSoon() {
     alert('Awaiting implementation.');
   }
+
+  emptySelectedDataStore() {
+    this.comingSoon();
+  }
 }

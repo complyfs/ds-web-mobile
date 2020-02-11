@@ -17,6 +17,8 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
   @Output() reloadApps = new EventEmitter<void>();
 
   loading = false;
+  selectedTabIndex: number;
+
 
   constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
@@ -64,5 +66,11 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
           this.snackMessage.open('Error deleting channel', 'X', {verticalPosition: 'top'});
         });
     }
+  }
+
+  tabChanged($event) {
+    this.selectedTabIndex = $event.index;
+    console.log(this.selectedTabIndex);
+    //this.activateCenteredTab();
   }
 }

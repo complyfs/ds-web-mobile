@@ -57,6 +57,7 @@ import { ProviderCredentialsComponent } from './admin/provider-credentials/provi
 import { SelectDisplayComponent } from './components/display-fields/select-display/select-display.component';
 import { TestPageComponent } from './admin/test-page/test-page.component';
 import { ProviderCredentialNameComponent } from './components/provider-credential-name/provider-credential-name.component';
+import { DataStoreSocketComponent } from './components/data-store-socket/data-store-socket.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { ProviderCredentialNameComponent } from './components/provider-credentia
     SelectDisplayComponent,
     TestPageComponent,
     ProviderCredentialNameComponent,
+    DataStoreSocketComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,9 @@ export const environment = {
   companyName: 'DataStrata.io',
   contactUsEmail: 'info@datastrata.io',
 
+  dsSocketURL: 'https://app.qa.datastrata.io',
+  dsTickerLength: 5,
+
   providers: [
     {id: 'aws', name: 'AWS'},
     {id: 'azure', name: 'Azure'},

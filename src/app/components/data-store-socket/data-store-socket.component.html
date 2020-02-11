@@ -1,0 +1,19 @@
+
+<div fxLayout="row" fxLayoutAlign="space-between">
+  <div fxFlex="70%" class="text-truncate">Creation Time</div>
+  <div fxFlex="10%" class="text-truncate">AWS</div>
+  <div fxFlex="10%" class="text-truncate">Azure</div>
+</div>
+<div *ngIf="recentTicks.length > 0">
+  <div *ngFor="let tick of recentTicks">
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <div fxFlex="70%" class="text-truncate">{{tick.createDate|date:'long'}}</div>
+      <div fxFlex="10%" class="text-truncate"><mat-icon color="primary" *ngIf="onProvider(tick, 'aws')">check</mat-icon></div>
+      <div fxFlex="10%" class="text-truncate"><mat-icon color="primary" *ngIf="onProvider(tick, 'azure')">check</mat-icon></div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="recentTicks.length === 0">
+  No recent docs
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { AppContact, Application, appContactRoles } from '../../../objects/application';
 import { environment } from '../../../../environments/environment';
 import { RestService } from '../../../services/rest/rest.service';
@@ -14,6 +14,8 @@ export class ApplicationContactsComponent implements OnInit {
   env = environment;
 
   @Input() application: Application;
+  @Output() saveApplication = new EventEmitter<void>();
+
   selected: AppContact;
   appRoles = appContactRoles;
 
@@ -44,6 +46,7 @@ export class ApplicationContactsComponent implements OnInit {
     this.application.appContacts.push(this.selected);
 
     this.newData  = JSON.parse(JSON.stringify(this.emptyNewData));
+    this.saveApplication.emit();
   }
 
   newDataComplete() {
@@ -58,5 +61,6 @@ export class ApplicationContactsComponent implements OnInit {
   removeContact (selected) {
     this.application.appContacts = this.application.appContacts.filter( ac => ac.id !== selected.id);
     this.selected = null;
+    this.saveApplication.emit();
   }
 }

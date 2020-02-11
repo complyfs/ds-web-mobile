@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { Application } from '../../../objects/application';
 export class ApplicationUsersComponent implements OnInit {
 
   @Input() application: Application;
+  @Output() saveApplication = new EventEmitter<void>();
   users: any[];
   searchSystemUserEmail: string;
   systemUsersLoading = false;
@@ -72,6 +73,7 @@ export class ApplicationUsersComponent implements OnInit {
     };
 
     this.application.users.push(userObj);
+    this.saveApplication.emit();
   }
 
   userInApplication(user) {
@@ -81,6 +83,7 @@ export class ApplicationUsersComponent implements OnInit {
 
   removeUserFromApplication(user) {
     this.application.users = this.application.users.filter( u => u.user_id !== user.user_id);
+    this.saveApplication.emit();
   }
 
 }
