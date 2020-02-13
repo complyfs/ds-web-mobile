@@ -1,5 +1,5 @@
 
-export interface Application {
+export interface DsApplication {
   _id: string;
   name: string;
   description: string;

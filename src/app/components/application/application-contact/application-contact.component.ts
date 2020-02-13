@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AppContact, appContactRoles } from '../../../objects/application';
+import { AppContact, appContactRoles } from '../../../objects/ds-application';
 
 @Component({
   selector: 'app-application-contact',

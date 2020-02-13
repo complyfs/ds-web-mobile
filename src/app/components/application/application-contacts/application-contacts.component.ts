@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { AppContact, Application, appContactRoles } from '../../../objects/application';
+import { AppContact, DsApplication, appContactRoles } from '../../../objects/ds-application';
 import { environment } from '../../../../environments/environment';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,7 +13,7 @@ import * as uuid from 'uuid';
 export class ApplicationContactsComponent implements OnInit {
   env = environment;
 
-  @Input() application: Application;
+  @Input() application: DsApplication;
   @Output() saveApplication = new EventEmitter<void>();
 
   selected: AppContact;

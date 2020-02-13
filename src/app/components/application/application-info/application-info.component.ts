@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Application } from '../../../objects/application';
+import { DsApplication } from '../../../objects/ds-application';
 
 @Component({
   selector: 'app-application-info',
@@ -8,7 +8,7 @@ import { Application } from '../../../objects/application';
 })
 export class ApplicationInfoComponent implements OnInit {
 
-  @Input() application: Application;
+  @Input() application: DsApplication;
   @Output() saveApplication = new EventEmitter<void>();
   @Output() deleteApplication = new EventEmitter<void>();
 

@@ -46,9 +46,7 @@ import { ApplicationsComponent } from './admin/applications/applications.compone
 import { ApplicationPanelComponent } from './components/application/application-panel/application-panel.component';
 import { ApplicationDetailComponent } from './components/application/application-detail/application-detail.component';
 import { ApplicationUsersComponent } from './components/application/application-users/application-users.component';
-import { ApplicationDataStoresComponent } from './components/application/application-data-stores/application-data-stores.component';
 import { UserNameComponent } from './components/auth0/user-name/user-name.component';
-import { ApplicationDataEndpointsComponent } from './components/application/application-data-endpoints/application-data-endpoints.component';
 import { ApplicationInfoComponent } from './components/application/application-info/application-info.component';
 import { ApplicationContactsComponent } from './components/application/application-contacts/application-contacts.component';
 import { ApplicationContactComponent } from './components/application/application-contact/application-contact.component';
@@ -57,7 +55,10 @@ import { ProviderCredentialsComponent } from './admin/provider-credentials/provi
 import { SelectDisplayComponent } from './components/display-fields/select-display/select-display.component';
 import { TestPageComponent } from './admin/test-page/test-page.component';
 import { ProviderCredentialNameComponent } from './components/provider-credential-name/provider-credential-name.component';
-import { DataStoreSocketComponent } from './components/data-store-socket/data-store-socket.component';
+import { ApplicationDashboardComponent } from './components/application/application-dashboard/application-dashboard.component';
+import { VirtualBucketTickerComponent } from './components/application/virtual-bucket-ticker/virtual-bucket-ticker.component';
+import { VirtualBucketsComponent } from './components/application/virtual-buckets/virtual-buckets.component';
+import { ProviderEndpointsComponent } from './components/application/provider-endpoints/provider-endpoints.component';
 
 @NgModule({
   declarations: [
@@ -94,9 +95,7 @@ import { DataStoreSocketComponent } from './components/data-store-socket/data-st
     ApplicationPanelComponent,
     ApplicationDetailComponent,
     ApplicationUsersComponent,
-    ApplicationDataStoresComponent,
     UserNameComponent,
-    ApplicationDataEndpointsComponent,
     ApplicationInfoComponent,
     ApplicationContactsComponent,
     ApplicationContactComponent,
@@ -105,7 +104,10 @@ import { DataStoreSocketComponent } from './components/data-store-socket/data-st
     SelectDisplayComponent,
     TestPageComponent,
     ProviderCredentialNameComponent,
-    DataStoreSocketComponent,
+    ApplicationDashboardComponent,
+    VirtualBucketTickerComponent,
+    VirtualBucketsComponent,
+    ProviderEndpointsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,13 @@
 
-export interface DataStore {
+export interface VirtualBucket {
   _id: string;
   applicationId: string;
-  name: string;
   description: string;
   encrypted: string;
-  dataEndpoints: DataEndpoint[];
+  providerEndpoints: ProviderEndpoint[];
 }
 
-export interface DataEndpoint {
+export interface ProviderEndpoint {
   id: string;
   name: string;
   providerCredentialId: string; // this includes the provider

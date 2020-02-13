@@ -1,0 +1,23 @@
+<div fxLayout="row">
+  <div fxFlex="50%">
+    <mat-card>
+      <mat-card-title>Virtual Buckets</mat-card-title>
+      <div *ngIf="virtualBuckets">
+
+        <div *ngFor="let vb of virtualBuckets">
+          <app-virtual-bucket-ticker [virtualBucketId]="vb._id"></app-virtual-bucket-ticker>
+        </div>
+
+        <div *ngIf="virtualBuckets.length>0">
+          <mat-card class="list-paginator">
+            <mat-paginator [length]="itemsFound"
+                           [pageSize]="pageSize"
+                           [pageSizeOptions]="pageSizeOptions"
+                           (page)="pageChange($event)" >
+            </mat-paginator>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

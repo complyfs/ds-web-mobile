@@ -3,7 +3,7 @@ import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-import { Application } from '../../../objects/application';
+import { DsApplication } from '../../../objects/ds-application';
 
 @Component({
   selector: 'app-application-detail',
@@ -13,7 +13,7 @@ import { Application } from '../../../objects/application';
 export class ApplicationDetailComponent implements OnInit, OnChanges {
 
   @Input() applicationId: string;
-  application: Application;
+  application: DsApplication;
   @Output() reloadApps = new EventEmitter<void>();
 
   loading = false;

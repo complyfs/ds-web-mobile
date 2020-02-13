@@ -3,7 +3,7 @@ import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
-import { Application } from '../../../objects/application';
+import { DsApplication } from '../../../objects/ds-application';
 
 @Component({
   selector: 'app-application-users',
@@ -12,7 +12,7 @@ import { Application } from '../../../objects/application';
 })
 export class ApplicationUsersComponent implements OnInit {
 
-  @Input() application: Application;
+  @Input() application: DsApplication;
   @Output() saveApplication = new EventEmitter<void>();
   users: any[];
   searchSystemUserEmail: string;

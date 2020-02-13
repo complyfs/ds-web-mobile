@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataStoreSocketComponent } from './data-store-socket.component';
+import { VirtualBucketsComponent } from './virtual-buckets.component';
 
-describe('DataStoreSocketComponent', () => {
-  let component: DataStoreSocketComponent;
-  let fixture: ComponentFixture<DataStoreSocketComponent>;
+describe('VirtualBucketsComponent', () => {
+  let component: VirtualBucketsComponent;
+  let fixture: ComponentFixture<VirtualBucketsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataStoreSocketComponent ]
+      declarations: [ VirtualBucketsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DataStoreSocketComponent);
+    fixture = TestBed.createComponent(VirtualBucketsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

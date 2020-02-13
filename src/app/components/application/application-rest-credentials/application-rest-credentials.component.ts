@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Application } from '../../../objects/application';
+import { DsApplication } from '../../../objects/ds-application';
 import { Observable, of, Subject } from 'rxjs';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
 import * as uuid from 'uuid';
 import { RestCredential} from '../../../objects/restCredential';
-import { DataStore } from '../../../objects/dataStore';
+import { VirtualBucket } from '../../../objects/virtual-bucket';
 
 @Component({
   selector: 'app-application-rest-credentials',
@@ -15,10 +15,10 @@ import { DataStore } from '../../../objects/dataStore';
 })
 export class ApplicationRestCredentialsComponent implements OnInit {
 
-  @Input() application: Application;
+  @Input() application: DsApplication;
   restCredentials: RestCredential[];
   selectedRestCredential: RestCredential;
-  dataStores: DataStore[];
+  virtualBuckets: VirtualBucket[];
   selectedAuth0Client: any;
   selectedAuth0ClientGrants: any;
   loadingRestCredentials = false;
@@ -44,7 +44,7 @@ export class ApplicationRestCredentialsComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
-    this.loadDataStores();
+    this.loadVirtualBuckets();
 
     this.uniqueName$ = this.proposedName.pipe(
       // wait 300ms after each keystroke before considering the term
@@ -75,20 +75,20 @@ export class ApplicationRestCredentialsComponent implements OnInit {
       });
   }
 
-  loadDataStores() {
+  loadVirtualBuckets() {
     //this.loading = true;
     const params = {
       from: (this.pageIndex * this.pageSize), size: this.pageSize,
       applicationId: this.application._id
     };
 
-    this.restService.adminGetDataStores(params)
+    this.restService.adminGetVirtualBuckets(params)
       .pipe(finalize(() => {  }))
       .subscribe ( r => {
-        this.dataStores = r.hits;
+        this.virtualBuckets = r.hits;
         this.itemsFound = r.count;
       }, err => {
-        this.snackMessage.open('Error loading Data Stores', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading virtual buckets', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -263,19 +263,19 @@ export class ApplicationRestCredentialsComponent implements OnInit {
       });
   }
 
-  hasAccessToDataStore(datastore: DataStore) {
-    return this.selectedAuth0Client.client_metadata.dataStores.indexOf(datastore._id) > -1;
+  hasAccessToVirtualBucket(virtualBucket: VirtualBucket) {
+    return this.selectedAuth0Client.client_metadata.virtualBuckets.indexOf(virtualBucket._id) > -1;
   }
 
-  updateDataStoreAccess(datastore: DataStore, $event) {
+  updateVirtualBucketAccess(virtualBucket: VirtualBucket, $event) {
     if ($event.checked) {
-      this.selectedAuth0Client.client_metadata.dataStores += datastore._id + ' ';
+      this.selectedAuth0Client.client_metadata.virtualBuckets += virtualBucket._id + ' ';
     }
     else {
-      const startLoc = this.selectedAuth0Client.client_metadata.dataStores.indexOf(datastore._id);
-      this.selectedAuth0Client.client_metadata.dataStores =
-        this.selectedAuth0Client.client_metadata.dataStores.substring(0, startLoc) +
-        this.selectedAuth0Client.client_metadata.dataStores.substring(startLoc + datastore._id.length + 1);
+      const startLoc = this.selectedAuth0Client.client_metadata.virtualBuckets.indexOf(virtualBucket._id);
+      this.selectedAuth0Client.client_metadata.virtualBuckets =
+        this.selectedAuth0Client.client_metadata.virtualBuckets.substring(0, startLoc) +
+        this.selectedAuth0Client.client_metadata.virtualBuckets.substring(startLoc + virtualBucket._id.length + 1);
     }
 
     console.log(JSON.stringify(this.selectedAuth0Client.client_metadata, null, 4));

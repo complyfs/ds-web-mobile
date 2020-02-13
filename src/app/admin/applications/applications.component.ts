@@ -5,7 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { RestService } from '../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, Subject } from 'rxjs';
-import { Application } from '../../objects/application';
+import { DsApplication } from '../../objects/ds-application';
 import * as uuid from 'uuid';
 
 @Component({
@@ -15,8 +15,8 @@ import * as uuid from 'uuid';
 })
 export class ApplicationsComponent implements OnInit {
 
-  applications: Application[];
-  selected: Application;
+  applications: DsApplication[];
+  selected: DsApplication;
   newApplication = { _id: '', name: '', users: [], appContacts: [] };
 
   searchName: string;

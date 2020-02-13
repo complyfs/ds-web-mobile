@@ -3,7 +3,7 @@ import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, MultiDataSet, Label } from 'ng2-charts';
-import { Application } from '../../../objects/application';
+import { DsApplication } from '../../../objects/ds-application';
 
 @Component({
   selector: 'app-application-panel',
@@ -12,7 +12,7 @@ import { Application } from '../../../objects/application';
 })
 export class ApplicationPanelComponent implements OnInit {
 
-  @Input() application: Application;
+  @Input() application: DsApplication;
   dataBuckets: any;
   dataRates: any;
 

@@ -151,27 +151,27 @@ export class RestService {
     return this.http.post(environment.restServiceURL + '/admin/deleteRestCredential', params);
   }
 
-  adminGetDataStores(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/getDataStores', params);
+  adminGetVirtualBuckets(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getVirtualBuckets', params);
   }
 
-  adminGetDataStore(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/getDataStore', params);
+  adminGetVirtualBucket(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getVirtualBucket', params);
   }
 
-  adminSaveDataStore(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/saveDataStore', params);
+  adminSaveVirtualBucket(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/saveVirtualBucket', params);
   }
 
-  adminDeleteDataStore(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/deleteDataStore', params);
+  adminDeleteVirtualBucket(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteVirtualBucket', params);
   }
 
-  adminCreateDataEndpoint(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/createDataEndpoint', params);
+  adminCreateProviderEndpoint(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/createProviderEndpoint', params);
   }
 
-  adminDeleteDataEndpoint(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/deleteDataEndpoint', params);
+  adminDeleteProviderEndpoint(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/deleteProviderEndpoint', params);
   }
 }

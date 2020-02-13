@@ -8,7 +8,8 @@ export const environment = {
   companyName: 'DataStrata.io',
   contactUsEmail: 'info@datastrata.io',
 
-  dsSocketURL: 'https://app.datastrata.io',
+  //dsSocketURL: 'https://app.datastrata.io',
+  dsSocketURL: 'http://localhost:3030',
   dsTickerLength: 5,
 
   providers: [
