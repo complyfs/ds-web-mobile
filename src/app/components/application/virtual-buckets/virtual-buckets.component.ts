@@ -1,28 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from '../../../../environments/environment';
+import { VirtualBucket } from '../../../objects/virtual-bucket';
+import { Observable, of, Subject } from 'rxjs';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { debounceTime, distinctUntilChanged, finalize, map, switchMap, tap } from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, finalize, map, switchMap, tap} from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
-import * as uuid from 'uuid';
-import { Observable, of, Subject } from 'rxjs';
-import { environment } from '../../../../environments/environment';
-import { Application } from '../../../objects/application';
-import { DataStore } from '../../../objects/dataStore';
 
 @Component({
-  selector: 'app-application-data-stores',
-  templateUrl: './application-data-stores.component.html',
-  styleUrls: ['./application-data-stores.component.scss']
+  selector: 'app-virtual-buckets',
+  templateUrl: './virtual-buckets.component.html',
+  styleUrls: ['./virtual-buckets.component.scss']
 })
-export class ApplicationDataStoresComponent implements OnInit {
+export class VirtualBucketsComponent implements OnInit {
   env = environment;
 
   @Input() applicationId: string;
-  dataStores: DataStore[];
-  selected: DataStore;
+  virtualBuckets: VirtualBucket[];
+  selected: VirtualBucket;
 
-  emptyNewDataStore: any = { name: '', encrypted: false, dataEndpoints: [] };
-  newDataStore: any = JSON.parse(JSON.stringify(this.emptyNewDataStore));
+  emptyNewVirtualBucket: any = { name: '', description: '', encrypted: false, providerEndpoints: [] };
+  newVirtualBucket: any = JSON.parse(JSON.stringify(this.emptyNewVirtualBucket));
 
   loading = false;
   loadingSelected = false;
@@ -41,7 +39,7 @@ export class ApplicationDataStoresComponent implements OnInit {
   ngOnInit(): void {
     this.uniqueName$ = this.proposedName.pipe(
       // wait 300ms after each keystroke before considering the term
-      debounceTime(500),
+      debounceTime(250),
 
       // ignore new term if same as previous term
       distinctUntilChanged(),
@@ -60,25 +58,25 @@ export class ApplicationDataStoresComponent implements OnInit {
       applicationId: this.applicationId
     };
 
-    this.restService.adminGetDataStores(params)
+    this.restService.adminGetVirtualBuckets(params)
       .pipe(finalize(() => { this.loading = false; }))
       .subscribe ( r => {
-        this.dataStores = r.hits;
+        this.virtualBuckets = r.hits;
         this.itemsFound = r.count;
       }, err => {
-        this.snackMessage.open('Error loading Data Stores', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading Virtual Buckets', 'x', {verticalPosition: 'top'});
       });
   }
 
-  loadDataStore(dataStoreId: string) {
+  loadVirtualBucket(virtualBucketId: string) {
     this.loadingSelected = true;
 
-    this.restService.adminGetDataStore({ _id: dataStoreId })
+    this.restService.adminGetVirtualBucket({ _id: virtualBucketId })
       .pipe(finalize(() => { this.loadingSelected = false; }))
       .subscribe( r => {
         this.selected = r;
       }, err => {
-        this.snackMessage.open('Error loading selected Data Store', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading selected Virtua lBucket', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -87,24 +85,23 @@ export class ApplicationDataStoresComponent implements OnInit {
   }
 
   select(clickedItem) {
-    this.loadDataStore(clickedItem._id);
+    this.loadVirtualBucket(clickedItem._id);
   }
 
   onResult($event): void {
     if (!$event) { return; }
 
     this.selected = $event;
-    this.selected._id = uuid.v4();
     this.selected.applicationId = this.applicationId;
 
-    this.saveDataStore();
+    this.saveVirtualBucket();
     setTimeout( () => this.loadData(), 3000);
 
-    this.newDataStore  = JSON.parse(JSON.stringify(this.emptyNewDataStore));
+    this.newVirtualBucket  = JSON.parse(JSON.stringify(this.emptyNewVirtualBucket));
   }
 
   isNameUnique(name): Observable<boolean> {
-    console.log('isNameUnique');
+    console.log('isNameUnique', name);
 
     if (!name) {
       return of (false);
@@ -115,10 +112,13 @@ export class ApplicationDataStoresComponent implements OnInit {
       return of(false);
     }
 
-    //const matchingNames = this.application.dataStores.filter( ds => ds.name === name );
-    //if ( matchingNames.length > 0) { return of(false); }
-
-    return of (true);
+    return this.restService.adminGetVirtualBucket({ _id: name })
+      .pipe(
+        tap(_ => console.log('fetched vb')),
+        map( r => {
+          if (r) { return (false); } else { return (true); }
+        })
+      );
   }
 
   checkUnique(id) {
@@ -131,38 +131,38 @@ export class ApplicationDataStoresComponent implements OnInit {
     this.loadData();
   }
 
-  deleteSelectedDataStore() {
-    if (this.selected.dataEndpoints.length > 0 ) {
-      alert('You cannot delete a data store with endpoints.\n\nRemove all endpoints and try again.');
+  deleteSelectedVirtualBucket() {
+    if (this.selected.providerEndpoints.length > 0 ) {
+      alert('You cannot delete a virtual bucket with endpoints.\n\nRemove all endpoints and try again.');
       return;
     }
 
-    this.restService.adminDeleteDataStore({ _id: this.selected._id })
+    this.restService.adminDeleteVirtualBucket({ _id: this.selected._id })
       .pipe(finalize(() => {  }))
       .subscribe ( r => {
-        this.selected = null
+        this.selected = null;
+        this.loadData();
+      }, err => {
+        this.snackMessage.open('Error deleting Virtual Bucket', 'x', {verticalPosition: 'top'});
+      });
+  }
+
+  createProviderEndpoint() {
+    this.restService.adminCreateProviderEndpoint(this.selected)
+      .pipe(finalize(() => {  }))
+      .subscribe ( r => {
         this.loadData();
       }, err => {
         this.snackMessage.open('Error saving Data Store', 'x', {verticalPosition: 'top'});
       });
   }
 
-  createDataEndpoint() {
-    this.restService.adminCreateDataEndpoint(this.selected)
-      .pipe(finalize(() => {  }))
-      .subscribe ( r => {
-        this.loadData();
-      }, err => {
-        this.snackMessage.open('Error saving Data Store', 'x', {verticalPosition: 'top'});
-      });
-  }
-
-  saveDataStore() {
-    this.restService.adminSaveDataStore(this.selected)
+  saveVirtualBucket() {
+    this.restService.adminSaveVirtualBucket(this.selected)
       .pipe(finalize(() => {  }))
       .subscribe ( r => {
       }, err => {
-        this.snackMessage.open('Error saving Data Store', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error saving Virtual Bucket', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -170,7 +170,7 @@ export class ApplicationDataStoresComponent implements OnInit {
     alert('Awaiting implementation.');
   }
 
-  emptySelectedDataStore() {
+  emptySelectedVirtualBucket() {
     this.comingSoon();
   }
 }

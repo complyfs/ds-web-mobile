@@ -1,24 +1,24 @@
-import {Component, Input, Output, OnInit, OnChanges, SimpleChanges, EventEmitter} from '@angular/core';
-import { DataEndpoint, DataStore } from '../../../objects/dataStore';
-import * as uuid from 'uuid';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { environment } from '../../../../environments/environment';
+import { ProviderEndpoint, VirtualBucket } from '../../../objects/virtual-bucket';
 import { Observable, of, Subject } from 'rxjs';
-import {debounceTime, distinctUntilChanged, finalize, switchMap} from 'rxjs/operators';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { environment } from '../../../../environments/environment';
+import { debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
+import * as uuid from 'uuid';
 
 @Component({
-  selector: 'app-application-data-endpoints',
-  templateUrl: './application-data-endpoints.component.html',
-  styleUrls: ['./application-data-endpoints.component.scss']
+  selector: 'app-provider-endpoints',
+  templateUrl: './provider-endpoints.component.html',
+  styleUrls: ['./provider-endpoints.component.scss']
 })
-export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
+export class ProviderEndpointsComponent implements OnInit {
   env = environment;
 
-  @Input() dataStore: DataStore;
-  @Output() reloadDataStore = new EventEmitter<void>();
-  selected: DataEndpoint;
-  emptyNewDataEndpoint: any = {
+  @Input() virtualBucket: VirtualBucket;
+  @Output() reloadVirtualBucket = new EventEmitter<void>();
+  selected: ProviderEndpoint;
+  emptyNewProviderEndpoint: any = {
     name: '',
     providerCredentialId: null,
     region: null,
@@ -26,7 +26,7 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
     active: false
   };
 
-  newDataEndpoint: any = JSON.parse(JSON.stringify(this.emptyNewDataEndpoint));
+  newProviderEndpoint: any = JSON.parse(JSON.stringify(this.emptyNewProviderEndpoint));
 
   providerCredentials: any[];
 
@@ -82,22 +82,22 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
 
     this.selected = $event;
     this.selected.id = 'ds-' + uuid.v4();
-    this.createDataEndpoint();
+    this.createProviderEndpoint();
 
-    this.newDataEndpoint = JSON.parse(JSON.stringify(this.emptyNewDataEndpoint));
+    this.newProviderEndpoint = JSON.parse(JSON.stringify(this.emptyNewProviderEndpoint));
   }
 
-  createDataEndpoint() {
+  createProviderEndpoint() {
     const params = {
-      dataStore: this.dataStore,
-      dataEndpoint: this.selected
+      virtualBucket: this.virtualBucket,
+      providerEndpoint: this.selected
     };
 
-    this.restService.adminCreateDataEndpoint(params)
+    this.restService.adminCreateProviderEndpoint(params)
       .subscribe( r => {
-        this.reloadDataStore.emit();
+        this.reloadVirtualBucket.emit();
       }, err => {
-        this.snackMessage.open('Error creating endpoints', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error creating provider endpoint', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -112,7 +112,7 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
       return of(false);
     }
 
-    const matchingNames = this.dataStore.dataEndpoints.filter( de => de.name === name );
+    const matchingNames = this.virtualBucket.providerEndpoints.filter( de => de.name === name );
     if ( matchingNames.length > 0) { return of(false); }
 
     return of (true);
@@ -125,7 +125,7 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
   getRegionsForProvider() {
     const providerCredentials = this.getCredentials();
 
-    if (!providerCredentials) return [];
+    if (!providerCredentials) { return []; }
 
     const providerRegions = environment.providerRegions.filter( r => {
       return r.provider === providerCredentials.provider;
@@ -137,7 +137,7 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
   getTypesForProvider() {
     const providerCredentials = this.getCredentials();
 
-    if (!providerCredentials) return [];
+    if (!providerCredentials) { return []; }
 
     const providerTypes = environment.providerEndpointTypes.filter( r => {
       return r.provider === providerCredentials.provider;
@@ -147,10 +147,10 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
   }
 
   getCredentials() {
-    if (!this.newDataEndpoint.providerCredentialId) { return null; }
+    if (!this.newProviderEndpoint.providerCredentialId) { return null; }
 
     const selectedCredentials = this.providerCredentials.filter( cr => {
-      return cr._id === this.newDataEndpoint.providerCredentialId;
+      return cr._id === this.newProviderEndpoint.providerCredentialId;
     });
 
     if (selectedCredentials.length !== 1) {
@@ -160,16 +160,16 @@ export class ApplicationDataEndpointsComponent implements OnInit, OnChanges {
     return selectedCredentials[0];
   }
 
-  deleteDataEndpoint(deToDelete) {
-    if (!confirm('Delete Date Endpoint: ' + deToDelete.name)) { return; }
+  deleteProviderEndpoint(deToDelete) {
+    if (!confirm('Delete provider ndpoint: ' + deToDelete.name)) { return; }
 
-    this.restService.adminDeleteDataEndpoint({dataStore: this.dataStore, dataEndpoint: deToDelete })
+    this.restService.adminDeleteProviderEndpoint({virtualBucket: this.virtualBucket, providerEndpoint: deToDelete })
       .pipe(finalize(() => {  }))
       .subscribe ( r => {
-        this.reloadDataStore.emit();
+        this.reloadVirtualBucket.emit();
         this.selected = null;
       }, err => {
-        this.snackMessage.open('Error deleting Data Endpoint', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error deleting Provider Endpoint', 'x', {verticalPosition: 'top'});
       });
   }
 }
