@@ -10,6 +10,7 @@ export interface VirtualBucket {
 export interface ProviderEndpoint {
   id: string;
   name: string;
+  provider: string;
   providerCredentialId: string; // this includes the provider
   region: string; // flexible with AWS, fixed by credential for Azure
   type: string;
