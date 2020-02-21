@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, Provider, SimpleChanges, ViewChild} from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { ProviderEndpoint, VirtualBucket } from '../../../objects/virtual-bucket';
 import { Observable, of, Subject } from 'rxjs';
@@ -6,6 +6,7 @@ import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, finalize, switchMap } from 'rxjs/operators';
 import * as uuid from 'uuid';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-provider-endpoints',
@@ -18,13 +19,21 @@ export class ProviderEndpointsComponent implements OnInit {
   @Input() virtualBucket: VirtualBucket;
   @Output() reloadVirtualBucket = new EventEmitter<void>();
   selected: ProviderEndpoint;
+  moveObjectsFromProviderEndpoint: ProviderEndpoint;
+  moveObjectsToProviderEndpoint: ProviderEndpoint;
+
   emptyNewProviderEndpoint: any = {
     name: '',
+    provider: null,
     providerCredentialId: null,
     region: null,
     type: null,
     active: false
   };
+
+  newProviderEndpointProviderCredential: any;
+
+  @ViewChild('moveObjects', {static: true}) moveObjectsDialog: any;
 
   newProviderEndpoint: any = JSON.parse(JSON.stringify(this.emptyNewProviderEndpoint));
 
@@ -35,7 +44,8 @@ export class ProviderEndpointsComponent implements OnInit {
   private proposedName = new Subject<string>();
   uniqueName$: Observable<boolean>;
 
-  constructor(private restService: RestService,
+  constructor(private auth: AuthService,
+              private restService: RestService,
               private snackMessage: MatSnackBar) { }
 
   ngOnInit() {
@@ -82,9 +92,14 @@ export class ProviderEndpointsComponent implements OnInit {
 
     this.selected = $event;
     this.selected.id = 'ds-' + uuid.v4();
+
+    this.selected.providerCredentialId = this.newProviderEndpointProviderCredential._id;
+    this.selected.provider = this.newProviderEndpointProviderCredential.provider;
+
     this.createProviderEndpoint();
 
     this.newProviderEndpoint = JSON.parse(JSON.stringify(this.emptyNewProviderEndpoint));
+    this.newProviderEndpointProviderCredential = null;
   }
 
   createProviderEndpoint() {
@@ -147,10 +162,10 @@ export class ProviderEndpointsComponent implements OnInit {
   }
 
   getCredentials() {
-    if (!this.newProviderEndpoint.providerCredentialId) { return null; }
+    if (!this.newProviderEndpointProviderCredential) { return null; }
 
     const selectedCredentials = this.providerCredentials.filter( cr => {
-      return cr._id === this.newProviderEndpoint.providerCredentialId;
+      return cr._id === this.newProviderEndpointProviderCredential._id;
     });
 
     if (selectedCredentials.length !== 1) {
@@ -171,5 +186,31 @@ export class ProviderEndpointsComponent implements OnInit {
       }, err => {
         this.snackMessage.open('Error deleting Provider Endpoint', 'x', {verticalPosition: 'top'});
       });
+  }
+
+  emptyProviderEndpoint(peToEmpty) {
+    this.moveObjectsFromProviderEndpoint = peToEmpty;
+
+    this.moveObjectsDialog.open();
+  }
+
+  moveObjectsDialogResult($event) {
+    this.restService.adminMoveObjects({
+      applicationId: this.virtualBucket.applicationId,
+      virtualBucketId: this.virtualBucket._id,
+      virtualBucket: this.virtualBucket,
+      fromProviderEndpoint: this.moveObjectsFromProviderEndpoint,
+      toProviderEndpoint: this.moveObjectsToProviderEndpoint
+    })
+      .pipe(finalize(() => {  }))
+      .subscribe ( r => {
+        this.snackMessage.open('Error emptying Provider Endpoint', 'x', {verticalPosition: 'bottom', duration: environment.snackBarDuration});
+      }, err => {
+        this.snackMessage.open('Error emptying Provider Endpoint', 'x', {verticalPosition: 'top'});
+      });
+  }
+
+  getVirtualBucketsToMoveTo() {
+    return this.virtualBucket.providerEndpoints;
   }
 }

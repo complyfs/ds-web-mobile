@@ -17,8 +17,8 @@
         <mat-card class="list-mat-card list-header-mat-card">
           <div fxLayout="row" fxLayoutAlign="space-between">
             <div fxFlex="15%">Name</div>
+            <div fxFlex="15%">Provider/Type</div>
             <div fxFlex="15%">Credential</div>
-            <div fxFlex="15%">Type</div>
             <div fxflex="10%">Active</div>
             <div fxflex="5%"></div>
           </div>
@@ -27,14 +27,15 @@
         <mat-card class="list-mat-card" *ngFor="let pe of virtualBucket.providerEndpoints" (click)="select(pe)" [class.selected]="isSelectedItem(pe)">
           <div fxLayout="row" fxLayoutAlign="space-between">
             <div fxFlex="15%" class="text-truncate">{{pe.name}}</div>
+            <div fxFlex="15%" class="text-truncate">{{pe.provider}}/{{pe.type}}</div>
             <div fxFlex="15%" class="text-truncate"> <app-provider-credential-name [providerCredentialId]="pe.providerCredentialId"></app-provider-credential-name> </div>
-            <div fxFlex="15%" class="text-truncate">{{pe.type}}</div>
             <div fxFlex="5%" class="text-truncate">
               <mat-checkbox [checked]="pe.active" disabled="true"></mat-checkbox>
             </div>
             <div fxFlex="5%">
               <mat-icon [matMenuTriggerFor]="menu">more_horiz</mat-icon>
               <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="emptyProviderEndpoint(pe)">Empty Endpoint</button>
                 <button mat-menu-item (click)="deleteProviderEndpoint(pe)">Delete</button>
               </mat-menu>
             </div>
@@ -103,8 +104,8 @@
       <div fxFlex>
         <mat-form-field>
           <mat-label>Credential</mat-label>
-          <mat-select [(ngModel)]="newProviderEndpoint.providerCredentialId">
-            <mat-option *ngFor="let pc of providerCredentials" [value]="pc._id">
+          <mat-select [(ngModel)]="newProviderEndpointProviderCredential">
+            <mat-option *ngFor="let pc of providerCredentials" [value]="pc">
               {{pc.name}}
             </mat-option>
           </mat-select>
@@ -114,7 +115,7 @@
       <div fxFlex>
         <mat-form-field>
           <mat-label>Region</mat-label>
-          <mat-select [(ngModel)]="newProviderEndpoint.region" [disabled]="!newProviderEndpoint.providerCredentialId">
+          <mat-select [(ngModel)]="newProviderEndpoint.region" [disabled]="!newProviderEndpointProviderCredential">
             <mat-option *ngFor="let region of getRegionsForProvider()" [value]="region.region">
               {{region.region}}
             </mat-option>
@@ -125,7 +126,7 @@
       <div fxFlex>
         <mat-form-field>
           <mat-label>Type</mat-label>
-          <mat-select [(ngModel)]="newProviderEndpoint.type" [disabled]="!newProviderEndpoint.providerCredentialId">
+          <mat-select [(ngModel)]="newProviderEndpoint.type" [disabled]="!newProviderEndpointProviderCredential">
             <mat-option *ngFor="let type of getTypesForProvider()" [value]="type.type">
               {{type.label}}
             </mat-option>
@@ -136,6 +137,28 @@
       <div fxFlex>
         <button mat-raised-button color="primary" [mat-dialog-close]="">Cancel</button>
         <button mat-raised-button color="primary" [mat-dialog-close]="newProviderEndpoint" [disabled]="!(this.uniqueName$ | async)">Save</button>
+      </div>
+    </div>
+  </ng-template>
+</app-dialog-template>
+
+<app-dialog-template #moveObjects (result)="moveObjectsDialogResult($event)">
+  <ng-template>
+    <div fxLayout="column">
+      <div fxFlex>
+        <mat-form-field>
+          <mat-label>Move Objects To:</mat-label>
+          <mat-select [(ngModel)]="moveObjectsToProviderEndpoint">
+            <mat-option *ngFor="let pc of getVirtualBucketsToMoveTo()" [value]="pc">
+              {{pc.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <button mat-raised-button color="primary" [mat-dialog-close]="">Cancel</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="moveObjectsToProviderEndpoint">Save</button>
       </div>
     </div>
   </ng-template>

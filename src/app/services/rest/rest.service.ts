@@ -174,4 +174,8 @@ export class RestService {
   adminDeleteProviderEndpoint(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/deleteProviderEndpoint', params);
   }
+
+  adminMoveObjects(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/moveObjects', params);
+  }
 }
