@@ -8,7 +8,7 @@ export interface VirtualBucket {
 }
 
 export interface ProviderEndpoint {
-  id: string;
+  providerBucket: string; // Acts as the ID, used to be named 'id'
   name: string;
   provider: string;
   providerCredentialId: string; // this includes the provider

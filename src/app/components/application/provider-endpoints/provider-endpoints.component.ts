@@ -80,7 +80,7 @@ export class ProviderEndpointsComponent implements OnInit {
   }
 
   isSelectedItem(item) {
-    if (!this.selected || this.selected.id !== item.id) { return false; } else { return true; }
+    if (!this.selected || this.selected.providerBucket !== item.providerBucket) { return false; } else { return true; }
   }
 
   select(clickedItem) {
@@ -91,7 +91,7 @@ export class ProviderEndpointsComponent implements OnInit {
     if (!$event) { return; }
 
     this.selected = $event;
-    this.selected.id = 'ds-' + uuid.v4();
+    this.selected.providerBucket = 'ds-' + uuid.v4();
 
     this.selected.providerCredentialId = this.newProviderEndpointProviderCredential._id;
     this.selected.provider = this.newProviderEndpointProviderCredential.provider;
