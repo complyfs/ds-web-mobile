@@ -62,6 +62,12 @@ import { ProviderEndpointsComponent } from './components/application/provider-en
 import { BucketMonitoringComponent } from './admin/bucket-monitoring/bucket-monitoring.component';
 import { BmListPanelComponent } from './components/bucket-monitor/bm-list-panel/bm-list-panel.component';
 import { BmDetailComponent } from './components/bucket-monitor/bm-detail/bm-detail.component';
+import { BmDashboardComponent } from './components/bucket-monitor/bm-dashboard/bm-dashboard.component';
+import { BmFileNumberPerTenantComponent } from './components/bucket-monitor/graphs/bm-file-number-per-tenant/bm-file-number-per-tenant.component';
+import { BmFileSizePerTenantComponent } from './components/bucket-monitor/graphs/bm-file-size-per-tenant/bm-file-size-per-tenant.component';
+import { BmFileAgingPerTenantComponent } from './components/bucket-monitor/graphs/bm-file-aging-per-tenant/bm-file-aging-per-tenant.component';
+import { BmMostRecentFilePerTenantComponent } from './components/bucket-monitor/graphs/bm-most-recent-file-per-tenant/bm-most-recent-file-per-tenant.component';
+import { BmThreeTestStatsComponent } from './components/bucket-monitor/graphs/bm-three-test-stats/bm-three-test-stats.component';
 
 @NgModule({
   declarations: [
@@ -114,6 +120,12 @@ import { BmDetailComponent } from './components/bucket-monitor/bm-detail/bm-deta
     BucketMonitoringComponent,
     BmListPanelComponent,
     BmDetailComponent,
+    BmDashboardComponent,
+    BmFileNumberPerTenantComponent,
+    BmFileSizePerTenantComponent,
+    BmFileAgingPerTenantComponent,
+    BmMostRecentFilePerTenantComponent,
+    BmThreeTestStatsComponent,
   ],
   imports: [
     BrowserModule,
