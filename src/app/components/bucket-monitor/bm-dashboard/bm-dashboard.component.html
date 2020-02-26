@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-title>Storage Dashboard</mat-card-title>
+  <div fxLayout="row wrap">
+<!--    <div fxFlex="0 1 calc(50% - 32px)"
+         fxFlex.lt-md="100%">-->
+
+    <div fxFlex="100%">
+      <app-bm-three-test-stats></app-bm-three-test-stats>
+    </div>
+
+    <div fxFlex="50%">
+      <app-bm-file-number-per-tenant></app-bm-file-number-per-tenant>
+    </div>
+<!--    <div fxFlex="0 1 calc(50% - 32px)"
+         fxFlex.lt-md="100%">-->
+
+    <div fxFlex="50%">
+      <app-bm-file-size-per-tenant></app-bm-file-size-per-tenant>
+    </div>
+
+    <div fxFlex="50%">
+      <app-bm-file-aging-per-tenant></app-bm-file-aging-per-tenant>
+    </div>
+
+    <div fxFlex="50%">
+      <app-bm-most-recent-file-per-tenant></app-bm-most-recent-file-per-tenant>
+    </div>
+  </div>
+</mat-card>

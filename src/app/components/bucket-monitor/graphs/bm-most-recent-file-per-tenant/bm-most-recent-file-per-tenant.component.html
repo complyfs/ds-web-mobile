@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-subtitle>Bucket Aging - Newest Doc</mat-card-subtitle>
+  <div fxLayout="row" fxLayoutAlign="space-between">
+    <div fxFlex="60%"><strong>Bucket</strong></div>
+    <div fxFlex="33%"><strong>Newest Doc</strong></div>
+  </div>
+
+  <div *ngIf="bucketList">
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngFor="let b of bucketList">
+      <div fxFlex="60%" class="text-truncate">{{b._id.providerBucket}}</div>
+      <div fxFlex="33%">{{b.lastModifiedDate|date: 'yyyy-MM-dd'}}</div>
+    </div>
+  </div>
+
+</mat-card>
+
+

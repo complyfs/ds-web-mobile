@@ -206,4 +206,21 @@ export class RestService {
   adminBmInventoryBucket(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/bmInventoryBucket', params);
   }
+
+  adminBmFileStats(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/bmFileStats', params);
+  }
+
+  adminBmFileLastModAging(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/bmFileLastModAging', params);
+  }
+
+  adminBmBucketLastDocModified(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/bmBucketLastDocModified', params);
+  }
+
+  adminBmTenantSummary(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/bmTenantSummary', params);
+  }
+
 }

@@ -103,6 +103,7 @@ export class BucketMonitoringComponent implements OnInit {
       .subscribe ( r => {
         this.snackMessage.open('Bucket monitor created', null, {duration: environment.snackBarDuration, verticalPosition: 'bottom'});
         this.loadData();
+        this.startInventoryBucket(r.upsertedId._id);
       }, err => {
         this.snackMessage.open('Error creating bucket monitor', 'x', {verticalPosition: 'top'});
       });
@@ -118,5 +119,14 @@ export class BucketMonitoringComponent implements OnInit {
 
   bucketsSelected($event) {
 
+  }
+
+  startInventoryBucket(bucketMonitorId) {
+    this.restService.adminBmInventoryBucket({bucketMonitorId: bucketMonitorId})
+      .subscribe( r => {
+        this.snackMessage.open('Inventory of the bucket started', null, {duration: environment.snackBarDuration, verticalPosition: 'bottom'});
+      }, err => {
+        this.snackMessage.open('Error starting bucket inventory', 'x', {verticalPosition: 'top'});
+      });
   }
 }

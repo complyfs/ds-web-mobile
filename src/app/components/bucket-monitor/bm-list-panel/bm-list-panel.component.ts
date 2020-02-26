@@ -12,10 +12,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class BmListPanelComponent implements OnInit {
 
-  @Input() application: any;
-  dataBuckets: any;
-  dataRates: any;
-
+  @Input() bucketMonitor: any;
+  bucketData: any;
 
   lineChartData: ChartDataSets[] = [
     { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
@@ -65,40 +63,26 @@ export class BmListPanelComponent implements OnInit {
   }
 
   loadData() {
-    const params: any = { _id: this.application._id };
+    const params: any = { bucketMonitorId: this.bucketMonitor._id }; // only param is tenantId, added on server
 
-    this.restService.getApplicationGraphs(params)
+    this.restService.adminBmFileStats(params)
       .subscribe( r => {
-        this.dataBuckets = r.dataBuckets;
-        this.dataRates = r.dataRates;
+        this.bucketData = r[0];
 
-        this.lineChartLabels = this.dataRates.map( i => i.periodStart );
-        this.lineChartData[0] = { data: this.dataRates.map( i => i.docs), label: 'Docs per day' };
+        /*
+        this.doughnutChartLabels = this.graphData.map ( i => i._id.providerBucket);
+        this.doughnutChartData = [this.graphData.map ( i => i.size)];
 
-        this.doughnutChartLabels = this.dataBuckets.map ( i => i.name);
-        this.doughnutChartData = [this.dataBuckets.map ( i => i.docs)];
+        this.pageIndex = 0;
 
+        this.itemsFound = this.graphData.length;
+
+
+         */
       }, err => {
-        this.snackMessage.open('Error loading bucket monitor graphs', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading bucket monitor size data', 'x', {verticalPosition: 'top'});
       });
 
-    const params2: any = { applicationId: this.application._id };
-
-    this.restService.adminFilesPerVirtualBucketByApp(params2)
-      .subscribe( r => {
-        console.log(JSON.stringify(r, null, 4));
-      }, err => {
-        this.snackMessage.open('Error loading bucket monitor graphs', 'x', {verticalPosition: 'top'});
-      });
-
-    const params3: any = { applicationId: this.application._id };
-
-    this.restService.adminFilesPerTimePeriodPerApp(params3)
-      .subscribe( r => {
-        console.log(JSON.stringify(r, null, 4));
-      }, err => {
-        this.snackMessage.open('Error loading bucket monitor graphs', 'x', {verticalPosition: 'top'});
-      });
   }
 
 }
