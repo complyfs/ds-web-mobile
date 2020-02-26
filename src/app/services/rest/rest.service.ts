@@ -178,4 +178,32 @@ export class RestService {
   adminMoveObjects(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/moveObjects', params);
   }
+
+  adminFilesPerVirtualBucketByApp(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/filesPerVirtualBucketByApp', params);
+  }
+
+  adminFilesPerTimePeriodPerApp(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/filesPerTimePeriodPerApp', params);
+  }
+
+  adminListBuckets(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/listBuckets', params);
+  }
+
+  adminGetBucketMonitors(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getBucketMonitors', params);
+  }
+
+  adminGetBucketMonitor(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getBucketMonitor', params);
+  }
+
+  adminCreateBucketMonitor(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/createBucketMonitor', params);
+  }
+
+  adminBmInventoryBucket(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/bmInventoryBucket', params);
+  }
 }

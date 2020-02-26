@@ -59,6 +59,9 @@ import { ApplicationDashboardComponent } from './components/application/applicat
 import { VirtualBucketTickerComponent } from './components/application/virtual-bucket-ticker/virtual-bucket-ticker.component';
 import { VirtualBucketsComponent } from './components/application/virtual-buckets/virtual-buckets.component';
 import { ProviderEndpointsComponent } from './components/application/provider-endpoints/provider-endpoints.component';
+import { BucketMonitoringComponent } from './admin/bucket-monitoring/bucket-monitoring.component';
+import { BmListPanelComponent } from './components/bucket-monitor/bm-list-panel/bm-list-panel.component';
+import { BmDetailComponent } from './components/bucket-monitor/bm-detail/bm-detail.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +111,9 @@ import { ProviderEndpointsComponent } from './components/application/provider-en
     VirtualBucketTickerComponent,
     VirtualBucketsComponent,
     ProviderEndpointsComponent,
+    BucketMonitoringComponent,
+    BmListPanelComponent,
+    BmDetailComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,7 @@
+<p>bm-detail works!</p>
+
+<button mat-raised-button color="primary" (click)="startInventoryBucket()">Start Inventory</button>
+
+<div *ngIf="bucketMonitor">
+  <pre>{{bucketMonitor|json}}</pre>
+</div>

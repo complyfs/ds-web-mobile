@@ -19,7 +19,8 @@ import { LogsComponent } from './admin/logs/logs.component';
 import { TenantsComponent } from './admin/tenants/tenants.component';
 import { ApplicationsComponent } from './admin/applications/applications.component';
 import { ProviderCredentialsComponent } from './admin/provider-credentials/provider-credentials.component';
-import {TestPageComponent} from "./admin/test-page/test-page.component";
+import { TestPageComponent } from './admin/test-page/test-page.component';
+import { BucketMonitoringComponent } from './admin/bucket-monitoring/bucket-monitoring.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/private', pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'applications', pathMatch: 'full'},
       { path: 'dashboard', component: DashboardComponent },
       { path: 'applications', component: ApplicationsComponent },
+      { path: 'bucketmonitoring', component: BucketMonitoringComponent },
       { path: 'credentials', component: ProviderCredentialsComponent },
       { path: 'profile', component: ProfileComponent },
     ]

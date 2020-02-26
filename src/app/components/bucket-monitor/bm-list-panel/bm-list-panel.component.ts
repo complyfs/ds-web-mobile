@@ -1,18 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { RestService } from '../../../services/rest/rest.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Color, MultiDataSet, Label } from 'ng2-charts';
-import { DsApplication } from '../../../objects/ds-application';
+import {Component, Input, OnInit} from '@angular/core';
+import {DsApplication} from "../../../objects/ds-application";
+import {ChartDataSets, ChartType} from "chart.js";
+import {Color, Label, MultiDataSet} from "ng2-charts";
+import {RestService} from "../../../services/rest/rest.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-application-panel',
-  templateUrl: './application-panel.component.html',
-  styleUrls: ['./application-panel.component.scss']
+  selector: 'app-bm-list-panel',
+  templateUrl: './bm-list-panel.component.html',
+  styleUrls: ['./bm-list-panel.component.scss']
 })
-export class ApplicationPanelComponent implements OnInit {
+export class BmListPanelComponent implements OnInit {
 
-  @Input() application: DsApplication;
+  @Input() application: any;
   dataBuckets: any;
   dataRates: any;
 
@@ -52,7 +52,7 @@ export class ApplicationPanelComponent implements OnInit {
 
   doughnutChartLabels: Label[] = null; // ['BMW', 'Ford', 'Tesla'];
   doughnutChartData: MultiDataSet = null; // [
-    // [55, 25, 20]
+  // [55, 25, 20]
   // ];
   doughnutChartType: ChartType = 'doughnut';
   doughnutChartLegend = false;
@@ -79,25 +79,25 @@ export class ApplicationPanelComponent implements OnInit {
         this.doughnutChartData = [this.dataBuckets.map ( i => i.docs)];
 
       }, err => {
-        this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading bucket monitor graphs', 'x', {verticalPosition: 'top'});
       });
 
     const params2: any = { applicationId: this.application._id };
 
     this.restService.adminFilesPerVirtualBucketByApp(params2)
       .subscribe( r => {
-        // console.log(JSON.stringify(r, null, 4));
+        console.log(JSON.stringify(r, null, 4));
       }, err => {
-        this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading bucket monitor graphs', 'x', {verticalPosition: 'top'});
       });
 
     const params3: any = { applicationId: this.application._id };
 
     this.restService.adminFilesPerTimePeriodPerApp(params3)
       .subscribe( r => {
-        // console.log(JSON.stringify(r, null, 4));
+        console.log(JSON.stringify(r, null, 4));
       }, err => {
-        this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading bucket monitor graphs', 'x', {verticalPosition: 'top'});
       });
   }
 

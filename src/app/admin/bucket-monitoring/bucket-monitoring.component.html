@@ -1,0 +1,88 @@
+<mat-drawer-container class="applications-container">
+  <mat-drawer #drawer mode="side" opened class="applications-drawer">
+    <mat-card>
+      <mat-card-title>
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div fxFlex="1 1 auto" fxFlexAlign="start">
+            Bucket Monitors
+          </div>
+          <div fxFlex="0 0 auto" fxFlexAlign="end">
+            <button id="newButton" class="floatRight" (click)="selectProvider.open()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+          </div>
+        </div>
+      </mat-card-title>
+
+      <div *ngIf="bucketMonitors">
+        <mat-card class="list-mat-card" *ngFor="let bm of bucketMonitors" (click)="select(bm)" [class.selected]="isSelectedItem(bm)">
+          <div fxLayout="column" fxLayoutAlign="space-between">
+            <div fxFlex="100%">
+              <app-application-panel [application]="bm"></app-application-panel>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div *ngIf="bucketMonitors && bucketMonitors.length>0">
+        <mat-card class="list-paginator">
+          <mat-paginator [length]="itemsFound"
+                         [pageSize]="pageSize"
+                         [pageSizeOptions]="pageSizeOptions"
+                         (page)="pageChange($event)" >
+          </mat-paginator>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div fxLayout="row">
+      <div fxFlex="0 0 auto">
+        <button (click)="drawer.toggle()" mat-mini-fab color="white" class="drawer-button"><mat-icon>settings_ethernet</mat-icon></button>
+      </div>
+      <div fxFlex="1 1 auto">
+        <div *ngIf="selected">
+          <app-bm-detail [bucketMonitorId]="selected._id" ></app-bm-detail>
+        </div>
+        <div *ngIf="!selected">
+          <mat-card>
+            <mat-card-title>Selected DsApplication: </mat-card-title>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<app-dialog-template #selectProvider (result)="bucketsSelected($event)">
+  <ng-template>
+    <div fxLayout="row">
+
+      <div fxFlex *ngIf="pCCredentials">
+        <div *ngFor="let pc of pCCredentials" (click)="selectProviderCredentials(pc)">
+          {{pc.name}}
+        </div>
+      </div>
+
+
+      <div fxFlex *ngIf="buckets">
+        <div fxLayout="row" *ngFor="let bucket of buckets.Buckets">
+          <div fxFlex="50%">
+            {{bucket.Name}}
+          </div>
+          <div fxFlex="40%">
+            <button mat-raised-button color="primary" (click)="createBucketMonitor(bucket)">Add</button>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div fxLayout="row">
+      <div fxFlex>
+        <button mat-raised-button color="primary" [mat-dialog-close]="">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="(!newBuckets.name)" [mat-dialog-close]="newBuckets">Save</button>
+      </div>
+    </div>
+  </ng-template>
+</app-dialog-template>

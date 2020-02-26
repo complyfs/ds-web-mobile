@@ -204,7 +204,7 @@ export class ProviderEndpointsComponent implements OnInit {
     })
       .pipe(finalize(() => {  }))
       .subscribe ( r => {
-        this.snackMessage.open('Error emptying Provider Endpoint', 'x', {verticalPosition: 'bottom', duration: environment.snackBarDuration});
+        this.snackMessage.open('Started emptying Provider Endpoint', null, {verticalPosition: 'bottom', duration: environment.snackBarDuration});
       }, err => {
         this.snackMessage.open('Error emptying Provider Endpoint', 'x', {verticalPosition: 'top'});
       });
