@@ -19,7 +19,7 @@ export class DialogTemplateComponent implements OnInit {
   ngOnInit() {}
 
   open () {
-    this.dRef = this.dialog.open(this.template, {panelClass: 'cfs-modal-dialog'});
+    this.dRef = this.dialog.open(this.template, {panelClass: 'opstack-modal-dialog'});
     this.dRef.afterClosed().subscribe(val => this.result.emit(val));
   }
 
