@@ -176,7 +176,7 @@ export class ProviderEndpointsComponent implements OnInit {
   }
 
   deleteProviderEndpoint(deToDelete) {
-    if (!confirm('Delete provider ndpoint: ' + deToDelete.name)) { return; }
+    if (!confirm('Delete provider endpoint: ' + deToDelete.name)) { return; }
 
     this.restService.adminDeleteProviderEndpoint({virtualBucket: this.virtualBucket, providerEndpoint: deToDelete })
       .pipe(finalize(() => {  }))
@@ -184,7 +184,12 @@ export class ProviderEndpointsComponent implements OnInit {
         this.reloadVirtualBucket.emit();
         this.selected = null;
       }, err => {
-        this.snackMessage.open('Error deleting Provider Endpoint', 'x', {verticalPosition: 'top'});
+        if (err.error.message === 'Provider Endpoint is not empty.') {
+          this.snackMessage.open('Provider endpoint is not empty.', 'x', {verticalPosition: 'top'});
+        }
+        else {
+          this.snackMessage.open('Error deleting Provider Endpoint', 'x', {verticalPosition: 'top'});
+        }
       });
   }
 

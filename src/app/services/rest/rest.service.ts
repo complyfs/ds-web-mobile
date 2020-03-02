@@ -179,8 +179,8 @@ export class RestService {
     return this.http.post(environment.restServiceURL + '/admin/moveObjects', params);
   }
 
-  adminFilesPerVirtualBucketByApp(params: any): Observable <any> {
-    return this.http.post(environment.restServiceURL + '/admin/filesPerVirtualBucketByApp', params);
+  adminVbFilesSizeAndCount(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/vbFilesSizeAndCount', params);
   }
 
   adminFilesPerTimePeriodPerApp(params: any): Observable <any> {
