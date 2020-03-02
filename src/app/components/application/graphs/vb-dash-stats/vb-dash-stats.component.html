@@ -1,0 +1,26 @@
+<div fxLayout="row" fxLayoutAlign="space-between">
+  <div fxFlex="30%">
+    <mat-card>
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <div fxFlex="1 1 auto" class="data">{{this.fileCount| number: '1.0-0'}}</div>
+        <div fxFlex="1 1 auto" class="units">FILES</div>
+      </div>
+    </mat-card>
+  </div>
+  <div fxFlex="30%">
+    <mat-card>
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <div fxFlex="1 1 auto" class="data">{{getFileSize()| number: '1.0-2'}}</div>
+        <div fxFlex="1 1 auto" class="units">{{getFileUnits()}}</div>
+      </div>
+    </mat-card>
+  </div>
+  <div fxFlex="30%">
+    <mat-card>
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <div fxFlex="1 1 auto" class="data">{{vbAppCount|number: '1.0-0'}}</div>
+        <div fxFlex="1 1 auto" class="units">Virt. Buck. Apps</div>
+      </div>
+    </mat-card>
+  </div>
+</div>

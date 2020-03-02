@@ -68,6 +68,10 @@ import { BmFileSizePerTenantComponent } from './components/bucket-monitor/graphs
 import { BmFileAgingPerTenantComponent } from './components/bucket-monitor/graphs/bm-file-aging-per-tenant/bm-file-aging-per-tenant.component';
 import { BmMostRecentFilePerTenantComponent } from './components/bucket-monitor/graphs/bm-most-recent-file-per-tenant/bm-most-recent-file-per-tenant.component';
 import { BmThreeTestStatsComponent } from './components/bucket-monitor/graphs/bm-three-test-stats/bm-three-test-stats.component';
+import { VirtBucketAppsDashboardComponent } from './components/application/virt-bucket-apps-dashboard/virt-bucket-apps-dashboard.component';
+import { VbDashStatsComponent } from './components/application/graphs/vb-dash-stats/vb-dash-stats.component';
+import { VbAppFileCountStatsComponent } from './components/application/graphs/vb-app-file-count-stats/vb-app-file-count-stats.component';
+import { VbAppFileSizeStatsComponent } from './components/application/graphs/vb-app-file-size-stats/vb-app-file-size-stats.component';
 
 @NgModule({
   declarations: [
@@ -126,6 +130,10 @@ import { BmThreeTestStatsComponent } from './components/bucket-monitor/graphs/bm
     BmFileAgingPerTenantComponent,
     BmMostRecentFilePerTenantComponent,
     BmThreeTestStatsComponent,
+    VirtBucketAppsDashboardComponent,
+    VbDashStatsComponent,
+    VbAppFileCountStatsComponent,
+    VbAppFileSizeStatsComponent,
   ],
   imports: [
     BrowserModule,

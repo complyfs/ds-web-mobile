@@ -11,8 +11,6 @@ import {PageEvent} from "@angular/material/paginator";
   styleUrls: ['./bm-file-size-per-tenant.component.scss']
 })
 export class BmFileSizePerTenantComponent implements OnInit {
-
-
   graphData: any;
 
   doughnutChartLabels: Label[] = null; // ['BMW', 'Ford', 'Tesla'];

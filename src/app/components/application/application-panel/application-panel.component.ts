@@ -82,9 +82,9 @@ export class ApplicationPanelComponent implements OnInit {
         this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
       });
 
-    const params2: any = { applicationId: this.application._id };
+    const params2: any = { groupByLevel: 'application', applicationId: this.application._id };
 
-    this.restService.adminFilesPerVirtualBucketByApp(params2)
+    this.restService.adminVbFilesSizeAndCount(params2)
       .subscribe( r => {
         // console.log(JSON.stringify(r, null, 4));
       }, err => {

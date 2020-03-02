@@ -18,7 +18,13 @@
 
   <div >
     <mat-tab-group (selectedTabChange)="tabChanged($event)" [selectedIndex]="selectedTabIndex">
-      <mat-tab label="Dashboard">
+      <mat-tab label="Virtual Buckets">
+        <app-virtual-buckets [applicationId]="application._id"></app-virtual-buckets>
+      </mat-tab>
+      <mat-tab label="Credentials">
+        <app-application-rest-credentials [application]="application"></app-application-rest-credentials>
+      </mat-tab>
+      <mat-tab label="Live">
         <app-application-dashboard [dsApplication]="application"></app-application-dashboard>
       </mat-tab>
       <mat-tab label="General">
@@ -26,12 +32,6 @@
           [application]="application"
           (saveApplication)="saveApplication()"
           (deleteApplication)="deleteApplication()"></app-application-info>
-      </mat-tab>
-      <mat-tab label="Virtual Buckets">
-        <app-virtual-buckets [applicationId]="application._id"></app-virtual-buckets>
-      </mat-tab>
-      <mat-tab label="Credentials">
-        <app-application-rest-credentials [application]="application"></app-application-rest-credentials>
       </mat-tab>
       <mat-tab label="Reports">
         <app-application-panel [application]="application"></app-application-panel>

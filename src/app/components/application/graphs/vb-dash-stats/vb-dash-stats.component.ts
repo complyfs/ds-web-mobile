@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../../../services/rest/rest.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {RestService} from "../../../../services/rest/rest.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-bm-three-test-stats',
-  templateUrl: './bm-three-test-stats.component.html',
-  styleUrls: ['./bm-three-test-stats.component.scss']
+  selector: 'app-vb-dash-stats',
+  templateUrl: './vb-dash-stats.component.html',
+  styleUrls: ['./vb-dash-stats.component.scss']
 })
-export class BmThreeTestStatsComponent implements OnInit {
-
+export class VbDashStatsComponent implements OnInit {
   kb = 1024;
   mb = this.kb * 1024;
   gb = this.mb * 1024;
@@ -16,7 +15,7 @@ export class BmThreeTestStatsComponent implements OnInit {
 
   fileCount: number = 0;
   fileSize: number = 0;
-  bucketsCount: number = 0;
+  vbAppCount: number = 0;
 
   constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
@@ -26,21 +25,19 @@ export class BmThreeTestStatsComponent implements OnInit {
   }
 
   loadData() {
-    this.restService.adminBmTenantSummary({})
+    this.restService.adminVbFilesSizeAndCount({ groupByLevel: 'tenant'})
       .subscribe ( r => {
         this.fileCount = r[0].fileCount;
         this.fileSize = r[0].fileSize;
       }, err => {
-        this.snackMessage.open('Error loading tenant summary', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading virtual bucket file summary', 'x', {verticalPosition: 'top'});
       });
 
-    // all we are about is total itemsFound
-    const params: any = { from: (0), size: 5 };
-    this.restService.adminGetBucketMonitors(params)
-      .subscribe (r => {
-        this.bucketsCount = r.itemsFound;
+    this.restService.adminGetApplications({from: 0, size: 0})
+      .subscribe ( r => {
+        this.vbAppCount = r.itemsFound;
       }, err => {
-        this.snackMessage.open('Error listing bucket monitors', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading virtual bucket file summary', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -57,15 +54,16 @@ export class BmThreeTestStatsComponent implements OnInit {
   }
 
   getFileUnits() {
-    if (this.fileSize < 1048576) {
+    if (this.fileSize < this.kb) {
       return 'BYTES';
-    } else if (this.fileSize < 1073741824) {
+    } else if (this.fileSize < this.mb) {
+      return 'KILOBYTES';
+    } else if (this.fileSize < this.gb) {
       return 'MB';
-    } else if (this.fileSize < 1099511627776) {
+    } else if (this.fileSize < this.tb) {
       return 'GB';
     } else {
       return 'TB';
     }
   }
-
 }

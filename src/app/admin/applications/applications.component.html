@@ -4,7 +4,7 @@
       <mat-card-title>
         <div fxLayout="row" fxLayoutGap="20px">
           <div fxFlex="1 1 auto" fxFlexAlign="start">
-            Applications
+            Virtual Bucket Applications
           </div>
           <div fxFlex="0 0 auto" fxFlexAlign="end">
             <button id="newButton" class="floatRight" (click)="newItem.open()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
@@ -61,9 +61,7 @@
           <app-application-detail [applicationId]="selected._id" (reloadApps)="loadData()"></app-application-detail>
         </div>
         <div *ngIf="!selected">
-          <mat-card>
-            <mat-card-title>Selected DsApplication: </mat-card-title>
-          </mat-card>
+          <app-virt-bucket-apps-dashboard></app-virt-bucket-apps-dashboard>
         </div>
       </div>
     </div>

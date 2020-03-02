@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-subtitle>Storage Size</mat-card-subtitle>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%" fxLayoutAlign="space-between" *ngIf="graphData">
+    <div fxFlex="100%">
+      <div *ngIf="doughnutChartData" class="chart-wrapper">
+        <canvas baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"
+                [legend]="doughnutChartLegend">
+        </canvas>
+      </div>
+      <div *ngIf="!doughnutChartData"><mat-spinner></mat-spinner></div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="space-between" *ngIf="graphData">
+    <div fxFlex="100%">
+      <div fxLayout="row" >
+        <div fxFlex="75%" class="text-truncate"><strong>Bucket Name</strong></div>
+        <div fxFlex="25%" class="text-truncate float-right"><strong>File Count</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="space-between" *ngIf="graphData">
+    <div fxFlex="100%">
+      <div fxLayout="row" *ngFor="let app of getPagedApps()">
+        <div fxFlex="75%" class="text-truncate">{{getBucketName(app._id)}}</div>
+        <div fxFlex="25%" class="text-truncate float-right">{{app.fileSize}} {{getFileUnits(app.fileSize)}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="graphData && graphData.length>0">
+    <mat-card class="list-paginator">
+      <mat-paginator [length]="itemsFound"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="pageSizeOptions"
+                     (page)="pageChange($event)" >
+      </mat-paginator>
+    </mat-card>
+  </div>
+</mat-card>
