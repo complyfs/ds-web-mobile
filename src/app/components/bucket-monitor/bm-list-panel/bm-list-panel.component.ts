@@ -69,6 +69,8 @@ export class BmListPanelComponent implements OnInit {
       .subscribe( r => {
         this.bucketData = r[0];
 
+        console.log('bucketData', JSON.stringify(this.bucketData, null, 4));
+
         /*
         this.doughnutChartLabels = this.graphData.map ( i => i._id.providerBucket);
         this.doughnutChartData = [this.graphData.map ( i => i.size)];
