@@ -93,7 +93,7 @@ export class ApplicationPanelComponent implements OnInit {
 
     const params3: any = { applicationId: this.application._id };
 
-    this.restService.adminFilesPerTimePeriodPerApp(params3)
+    this.restService.adminFilesPerTimePeriod(params3)
       .subscribe( r => {
         // console.log(JSON.stringify(r, null, 4));
       }, err => {

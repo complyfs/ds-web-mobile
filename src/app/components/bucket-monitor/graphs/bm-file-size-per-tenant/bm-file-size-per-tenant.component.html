@@ -27,7 +27,7 @@
     <div fxFlex="100%">
       <div fxLayout="row" *ngFor="let bucket of getPagedBuckets()">
         <div fxFlex="75%" class="text-truncate">{{bucket._id.providerBucket}}</div>
-        <div fxFlex="25%" class="text-truncate float-right">{{(bucket.size/1048576)|number:'1.0-2'}}</div>
+        <div fxFlex="25%" class="text-truncate float-right">{{getFileSize(bucket.size)|number:'1.1-1'}} {{getFileUnits(bucket.size)}}</div>
       </div>
     </div>
   </div>

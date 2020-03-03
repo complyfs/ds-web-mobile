@@ -72,6 +72,9 @@ import { VirtBucketAppsDashboardComponent } from './components/application/virt-
 import { VbDashStatsComponent } from './components/application/graphs/vb-dash-stats/vb-dash-stats.component';
 import { VbAppFileCountStatsComponent } from './components/application/graphs/vb-app-file-count-stats/vb-app-file-count-stats.component';
 import { VbAppFileSizeStatsComponent } from './components/application/graphs/vb-app-file-size-stats/vb-app-file-size-stats.component';
+import { VbFilesPerTimePeriodComponent } from './components/application/graphs/vb-files-per-time-period/vb-files-per-time-period.component';
+import { VbFilesPerProviderComponent } from './components/application/graphs/vb-files-per-provider/vb-files-per-provider.component';
+import { VbSizePerProviderComponent } from './components/application/graphs/vb-size-per-provider/vb-size-per-provider.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +137,9 @@ import { VbAppFileSizeStatsComponent } from './components/application/graphs/vb-
     VbDashStatsComponent,
     VbAppFileCountStatsComponent,
     VbAppFileSizeStatsComponent,
+    VbFilesPerTimePeriodComponent,
+    VbFilesPerProviderComponent,
+    VbSizePerProviderComponent,
   ],
   imports: [
     BrowserModule,

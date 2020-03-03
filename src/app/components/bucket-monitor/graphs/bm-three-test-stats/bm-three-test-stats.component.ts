@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from '../../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DisplayFileCountInfo } from '../../../../objects/display-file-count-info/display-file-count-info';
 
 @Component({
   selector: 'app-bm-three-test-stats',
@@ -8,11 +9,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./bm-three-test-stats.component.scss']
 })
 export class BmThreeTestStatsComponent implements OnInit {
-
-  kb = 1024;
-  mb = this.kb * 1024;
-  gb = this.mb * 1024;
-  tb = this.gb * 1024;
 
   fileCount: number = 0;
   fileSize: number = 0;
@@ -45,27 +41,11 @@ export class BmThreeTestStatsComponent implements OnInit {
   }
 
   getFileSize() {
-    if (this.fileSize < this.mb) {
-      return this.fileSize;
-    } else if (this.fileSize < this.gb) {
-      return this.fileSize / this.mb;
-    } else if (this.fileSize < this.tb) {
-      return this.fileSize / this.gb;
-    } else {
-      return this.fileSize / this.tb;
-    }
+    return DisplayFileCountInfo.getFileSize(this.fileSize);
   }
 
   getFileUnits() {
-    if (this.fileSize < 1048576) {
-      return 'BYTES';
-    } else if (this.fileSize < 1073741824) {
-      return 'MB';
-    } else if (this.fileSize < 1099511627776) {
-      return 'GB';
-    } else {
-      return 'TB';
-    }
+    return DisplayFileCountInfo.getFileUnits(this.fileSize);
   }
 
 }

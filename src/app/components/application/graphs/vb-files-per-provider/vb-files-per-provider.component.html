@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-subtitle>Files per Provider</mat-card-subtitle>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%" fxLayoutAlign="space-between" *ngIf="graphData">
+    <div fxFlex="100%">
+      <div *ngIf="doughnutChartData" class="chart-wrapper">
+        <canvas baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"
+                [legend]="doughnutChartLegend"
+                [options]="doughnutChartOptions"
+        >
+        </canvas>
+      </div>
+      <div *ngIf="!doughnutChartData"><mat-spinner></mat-spinner></div>
+    </div>
+  </div>
+</mat-card>

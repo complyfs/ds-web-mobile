@@ -129,4 +129,8 @@ export class BucketMonitoringComponent implements OnInit {
         this.snackMessage.open('Error starting bucket inventory', 'x', {verticalPosition: 'top'});
       });
   }
+
+  gotoDashboard() {
+    this.selected = null;
+  }
 }

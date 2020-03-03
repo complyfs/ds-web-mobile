@@ -123,4 +123,8 @@ export class ApplicationsComponent implements OnInit {
         this.snackMessage.open('Error saving Application', 'x', {verticalPosition: 'top'});
       });
   }
+
+  gotoDashboard() {
+    this.selected = null;
+  }
 }

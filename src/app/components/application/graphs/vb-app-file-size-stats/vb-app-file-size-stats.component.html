@@ -18,7 +18,7 @@
     <div fxFlex="100%">
       <div fxLayout="row" >
         <div fxFlex="75%" class="text-truncate"><strong>Bucket Name</strong></div>
-        <div fxFlex="25%" class="text-truncate float-right"><strong>File Count</strong></div>
+        <div fxFlex="25%" class="text-truncate float-right"><strong>Data Size</strong></div>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@
     <div fxFlex="100%">
       <div fxLayout="row" *ngFor="let app of getPagedApps()">
         <div fxFlex="75%" class="text-truncate">{{getBucketName(app._id)}}</div>
-        <div fxFlex="25%" class="text-truncate float-right">{{app.fileSize}} {{getFileUnits(app.fileSize)}}</div>
+        <div fxFlex="25%" class="text-truncate float-right">{{getFileSize(app.fileSize)|number:'1.0-1'}} {{getFileUnits(app.fileSize)}}</div>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from "../../../../services/rest/rest.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {DisplayFileCountInfo} from "../../../../objects/display-file-count-info/display-file-count-info";
 
 @Component({
   selector: 'app-vb-dash-stats',
@@ -8,10 +9,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./vb-dash-stats.component.scss']
 })
 export class VbDashStatsComponent implements OnInit {
-  kb = 1024;
-  mb = this.kb * 1024;
-  gb = this.mb * 1024;
-  tb = this.gb * 1024;
 
   fileCount: number = 0;
   fileSize: number = 0;
@@ -42,28 +39,10 @@ export class VbDashStatsComponent implements OnInit {
   }
 
   getFileSize() {
-    if (this.fileSize < this.mb) {
-      return this.fileSize;
-    } else if (this.fileSize < this.gb) {
-      return this.fileSize / this.mb;
-    } else if (this.fileSize < this.tb) {
-      return this.fileSize / this.gb;
-    } else {
-      return this.fileSize / this.tb;
-    }
+    return DisplayFileCountInfo.getFileSize(this.fileSize);
   }
 
   getFileUnits() {
-    if (this.fileSize < this.kb) {
-      return 'BYTES';
-    } else if (this.fileSize < this.mb) {
-      return 'KILOBYTES';
-    } else if (this.fileSize < this.gb) {
-      return 'MB';
-    } else if (this.fileSize < this.tb) {
-      return 'GB';
-    } else {
-      return 'TB';
-    }
+    return DisplayFileCountInfo.getFileUnits(this.fileSize);
   }
 }

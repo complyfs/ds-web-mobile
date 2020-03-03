@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {DsApplication} from "../../../objects/ds-application";
-import {ChartDataSets, ChartType} from "chart.js";
-import {Color, Label, MultiDataSet} from "ng2-charts";
-import {RestService} from "../../../services/rest/rest.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, Input, OnInit } from '@angular/core';
+import { DsApplication } from '../../../objects/ds-application';
+import { ChartDataSets, ChartType } from 'chart.js';
+import { Color, Label, MultiDataSet } from 'ng2-charts';
+import { RestService } from '../../../services/rest/rest.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DisplayFileCountInfo } from '../../../objects/display-file-count-info/display-file-count-info';
 
 @Component({
   selector: 'app-bm-list-panel',
@@ -85,6 +86,14 @@ export class BmListPanelComponent implements OnInit {
         this.snackMessage.open('Error loading bucket monitor size data', 'x', {verticalPosition: 'top'});
       });
 
+  }
+
+  getFileSize(fileSize) {
+    return DisplayFileCountInfo.getFileSize(fileSize);
+  }
+
+  getFileUnits(fileSize) {
+    return DisplayFileCountInfo.getFileUnits(fileSize);
   }
 
 }

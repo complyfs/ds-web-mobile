@@ -17,8 +17,8 @@
         <div fxFlex="0 0 auto" class="weekday">Empty</div>
       </div>
       <div fxLayout="column" fxLayout.lt-sm="row" fxLayoutGap.lt-sm="10%" fxLayoutAlign="center center" *ngIf="bucketData">
-        <div fxFlex="0 0 auto" class="weekday">{{(bucketData.size/1048576)|number:'1.1-2'}}</div>
-        <div fxFlex="0 0 auto" class="monthday">MB</div>
+        <div fxFlex="0 0 auto" class="weekday">{{getFileSize(bucketData.size)|number:'1.1-2'}}</div>
+        <div fxFlex="0 0 auto" class="monthday">{{getFileUnits(bucketData.size)}}</div>
       </div>
     </div>
   </div>

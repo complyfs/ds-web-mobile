@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Label, MultiDataSet} from "ng2-charts";
-import {ChartType} from "chart.js";
-import {RestService} from "../../../../services/rest/rest.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {PageEvent} from "@angular/material/paginator";
+import { Label, MultiDataSet } from 'ng2-charts';
+import { ChartType } from 'chart.js';
+import { RestService } from '../../../../services/rest/rest.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
+import { DisplayFileCountInfo } from '../../../../objects/display-file-count-info/display-file-count-info';
 
 @Component({
   selector: 'app-vb-app-file-size-stats',
@@ -11,11 +12,6 @@ import {PageEvent} from "@angular/material/paginator";
   styleUrls: ['./vb-app-file-size-stats.component.scss']
 })
 export class VbAppFileSizeStatsComponent implements OnInit {
-  kb = 1024;
-  mb = this.kb * 1024;
-  gb = this.mb * 1024;
-  tb = this.gb * 1024;
-
   apps: any[];
   graphData: any;
 
@@ -84,17 +80,11 @@ export class VbAppFileSizeStatsComponent implements OnInit {
     return matchApps[0].name;
   }
 
-  getFileUnits(size) {
-    if (size < this.kb) {
-      return 'BYTES';
-    } else if (size < this.mb) {
-      return 'KILOBYTES';
-    } else if (size < this.gb) {
-      return 'MB';
-    } else if (size < this.tb) {
-      return 'GB';
-    } else {
-      return 'TB';
-    }
+  getFileUnits(fileSize: number) {
+    return DisplayFileCountInfo.getFileUnits(fileSize);
+  }
+
+  getFileSize(fileSize: number) {
+    return DisplayFileCountInfo.getFileSize(fileSize);
   }
 }

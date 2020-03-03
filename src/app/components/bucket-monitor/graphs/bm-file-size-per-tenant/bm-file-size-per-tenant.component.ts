@@ -4,6 +4,7 @@ import {ChartType} from "chart.js";
 import {RestService} from "../../../../services/rest/rest.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {PageEvent} from "@angular/material/paginator";
+import {DisplayFileCountInfo} from "../../../../objects/display-file-count-info/display-file-count-info";
 
 @Component({
   selector: 'app-bm-file-size-per-tenant',
@@ -59,5 +60,13 @@ export class BmFileSizePerTenantComponent implements OnInit {
   pageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
+  }
+
+  getFileSize(fileSize) {
+    return DisplayFileCountInfo.getFileSize(fileSize);
+  }
+
+  getFileUnits(fileSize) {
+    return DisplayFileCountInfo.getFileUnits(fileSize);
   }
 }
