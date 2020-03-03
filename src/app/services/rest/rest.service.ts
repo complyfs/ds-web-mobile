@@ -179,6 +179,10 @@ export class RestService {
     return this.http.post(environment.restServiceURL + '/admin/moveObjects', params);
   }
 
+  adminEmptyVirtualBucket(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/emptyVirtualBucket', params);
+  }
+
   adminVbFilesSizeAndCount(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/vbFilesSizeAndCount', params);
   }

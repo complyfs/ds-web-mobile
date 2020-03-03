@@ -171,6 +171,19 @@ export class VirtualBucketsComponent implements OnInit {
   }
 
   emptySelectedVirtualBucket() {
-    this.comingSoon();
+    if (!confirm('This cannot be undone. Empty this bucket?')) { return; }
+
+    const params = {
+      applicationId: this.selected.applicationId,
+      virtualBucketId: this.selected._id
+    };
+
+    this.restService.adminEmptyVirtualBucket(params)
+      .pipe(finalize(() => {  }))
+      .subscribe ( r => {
+        this.snackMessage.open('Request to empty this virtual bucket has been submitted', null, {verticalPosition: 'top', duration: environment.snackBarDuration});
+      }, err => {
+        this.snackMessage.open('Error saving Virtual Bucket', 'x', {verticalPosition: 'top'});
+      }); ;
   }
 }
