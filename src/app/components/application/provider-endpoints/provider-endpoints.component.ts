@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, Provider, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, OnChanges, Output, Provider, SimpleChanges, ViewChild} from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { ProviderEndpoint, VirtualBucket } from '../../../objects/virtual-bucket';
 import { Observable, of, Subject } from 'rxjs';
@@ -13,7 +13,7 @@ import { AuthService } from '../../../services/auth/auth.service';
   templateUrl: './provider-endpoints.component.html',
   styleUrls: ['./provider-endpoints.component.scss']
 })
-export class ProviderEndpointsComponent implements OnInit {
+export class ProviderEndpointsComponent implements OnInit, OnChanges {
   env = environment;
 
   @Input() virtualBucket: VirtualBucket;
@@ -137,18 +137,6 @@ export class ProviderEndpointsComponent implements OnInit {
     this.proposedName.next(id);
   }
 
-  getRegionsForProvider() {
-    const providerCredentials = this.getCredentials();
-
-    if (!providerCredentials) { return []; }
-
-    const providerRegions = environment.providerRegions.filter( r => {
-      return r.provider === providerCredentials.provider;
-    } );
-
-    return providerRegions;
-  }
-
   getTypesForProvider() {
     const providerCredentials = this.getCredentials();
 
@@ -218,4 +206,47 @@ export class ProviderEndpointsComponent implements OnInit {
   getVirtualBucketsToMoveTo() {
     return this.virtualBucket.providerEndpoints;
   }
+
+  getRegionsForProvider() {
+    const providerCredential = this.getCredentials();
+
+    if (!providerCredential) { return []; }
+
+    switch (providerCredential.provider) {
+      case 'aws':
+        const providerRegionsAws = environment.providerRegions.filter( r => {
+          return r.provider === providerCredential.provider;
+        } );
+
+        return providerRegionsAws;
+        break;
+      case 'azure':
+        const providerRegionsAzure = environment.providerRegions.filter( r => {
+          return r.provider === providerCredential.provider && r.region === providerCredential.region;
+        } );
+
+        return providerRegionsAzure;
+        break;
+      default:
+        return [];
+    }
+
+
+  }
+/*
+  getCredentials() {
+    if (!this.pCCredentials) { return null; }
+
+    const selectedCredentials = this.pCCredentials.filter( cr => {
+      return cr._id === this.newProviderEndpointProviderCredential._id;
+    });
+
+    if (selectedCredentials.length !== 1) {
+      return null;
+    }
+
+    return selectedCredentials[0];
+  }
+
+ */
 }
