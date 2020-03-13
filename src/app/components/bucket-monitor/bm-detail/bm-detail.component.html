@@ -1,7 +1,26 @@
-<p>bm-detail works!</p>
+<mat-card *ngIf="bucketMonitor">
+  <mat-card-title>Selected Bucket Monitor: {{bucketMonitor.providerBucket}}</mat-card-title>
 
-<button mat-raised-button color="primary" (click)="startInventoryBucket()">Start Inventory</button>
+  <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
+    <div fxFlex="100%">
+      <app-text-field-display [label]="'Name:'" [(value)]="bucketMonitor.providerBucket" [readOnly]="false"></app-text-field-display>
+    </div>
+    <div fxFlex="100%">
+      <app-text-field-display [label]="'Provider:'" [(value)]="bucketMonitor.provider" [readOnly]="false"></app-text-field-display>
+    </div>
+    <div fxFlex="100%">
+      <app-text-field-display [label]="'Status:'" [(value)]="bucketMonitor.status" [readOnly]="false"></app-text-field-display>
+    </div>
+    <div fxFlex="100%">
+      <app-text-field-display [label]="'Last Inventory:'" [(value)]="bucketMonitor.lasctInventory" [readOnly]="false"></app-text-field-display>
+    </div>
+  </div>
 
-<div *ngIf="bucketMonitor">
-  <pre>{{bucketMonitor|json}}</pre>
-</div>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="startInventoryBucket()">Start Inventory</button>
+    <button mat-raised-button color="primary" (click)="deleteBucketMonitor()">Delete Bucket Monitor</button>
+  </mat-card-actions>
+</mat-card>
+
+
+

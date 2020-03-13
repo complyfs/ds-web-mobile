@@ -215,6 +215,10 @@ export class RestService {
     return this.http.post(environment.restServiceURL + '/admin/bmInventoryBucket', params);
   }
 
+  adminBmDeleteBucketMonitor(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/bmDeleteBucketMonitor', params);
+  }
+
   adminBmFileStats(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/bmFileStats', params);
   }
@@ -229,6 +233,22 @@ export class RestService {
 
   adminBmTenantSummary(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/bmTenantSummary', params);
+  }
+
+  adminImportToVirtualBucket(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/importToVirtualBucket', params);
+  }
+
+  adminAwsS3GetBucketLocation(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/AwsS3GetBucketLocation', params);
+  }
+
+  adminAzureBlobGetInfo(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/AzureBlobGetInfo', params);
+  }
+
+  adminVbSizeAndCount(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/vbSizeAndCount', params);
   }
 
 }

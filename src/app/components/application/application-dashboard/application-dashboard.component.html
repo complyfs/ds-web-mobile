@@ -8,7 +8,11 @@
       <div *ngIf="virtualBuckets">
 
         <div *ngFor="let vb of virtualBuckets">
-          <app-virtual-bucket-ticker [virtualBucketId]="vb._id"></app-virtual-bucket-ticker>
+          <mat-card>
+            <mat-card-subtitle>{{vb._id}}</mat-card-subtitle>
+
+            <app-virtual-bucket-ticker [virtualBucketId]="vb._id"></app-virtual-bucket-ticker>
+          </mat-card>
         </div>
 
         <div *ngIf="virtualBuckets.length>0">

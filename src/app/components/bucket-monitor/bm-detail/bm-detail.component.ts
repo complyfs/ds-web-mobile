@@ -38,4 +38,13 @@ export class BmDetailComponent implements OnInit {
       });
   }
 
+  deleteBucketMonitor() {
+    this.restService.adminBmDeleteBucketMonitor({bucketMonitorId: this.bucketMonitorId})
+      .subscribe( r => {
+        this.snackMessage.open('Deletion of the bucket monitor started', null, {duration: environment.snackBarDuration, verticalPosition: 'bottom'});
+      }, err => {
+        this.snackMessage.open('Error deleting bucket monitor', 'x', {verticalPosition: 'top'});
+      });
+  }
+
 }

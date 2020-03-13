@@ -56,24 +56,40 @@
   <ng-template>
     <div fxLayout="row">
 
-      <div fxFlex *ngIf="pCCredentials">
-        <div *ngFor="let pc of pCCredentials" (click)="selectProviderCredentials(pc)">
-          {{pc.name}}
-        </div>
-      </div>
-
-
-      <div fxFlex *ngIf="buckets">
-        <div fxLayout="row" *ngFor="let bucket of buckets.Buckets">
-          <div fxFlex="50%">
-            {{bucket.Name}}
-          </div>
-          <div fxFlex="40%">
-            <button mat-raised-button color="primary" (click)="createBucketMonitor(bucket)">Add</button>
+      <mat-card fxFlex class="credentials-card">
+        <mat-card-title>Provider Credentials</mat-card-title>
+        <mat-card-subtitle>Entered in the Credential section</mat-card-subtitle>
+        <div *ngIf="pCCredentials">
+          <div *ngFor="let pc of pCCredentials" (click)="selectProviderCredentials(pc)">
+            {{pc.name}}
           </div>
         </div>
+      </mat-card>
 
-      </div>
+    </div>
+    <div fxLayout="row">
+
+      <mat-card fxFlex class="buckets-card">
+        <mat-card-title>Buckets and Containers</mat-card-title>
+        <mat-card-subtitle>Available to your selected provider credential</mat-card-subtitle>
+        <div *ngIf="loadingBuckets">
+          <app-branded-spinner></app-branded-spinner>
+        </div>
+        <div *ngIf="buckets">
+
+          <div *ngFor="let bucket of buckets.Buckets">
+            <div fxLayout="row" >
+              <div fxFlex="1 1 auto">
+                {{bucket.Name}}
+              </div>
+              <div fxFlex="0 0 auto">
+                <button mat-raised-button color="primary" (click)="createBucketMonitor(bucket)">Add</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </mat-card>
 
 
     </div>

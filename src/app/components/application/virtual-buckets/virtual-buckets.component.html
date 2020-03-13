@@ -13,7 +13,10 @@
             Virtual Buckets
           </div>
           <div fxFlex="0 0 auto" fxFlexAlign="end">
-            <button id="newPatientButton" class="floatRight" (click)="newItem.open()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+            <button id="newVBButton" class="floatRight" (click)="newItem.open()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+          </div>
+          <div fxFlex="0 0 auto" fxFlexAlign="end">
+            <button id="importVBButton" class="floatRight" (click)="selectImportBucket.open()" mat-mini-fab color="primary"><mat-icon>system_update_alt</mat-icon></button>
           </div>
         </div>
       </mat-card-title>
@@ -60,6 +63,11 @@
       <div fxLayout="row" fxLayoutAlign="center">
         <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
       </div>
+    </mat-card>
+
+    <mat-card *ngIf="!selected">
+      <app-vb-files-per-vb [applicationId]="applicationId"></app-vb-files-per-vb>
+      <app-vb-files-per-provider [applicationId]="applicationId"></app-vb-files-per-provider>
     </mat-card>
 
     <mat-card *ngIf="selected">
@@ -119,6 +127,56 @@
       <div fxFlex>
         <button mat-raised-button color="primary" [mat-dialog-close]="">Cancel</button>
         <button mat-raised-button color="primary" [mat-dialog-close]="newVirtualBucket" [disabled]="!(this.uniqueName$ | async)">Save</button>
+      </div>
+    </div>
+  </ng-template>
+</app-dialog-template>
+
+<app-dialog-template #selectImportBucket >
+  <ng-template>
+    <div fxLayout="row">
+
+      <mat-card fxFlex class="credentials-card">
+        <mat-card-title>Provider Credentials</mat-card-title>
+        <mat-card-subtitle>Entered in the Credential section</mat-card-subtitle>
+        <div *ngIf="pCCredentials">
+          <div *ngFor="let pc of pCCredentials" (click)="selectProviderCredentials(pc)">
+            {{pc.name}}
+          </div>
+        </div>
+      </mat-card>
+
+    </div>
+    <div fxLayout="row">
+
+      <mat-card fxFlex class="buckets-card">
+        <mat-card-title>Buckets and Containers</mat-card-title>
+        <mat-card-subtitle>Available to your selected provider credential</mat-card-subtitle>
+        <div *ngIf="loadingImportableBuckets">
+          <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="buckets">
+
+          <div *ngFor="let bucket of buckets.Buckets">
+            <div fxLayout="row" >
+              <div fxFlex="1 1 auto">
+                {{bucket.Name}}
+              </div>
+              <div fxFlex="0 0 auto">
+                <button mat-raised-button color="primary" (click)="importBucketDialogResult(bucket)"><mat-icon>system_update_alt</mat-icon></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </mat-card>
+
+
+    </div>
+    <div fxLayout="row">
+      <div fxFlex>
+        <button mat-raised-button color="primary" [mat-dialog-close]="">Close</button>
+        <!--<button mat-raised-button color="primary" [disabled]="(!newBuckets.name)" [mat-dialog-close]="newBuckets">Save</button>-->
       </div>
     </div>
   </ng-template>

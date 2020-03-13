@@ -75,6 +75,7 @@ import { VbAppFileSizeStatsComponent } from './components/application/graphs/vb-
 import { VbFilesPerTimePeriodComponent } from './components/application/graphs/vb-files-per-time-period/vb-files-per-time-period.component';
 import { VbFilesPerProviderComponent } from './components/application/graphs/vb-files-per-provider/vb-files-per-provider.component';
 import { VbSizePerProviderComponent } from './components/application/graphs/vb-size-per-provider/vb-size-per-provider.component';
+import { VbFilesPerVbComponent } from './components/application/graphs/vb-files-per-vb/vb-files-per-vb.component';
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { VbSizePerProviderComponent } from './components/application/graphs/vb-s
     VbFilesPerTimePeriodComponent,
     VbFilesPerProviderComponent,
     VbSizePerProviderComponent,
+    VbFilesPerVbComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {Label, MultiDataSet} from "ng2-charts";
-import {ChartType} from "chart.js";
-import {RestService} from "../../../../services/rest/rest.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {PageEvent} from "@angular/material/paginator";
+import { Component, Input, OnInit } from '@angular/core';
+import { Label, MultiDataSet } from 'ng2-charts';
+import { ChartType } from 'chart.js';
+import { RestService } from '../../../../services/rest/rest.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-vb-files-per-provider',
-  templateUrl: './vb-files-per-provider.component.html',
-  styleUrls: ['./vb-files-per-provider.component.scss']
+  selector: 'app-vb-files-per-vb',
+  templateUrl: './vb-files-per-vb.component.html',
+  styleUrls: ['./vb-files-per-vb.component.scss']
 })
-export class VbFilesPerProviderComponent implements OnInit {
+export class VbFilesPerVbComponent implements OnInit {
 
   apps: any[];
   graphData: any;
@@ -39,7 +38,7 @@ export class VbFilesPerProviderComponent implements OnInit {
     if ( this.applicationId ) { params.applicationId = this.applicationId; }
 
     // Now we can get the stats
-    this.restService.adminVbProviderSizeAndCount(params)
+    this.restService.adminVbSizeAndCount(params)
       .subscribe( r => {
         this.graphData = r.sort( (a, b) => b.fileCount - a.fileCount);
 
@@ -48,7 +47,7 @@ export class VbFilesPerProviderComponent implements OnInit {
         this.doughnutChartData = [this.graphData.map ( i => i.fileCount)];
 
       }, err => {
-        this.snackMessage.open('Error loading provider file count graph', 'x', {verticalPosition: 'top'});
+        this.snackMessage.open('Error loading virtual bucket file count graph', 'x', {verticalPosition: 'top'});
       });
 
   }

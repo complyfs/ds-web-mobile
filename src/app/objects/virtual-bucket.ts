@@ -3,7 +3,7 @@ export interface VirtualBucket {
   _id: string;
   applicationId: string;
   description: string;
-  encrypted: string;
+  encrypted: boolean;
   providerEndpoints: ProviderEndpoint[];
 }
 

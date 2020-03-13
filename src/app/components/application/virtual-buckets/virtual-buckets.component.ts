@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { VirtualBucket } from '../../../objects/virtual-bucket';
+import { ProviderEndpoint, VirtualBucket } from '../../../objects/virtual-bucket';
 import { Observable, of, Subject } from 'rxjs';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {debounceTime, distinctUntilChanged, finalize, map, switchMap, tap} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -33,6 +33,14 @@ export class VirtualBucketsComponent implements OnInit {
   pageIndex = 0;
   pageSizeOptions: number [] = [5, 10, 25];
 
+  // import bucket section ------
+  importProviderEndpoint: ProviderEndpoint;
+  pCCredentials: any[];
+  pCItemsFound: number;
+  selectedProviderCredential: any;
+  buckets: any;
+  loadingImportableBuckets = false;
+
   constructor(private restService: RestService,
               private snackMessage: MatSnackBar) { }
 
@@ -49,6 +57,7 @@ export class VirtualBucketsComponent implements OnInit {
     );
 
     this.loadData();
+    this.loadProviderCredentials();
   }
 
   loadData() {
@@ -65,6 +74,18 @@ export class VirtualBucketsComponent implements OnInit {
         this.itemsFound = r.count;
       }, err => {
         this.snackMessage.open('Error loading Virtual Buckets', 'x', {verticalPosition: 'top'});
+      });
+  }
+
+  loadProviderCredentials() {
+    const params: any = { from: 0, size: 1000 };
+
+    this.restService.adminGetProviderCredentials(params)
+      .subscribe( r => {
+        this.pCItemsFound = r.itemsFound;
+        this.pCCredentials = r.hits;
+      }, err => {
+        this.snackMessage.open('Error loading credentials', 'x', {verticalPosition: 'top'});
       });
   }
 
@@ -185,5 +206,79 @@ export class VirtualBucketsComponent implements OnInit {
       }, err => {
         this.snackMessage.open('Error saving Virtual Bucket', 'x', {verticalPosition: 'top'});
       }); ;
+  }
+
+  async importBucketDialogResult(bucket) {
+
+    try {
+      this.selected = {
+        _id: bucket.Name,
+        applicationId: this.applicationId,
+        description: '',
+        encrypted: false,
+        providerEndpoints: []
+      };
+
+      let regionFromBucketOrCredential;
+      switch (this.selectedProviderCredential.provider) {
+        case 'aws':
+          regionFromBucketOrCredential = await this.restService.adminAwsS3GetBucketLocation({
+            providerCredential: this.selectedProviderCredential,
+            bucket: bucket.Name
+          }).toPromise();
+          break;
+        case 'azure':
+          regionFromBucketOrCredential = this.selectedProviderCredential.region;
+          break;
+        default:
+          alert('Provider does not match.');
+      }
+
+      const providerEndpoint: ProviderEndpoint = {
+        name: bucket.Name,
+        provider: this.selectedProviderCredential.provider,
+        providerCredentialId: this.selectedProviderCredential._id,
+        providerBucket: bucket.Name,
+        type: (this.selectedProviderCredential.provider === 'aws') ? 'aws-s3' : 'azure-blob',
+        active: true,
+        region: regionFromBucketOrCredential
+      };
+
+      this.selected.providerEndpoints.push (providerEndpoint);
+
+      await this.restService.adminSaveVirtualBucket(this.selected).toPromise();
+
+      const result = await this.restService.adminImportToVirtualBucket( {
+        applicationId: this.selected.applicationId,
+        virtualBucketId: this.selected._id,
+        importProviderEndpoint: providerEndpoint
+      }).toPromise();
+
+      console.log(result);
+
+    } catch (err) {
+      console.log(err);
+      this.snackMessage.open('Error importing bucket', 'x', {verticalPosition: 'top'});
+    }
+
+  }
+
+  selectProviderCredentials(pc) {
+    this.selectedProviderCredential = pc;
+    this.buckets = null;
+    this.loadBucketList();
+  }
+
+  loadBucketList() {
+    if (!this.selectedProviderCredential) { return; }
+    this.loadingImportableBuckets = true;
+
+    this.restService.adminListBuckets({providerCredentialId: this.selectedProviderCredential._id})
+      .pipe( finalize(() => { this.loadingImportableBuckets = false; }) )
+      .subscribe (r => {
+        this.buckets = r;
+      }, err => {
+        this.snackMessage.open('Error listing buckets', 'x', {verticalPosition: 'top'});
+      });
   }
 }

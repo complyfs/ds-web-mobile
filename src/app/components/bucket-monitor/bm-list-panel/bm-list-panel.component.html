@@ -9,7 +9,8 @@
       </div>
       <div fxLayout="row">
         <div fxFlex="25%" class="float-right">Provider:</div>
-        <div fxFlex="70%" >{{bucketMonitor.provider}}</div>
+        <div fxFlex="25%" >{{bucketMonitor.provider}}</div>
+        <div fxFlex="50%" *ngIf="bucketMonitor.failureCode ==='bucket_not_found'" class="error-msg">Bucket Not Found</div>
       </div>
     </div>
     <div fxFlex="15%">

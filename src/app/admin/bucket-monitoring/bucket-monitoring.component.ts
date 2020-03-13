@@ -5,6 +5,7 @@ import {RestService} from "../../services/rest/rest.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {PageEvent} from "@angular/material/paginator";
 import {DsApplication} from "../../objects/ds-application";
+import {finalize} from "rxjs/operators";
 
 @Component({
   selector: 'app-bucket-monitoring',
@@ -25,6 +26,7 @@ export class BucketMonitoringComponent implements OnInit {
 
   pCCredentials: any[];
   pCItemsFound: number;
+  loadingBuckets = false;
 
   selectedProviderCredential: any;
 
@@ -53,8 +55,10 @@ export class BucketMonitoringComponent implements OnInit {
 
   loadBucketList() {
     if (!this.selectedProviderCredential) { return; }
+    this.loadingBuckets = true;
 
     this.restService.adminListBuckets({providerCredentialId: this.selectedProviderCredential._id})
+      .pipe( finalize(() => { this.loadingBuckets = false; }) )
       .subscribe (r => {
         this.buckets = r;
       }, err => {

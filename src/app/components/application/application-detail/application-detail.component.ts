@@ -63,7 +63,7 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
           this.application = null;
           this.reloadApps.emit();
         }, err => {
-          this.snackMessage.open('Error deleting channel', 'X', {verticalPosition: 'top'});
+          this.snackMessage.open('Error deleting application', 'X', {verticalPosition: 'top'});
         });
     }
   }

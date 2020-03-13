@@ -8,8 +8,8 @@ export const environment = {
   companyName: 'DataStrata.io',
   contactUsEmail: 'info@datastrata.io',
 
-  //dsSocketURL: 'https://app.datastrata.io',
-  dsSocketURL: 'http://localhost:3030',
+  dsSocketURL: 'https://app.datastrata.io',
+  //dsSocketURL: 'http://localhost:3030',
   dsTickerLength: 5,
 
   providers: [
@@ -19,11 +19,13 @@ export const environment = {
 
   providerRegions: [
     { provider: 'aws', region: 'us-west-1'},
+    { provider: 'aws', region: 'us-east-1'},
     { provider: 'aws', region: 'eu-frankfurt-1'},
     { provider: 'aws', region: 'as-tokyo-1'},
-    { provider: 'azure', region: 'us-seattle'},
-    { provider: 'azure', region: 'eu-london'},
-    { provider: 'azure', region: 'as-shanghai'},
+    { provider: 'azure', region: 'East US'},
+    { provider: 'azure', region: 'West US'},
+    { provider: 'azure', region: 'Japan East'},
+    { provider: 'azure', region: 'West Europe'},
   ],
 
   providerEndpointTypes: [
