@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RestService } from "../../../../services/rest/rest.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import {ChartDataSets} from "chart.js";
-import {Color, Label} from "ng2-charts";
+import { RestService } from '../../../../services/rest/rest.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ChartDataSets } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-vb-files-per-time-period',
