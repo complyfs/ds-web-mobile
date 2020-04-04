@@ -31,7 +31,7 @@
 
         <mat-card class="list-mat-card" *ngFor="let vb of virtualBuckets" (click)="select(vb)" [class.selected]="isSelectedItem(vb)">
           <div fxLayout="row" fxLayoutAlign="space-between">
-            <div fxFlex class="text-truncate">{{vb._id}}</div>
+            <div fxFlex class="text-truncate">{{vb.virtualBucketId}}</div>
           </div>
         </mat-card>
       </div>
@@ -39,9 +39,9 @@
       <div fxHide.lt-lg *ngIf="virtualBuckets">
         <mat-card class="list-mat-card" *ngFor="let vb of virtualBuckets" (click)="select(vb)" [class.selected]="isSelectedItem(vb)">
           <div fxLayout="column" fxLayoutAlign="space-between">
-            <div fxFlex class="text-truncate">{{vb._id}}</div>
+            <div fxFlex class="text-truncate">Name</div>
             <div fxFlex="100%">
-              {{vb._id}}
+              {{vb.virtualBucketId}}
               <!--<app-text-field-display [readOnly]="true" [label]="'Name'" [value]="ds.name"></app-text-field>-->
             </div>
           </div>
@@ -72,7 +72,7 @@
 
     <mat-card *ngIf="selected">
       <mat-card-title>
-        Selected Virtual Bucket: {{selected._id}}
+        Selected Virtual Bucket: {{selected.virtualBucketId}}
         <div class="float-right">
           <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_horiz</mat-icon></button>
           <mat-menu #menu="matMenu">
@@ -85,7 +85,11 @@
       <div fxLayout="column">
 
         <div fxFlex="95%">
-          <app-text-field-display [readOnly]="true" [label]="'Data Store ID'" [(value)]="selected._id"></app-text-field-display>
+          <app-text-field-display [readOnly]="true" [label]="'ID'" [(value)]="selected._id"></app-text-field-display>
+        </div>
+
+        <div fxFlex="95%">
+          <app-text-field-display [readOnly]="true" [label]="'Bucket Name'" [(value)]="selected.virtualBucketId"></app-text-field-display>
         </div>
 
         <div fxFlex="95%">
@@ -120,7 +124,7 @@
     <div fxLayout="column">
       <div fxFlex>
         <mat-form-field class="full-width-150-500">
-          <input #uniqueIdBox matInput placeholder="Unique name, no spaces" [(ngModel)]="newVirtualBucket._id" (input)="checkUnique(uniqueIdBox.value)">
+          <input #uniqueIdBox matInput placeholder="Unique name, no spaces" [(ngModel)]="newVirtualBucket.virtualBucketId" (input)="checkUnique(uniqueIdBox.value)">
           <mat-hint *ngIf="!(uniqueName$|async)"> <div class="tmp-error-msg">Must be unique to your tenant.</div></mat-hint>
         </mat-form-field>
       </div>

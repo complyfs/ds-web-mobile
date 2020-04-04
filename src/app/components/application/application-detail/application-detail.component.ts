@@ -58,12 +58,19 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
 
   deleteApplication() {
     if (confirm('Are you sure you want to delete this application?')) {
-      this.restService.adminDeleteApplication(this.application)
+      this.restService.adminDeleteApplication({ applicationId: this.application._id } )
         .subscribe ( r => {
           this.application = null;
           this.reloadApps.emit();
         }, err => {
-          this.snackMessage.open('Error deleting application', 'X', {verticalPosition: 'top'});
+          let sm;
+          if (err.error && err.error.message) {
+            sm = err.error.message;
+          }
+          else {
+            sm = 'Error deleting application';
+          }
+          this.snackMessage.open(sm, 'X', {verticalPosition: 'top'});
         });
     }
   }

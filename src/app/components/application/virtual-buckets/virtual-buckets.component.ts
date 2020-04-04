@@ -6,6 +6,7 @@ import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-virtual-buckets',
@@ -19,7 +20,7 @@ export class VirtualBucketsComponent implements OnInit {
   virtualBuckets: VirtualBucket[];
   selected: VirtualBucket;
 
-  emptyNewVirtualBucket: any = { name: '', description: '', encrypted: false, providerEndpoints: [] };
+  emptyNewVirtualBucket: any = { description: '', encrypted: false, providerEndpoints: [] };
   newVirtualBucket: any = JSON.parse(JSON.stringify(this.emptyNewVirtualBucket));
 
   loading = false;
@@ -92,7 +93,7 @@ export class VirtualBucketsComponent implements OnInit {
   loadVirtualBucket(virtualBucketId: string) {
     this.loadingSelected = true;
 
-    this.restService.adminGetVirtualBucket({ _id: virtualBucketId })
+    this.restService.adminGetVirtualBucket({ virtualBucketId: virtualBucketId })
       .pipe(finalize(() => { this.loadingSelected = false; }))
       .subscribe( r => {
         this.selected = r;
@@ -106,7 +107,7 @@ export class VirtualBucketsComponent implements OnInit {
   }
 
   select(clickedItem) {
-    this.loadVirtualBucket(clickedItem._id);
+    this.loadVirtualBucket(clickedItem.virtualBucketId);
   }
 
   onResult($event): void {
@@ -114,6 +115,7 @@ export class VirtualBucketsComponent implements OnInit {
 
     this.selected = $event;
     this.selected.applicationId = this.applicationId;
+    this.selected._id = uuid.v4();
 
     this.saveVirtualBucket();
     setTimeout( () => this.loadData(), 3000);
@@ -133,7 +135,7 @@ export class VirtualBucketsComponent implements OnInit {
       return of(false);
     }
 
-    return this.restService.adminGetVirtualBucket({ _id: name })
+    return this.restService.adminGetVirtualBucket({ virtualBucketId: name })
       .pipe(
         tap(_ => console.log('fetched vb')),
         map( r => {
@@ -212,7 +214,8 @@ export class VirtualBucketsComponent implements OnInit {
 
     try {
       this.selected = {
-        _id: bucket.Name,
+        _id: uuid.v4(),
+        virtualBucketId: bucket.Name,
         applicationId: this.applicationId,
         description: '',
         encrypted: false,

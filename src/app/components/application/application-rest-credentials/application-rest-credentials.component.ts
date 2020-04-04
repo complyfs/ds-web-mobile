@@ -79,7 +79,7 @@ export class ApplicationRestCredentialsComponent implements OnInit {
   }
 
   loadVirtualBuckets() {
-    //this.loading = true;
+    // this.loading = true;
     const params = {
       from: (this.pageIndex * this.pageSize), size: this.pageSize,
       applicationId: this.application._id
@@ -260,7 +260,7 @@ export class ApplicationRestCredentialsComponent implements OnInit {
     this.restService.adminUpdateAuth0ClientGrants(this.selectedAuth0ClientGrants)
       .subscribe ( r => {
         console.log(JSON.stringify(r, null, 4));
-        //this.getAuth0ClientGrants(this.selectedAuth0ClientGrants.id);
+        // this.getAuth0ClientGrants(this.selectedAuth0ClientGrants.id);
       }, err => {
         this.snackMessage.open('Error updating credential rights', 'x', {verticalPosition: 'top'});
       });
@@ -273,8 +273,7 @@ export class ApplicationRestCredentialsComponent implements OnInit {
   updateVirtualBucketAccess(virtualBucket: VirtualBucket, $event) {
     if ($event.checked) {
       this.selectedAuth0Client.client_metadata.virtualBuckets += virtualBucket._id + ' ';
-    }
-    else {
+    } else {
       const startLoc = this.selectedAuth0Client.client_metadata.virtualBuckets.indexOf(virtualBucket._id);
       this.selectedAuth0Client.client_metadata.virtualBuckets =
         this.selectedAuth0Client.client_metadata.virtualBuckets.substring(0, startLoc) +
@@ -326,13 +325,13 @@ export class ApplicationRestCredentialsComponent implements OnInit {
   }
 
   fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement("textarea");
+    const textArea = document.createElement('textarea');
     textArea.value = text;
 
     // Avoid scrolling to bottom
-    textArea.style.top = "0";
-    textArea.style.left = "0";
-    textArea.style.position = "fixed";
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.position = 'fixed';
 
     document.body.appendChild(textArea);
     textArea.focus();
