@@ -267,17 +267,17 @@ export class ApplicationRestCredentialsComponent implements OnInit {
   }
 
   hasAccessToVirtualBucket(virtualBucket: VirtualBucket) {
-    return this.selectedAuth0Client.client_metadata.virtualBuckets.indexOf(virtualBucket._id) > -1;
+    return this.selectedAuth0Client.client_metadata.virtualBuckets.indexOf(virtualBucket.virtualBucketId) > -1;
   }
 
   updateVirtualBucketAccess(virtualBucket: VirtualBucket, $event) {
     if ($event.checked) {
-      this.selectedAuth0Client.client_metadata.virtualBuckets += virtualBucket._id + ' ';
+      this.selectedAuth0Client.client_metadata.virtualBuckets += virtualBucket.virtualBucketId + ' ';
     } else {
-      const startLoc = this.selectedAuth0Client.client_metadata.virtualBuckets.indexOf(virtualBucket._id);
+      const startLoc = this.selectedAuth0Client.client_metadata.virtualBuckets.indexOf(virtualBucket.virtualBucketId);
       this.selectedAuth0Client.client_metadata.virtualBuckets =
         this.selectedAuth0Client.client_metadata.virtualBuckets.substring(0, startLoc) +
-        this.selectedAuth0Client.client_metadata.virtualBuckets.substring(startLoc + virtualBucket._id.length + 1);
+        this.selectedAuth0Client.client_metadata.virtualBuckets.substring(startLoc + virtualBucket.virtualBucketId.length + 1);
     }
 
     console.log(JSON.stringify(this.selectedAuth0Client.client_metadata, null, 4));
