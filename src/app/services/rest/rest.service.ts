@@ -251,4 +251,8 @@ export class RestService {
     return this.http.post(environment.restServiceURL + '/admin/vbSizeAndCount', params);
   }
 
+  adminGetJobs(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/getJobs', params);
+  }
+
 }
