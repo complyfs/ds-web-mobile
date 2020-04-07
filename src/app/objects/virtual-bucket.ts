@@ -1,7 +1,7 @@
 
 export interface VirtualBucket {
   _id: string;
-  virtualBucketId: string;
+  virtualBucketName: string;
   applicationId: string;
   description: string;
   encrypted: boolean;

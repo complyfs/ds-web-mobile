@@ -90,10 +90,10 @@ export class VirtualBucketsComponent implements OnInit {
       });
   }
 
-  loadVirtualBucket(virtualBucketId: string) {
+  loadVirtualBucket(virtualBucketName: string) {
     this.loadingSelected = true;
 
-    this.restService.adminGetVirtualBucket({ virtualBucketId: virtualBucketId })
+    this.restService.adminGetVirtualBucket({ virtualBucketName: virtualBucketName })
       .pipe(finalize(() => { this.loadingSelected = false; }))
       .subscribe( r => {
         this.selected = r;
@@ -107,7 +107,7 @@ export class VirtualBucketsComponent implements OnInit {
   }
 
   select(clickedItem) {
-    this.loadVirtualBucket(clickedItem.virtualBucketId);
+    this.loadVirtualBucket(clickedItem.virtualBucketName);
   }
 
   onResult($event): void {
@@ -135,7 +135,7 @@ export class VirtualBucketsComponent implements OnInit {
       return of(false);
     }
 
-    return this.restService.adminGetVirtualBucket({ virtualBucketId: name })
+    return this.restService.adminGetVirtualBucket({ virtualBucketName: name })
       .pipe(
         tap(_ => console.log('fetched vb')),
         map( r => {
@@ -215,7 +215,7 @@ export class VirtualBucketsComponent implements OnInit {
     try {
       this.selected = {
         _id: uuid.v4(),
-        virtualBucketId: bucket.Name,
+        virtualBucketName: bucket.Name,
         applicationId: this.applicationId,
         description: '',
         encrypted: false,
