@@ -1,0 +1,96 @@
+<div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="center">
+  <div fxFlex="1 1 33%" fxFlex.lt-lg="0 0 100%">
+    <mat-card>
+      <mat-card-title>
+        Jobs
+      </mat-card-title>
+
+      <div fxHide fxShow.lt-lg>
+        <mat-card class="list-mat-card list-header-mat-card">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="7%">Level</div>
+            <div fxFlex="15%">Timestamp</div>
+            <div fxFlex="20%">Description</div>
+            <div fxFlex="40%">Date</div>
+          </div>
+        </mat-card>
+
+        <mat-card class="list-mat-card" *ngFor="let log of jobs" (click)="select(log)" [class.selected]="isSelectedItem(log)">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxFlex="7%" class="user-data text-truncate">{{log.level}}</div>
+            <div fxFlex="15%" class="user-data text-truncate">{{log.timestamp}}</div>
+            <div fxFlex="20%" class="user-data text-truncate">{{log.message}}</div>
+            <div fxFlex="40%" class="user-data text-truncate">{{log.meta|json}}</div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div fxHide.lt-lg>
+        <mat-card class="list-mat-card" *ngFor="let job of jobs" (click)="select(job)" [class.selected]="isSelectedItem(job)">
+          <div fxLayout="column" fxLayoutAlign="space-between">
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Type:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{job.jobType}}</div>
+              </div>
+            </div>
+            <div fxFlex="100%">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end">Date:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{job.createDate|date}}</div>
+              </div>
+            </div>
+            <div fxFlex="100%" class="no-overflow">
+              <div fxLayout="row" fxLayoutGap="5%">
+                <div fxFlex="33%" fxFlexAlign="end" class="text-truncate">Status:</div>
+                <div fxFlex fxFlexAlign="start" class="user-data text-truncate" >{{job.status}}</div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+
+
+      <mat-card *ngIf="loading" fxLayout="row" fxLayoutAlign="center" >
+        <div fxLayout="row" fxLayoutAlign="center">
+          <div fxFlex="0 0 auto"><mat-spinner></mat-spinner></div>
+        </div>
+      </mat-card>
+
+      <div *ngIf="jobs && jobs.length>0">
+        <mat-card class="list-paginator">
+          <mat-paginator [length]="itemsFound"
+                         [pageSize]="pageSize"
+                         [pageSizeOptions]="pageSizeOptions"
+                         (page)="pageChange($event)" >
+          </mat-paginator>
+        </mat-card>
+      </div>
+    </mat-card>
+
+  </div>
+  <div fxFlex>
+    <mat-card *ngIf="selected">
+      <mat-card-title>Selected Log</mat-card-title>
+
+      <div><pre>{{selected|json}}</pre></div>
+      <!--
+      <div>Level: <strong>{{selectedLog.level}}</strong></div>
+      <div>Date: <strong>{{selectedLog.timestamp|date:'long'}}</strong></div>
+      <div>Description: <strong>{{selectedLog.message}}</strong></div>
+      <div *ngIf="selectedLog.meta">
+        <div class="section-header">Metadata:</div>
+        {{selectedLog.meta|json}}
+        <!--{{selectedLog.meta|json}}-->
+        <!--<pre class="prettyprint linenums:1 lang-js"><code class="language-js">module.exports = {{ test: () => {{ console.log(); }} }};</code></pre>-->
+        <!-- <pre class="prettyprint linenums:1 lang-js"><code class="language-js">{{selectedLog.meta|json}}</code></pre>
+ -- >
+        <!--        <div *ngIf="selectedLog.meta.stack">-->
+        <!--          <div class="section-header">Call Stack:</div>-->
+        <!--          <pre class="prettyprint">{{selectedLog.meta.stack}}</pre>-->
+        <!--        </div>-- >
+      </div>-->
+    </mat-card>
+  </div>
+</div>

@@ -21,6 +21,7 @@ import { ApplicationsComponent } from './admin/applications/applications.compone
 import { ProviderCredentialsComponent } from './admin/provider-credentials/provider-credentials.component';
 import { TestPageComponent } from './admin/test-page/test-page.component';
 import { BucketMonitoringComponent } from './admin/bucket-monitoring/bucket-monitoring.component';
+import {ApplicationJobsComponent} from "./components/application/application-jobs/application-jobs.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/private', pathMatch: 'full' },
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'applications', component: ApplicationsComponent },
       { path: 'bucketmonitoring', component: BucketMonitoringComponent },
+      { path: 'appjobs', component: ApplicationJobsComponent },
       { path: 'credentials', component: ProviderCredentialsComponent },
       { path: 'profile', component: ProfileComponent },
     ]
