@@ -54,9 +54,11 @@
   </mat-drawer>
   <mat-drawer-content>
     <div fxLayout="row">
+      <!--
       <div fxFlex="0 0 auto">
         <button (click)="drawer.toggle()" mat-mini-fab color="white" class="drawer-button"><mat-icon>settings_ethernet</mat-icon></button>
       </div>
+      -->
       <div fxFlex="1 1 auto">
         <div *ngIf="selected">
           <app-application-detail [applicationId]="selected._id" (reloadApps)="loadData()"></app-application-detail>

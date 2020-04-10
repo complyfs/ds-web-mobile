@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { DsApplication } from '../../../objects/ds-application';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-application-detail',
@@ -21,10 +22,18 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
 
 
   constructor(private restService: RestService,
-              private snackMessage: MatSnackBar) { }
+              private snackMessage: MatSnackBar,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
 
-  ngOnInit() {
-    this.loadData();
+  ngOnInit(): void {
+    this.route.params
+      .subscribe((params: Params) => {
+        this.applicationId = params.applicationId;
+
+        this.loadData();
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -79,5 +88,9 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
     this.selectedTabIndex = $event.index;
     console.log(this.selectedTabIndex);
     //this.activateCenteredTab();
+  }
+
+  gotoDashboard() {
+    this.router.navigate(['/private']);
   }
 }

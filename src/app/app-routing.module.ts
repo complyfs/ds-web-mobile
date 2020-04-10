@@ -21,7 +21,8 @@ import { ApplicationsComponent } from './admin/applications/applications.compone
 import { ProviderCredentialsComponent } from './admin/provider-credentials/provider-credentials.component';
 import { TestPageComponent } from './admin/test-page/test-page.component';
 import { BucketMonitoringComponent } from './admin/bucket-monitoring/bucket-monitoring.component';
-import {ApplicationJobsComponent} from "./components/application/application-jobs/application-jobs.component";
+import { ApplicationJobsComponent } from './components/application/application-jobs/application-jobs.component';
+import { ApplicationDetailComponent } from './components/application/application-detail/application-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/private', pathMatch: 'full' },
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'applications', pathMatch: 'full'},
       { path: 'dashboard', component: DashboardComponent },
       { path: 'applications', component: ApplicationsComponent },
+      { path: 'vbapp/:applicationId', component: ApplicationDetailComponent },
       { path: 'bucketmonitoring', component: BucketMonitoringComponent },
       { path: 'appjobs', component: ApplicationJobsComponent },
       { path: 'credentials', component: ProviderCredentialsComponent },

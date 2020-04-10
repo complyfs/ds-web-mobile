@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, Subject } from 'rxjs';
 import { DsApplication } from '../../objects/ds-application';
 import * as uuid from 'uuid';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-applications',
@@ -33,7 +34,8 @@ export class ApplicationsComponent implements OnInit {
   pageSizeOptions: number [] = [5, 10, 25];
 
   constructor(private restService: RestService,
-              private snackMessage: MatSnackBar) { }
+              private snackMessage: MatSnackBar,
+              private router: Router) { }
 
   ngOnInit() {
     this.uniqueID$ = this.proposedId.pipe(
@@ -74,7 +76,8 @@ export class ApplicationsComponent implements OnInit {
   }
 
   select(clickedItem) {
-    this.selected = clickedItem;
+    //this.selected = clickedItem;
+    this.router.navigate(['/private/vbapp', clickedItem._id]);
   }
 
   pageChange(event: PageEvent) {

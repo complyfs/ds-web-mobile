@@ -5,6 +5,7 @@
 </mat-card>
 
 <mat-card *ngIf="application">
+  <div class="dashboard-link"><a (click)="gotoDashboard()">Dashboard</a> > {{application.name}}</div>
   <mat-card-title>Selected App: {{application.name}}</mat-card-title>
 
   <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
