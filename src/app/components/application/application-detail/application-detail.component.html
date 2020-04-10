@@ -28,11 +28,17 @@
       <mat-tab label="Live">
         <app-application-dashboard [dsApplication]="application"></app-application-dashboard>
       </mat-tab>
-      <mat-tab label="General">
+      <mat-tab label="General Info">
         <app-application-info
           [application]="application"
           (saveApplication)="saveApplication()"
           (deleteApplication)="deleteApplication()"></app-application-info>
+      </mat-tab>
+      <mat-tab label="Business Contacts">
+        <app-application-contacts [application]="application" (saveApplication)="saveApplication()"></app-application-contacts>
+      </mat-tab>
+      <mat-tab label="Dashboard Access">
+        <app-application-users [application]="application" (saveApplication)="saveApplication()"></app-application-users>
       </mat-tab>
       <!--
       <mat-tab label="Reports">
