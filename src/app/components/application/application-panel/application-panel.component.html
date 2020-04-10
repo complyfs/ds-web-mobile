@@ -1,7 +1,7 @@
 
 
 <mat-card>
-  <mat-card-subtitle>App Name: <strong>{{application.name}}</strong></mat-card-subtitle>
+  <mat-card-subtitle>App Name: <span id="app-name">{{application.name}}</span></mat-card-subtitle>
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%" fxLayoutAlign="space-between">
     <div fxFlex="1 1 50%">
       <div *ngIf="lineChartData" class="chart-wrapper">
@@ -27,6 +27,42 @@
         </canvas>
       </div>
       <div *ngIf="!doughnutChartData"><mat-spinner></mat-spinner></div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2%" fxLayoutAlign="space-between">
+    <div fxFlex="1 1 33%">
+      <div *ngIf="virtualBuckets" class="chart-wrapper">
+        <mat-card>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <div fxFlex class="info-value">{{virtualBuckets.length|number:'0.0-0'}}</div>
+            <div fxFlex class="info-unit">VBs</div>
+          </div>
+        </mat-card>
+      </div>
+      <div *ngIf="!virtualBuckets"><mat-spinner></mat-spinner></div>
+    </div>
+    <div fxFlex="1 1 33%">
+      <div *ngIf="vbFilesSizeAndCount" class="chart-wrapper">
+        <mat-card>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <div fxFlex class="info-value">{{vbFilesSizeAndCount.fileCount|number:'0.0-0'}}</div>
+            <div fxFlex class="info-unit">Files</div>
+          </div>
+        </mat-card>
+      </div>
+      <div *ngIf="!vbFilesSizeAndCount"><mat-spinner></mat-spinner></div>
+    </div>
+    <div fxFlex="1 1 33%">
+      <div *ngIf="vbFilesSizeAndCount" class="chart-wrapper">
+        <mat-card>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <div fxFlex class="info-value">{{getFileSize()|number:'0.0-1'}}</div>
+            <div fxFlex class="info-unit">{{getFileUnits()}}</div>
+          </div>
+
+        </mat-card>
+      </div>
+      <div *ngIf="!vbFilesSizeAndCount"><mat-spinner></mat-spinner></div>
     </div>
   </div>
 </mat-card>

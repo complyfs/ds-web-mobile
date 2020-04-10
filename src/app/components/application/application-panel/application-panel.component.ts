@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, MultiDataSet, Label } from 'ng2-charts';
 import { DsApplication } from '../../../objects/ds-application';
+import {DisplayFileCountInfo} from "../../../objects/display-file-count-info/display-file-count-info";
+import {VirtualBucket} from "../../../objects/virtual-bucket";
 
 @Component({
   selector: 'app-application-panel',
@@ -15,7 +17,9 @@ export class ApplicationPanelComponent implements OnInit {
   @Input() application: DsApplication;
   dataBuckets: any;
   dataRates: any;
-
+  vbFilesSizeAndCount: any;
+  virtualBuckets: VirtualBucket[];
+  graphData:any;
 
   lineChartData: ChartDataSets[] = [
     { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
@@ -69,14 +73,16 @@ export class ApplicationPanelComponent implements OnInit {
 
     this.restService.getApplicationGraphs(params)
       .subscribe( r => {
-        this.dataBuckets = r.dataBuckets;
-        this.dataRates = r.dataRates;
+        console.log('r', JSON.stringify(r, null, 4));
 
-        this.lineChartLabels = this.dataRates.map( i => i.periodStart );
-        this.lineChartData[0] = { data: this.dataRates.map( i => i.docs), label: 'Docs per day' };
+        //this.dataBuckets = r.dataBuckets;
+        // this.dataRates = r.dataRates;
 
-        this.doughnutChartLabels = this.dataBuckets.map ( i => i.name);
-        this.doughnutChartData = [this.dataBuckets.map ( i => i.docs)];
+        //this.lineChartLabels = this.dataRates.map( i => i.periodStart );
+        //this.lineChartData[0] = { data: this.dataRates.map( i => i.docs), label: 'Docs per day' };
+
+        //this.doughnutChartLabels = this.dataBuckets.map ( i => i.name);
+        //this.doughnutChartData = [this.dataBuckets.map ( i => i.docs)];
 
       }, err => {
         this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
@@ -86,7 +92,7 @@ export class ApplicationPanelComponent implements OnInit {
 
     this.restService.adminVbFilesSizeAndCount(params2)
       .subscribe( r => {
-        // console.log(JSON.stringify(r, null, 4));
+        this.vbFilesSizeAndCount = r[0];
       }, err => {
         this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
       });
@@ -95,10 +101,50 @@ export class ApplicationPanelComponent implements OnInit {
 
     this.restService.adminFilesPerTimePeriod(params3)
       .subscribe( r => {
-        // console.log(JSON.stringify(r, null, 4));
+        console.log('adminFilesPerTimePeriod');
+        console.log(JSON.stringify(r, null, 4));
+
+        this.dataRates = r;
+        this.lineChartLabels = this.dataRates.map( i => new Date(i._id) );
+        this.lineChartData[0] = { data: this.dataRates.map( i => i.count), label: 'Docs per day' };
       }, err => {
         this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
       });
+
+    this.restService.adminGetVirtualBuckets(params3)
+      .subscribe( r => {
+        this.virtualBuckets = r.hits;
+
+        // Now we can get the stats
+        this.restService.adminVbSizeAndCount(params3)
+          .subscribe( r => {
+            this.graphData = r.sort( (a, b) => b.fileCount - a.fileCount);
+
+            this.doughnutChartLabels = this.graphData.map ( i => {
+              const vbs = this.virtualBuckets.filter(vb => vb._id === i._id);
+              return vbs[0].virtualBucketName
+            });
+
+            this.doughnutChartData = [this.graphData.map ( i => i.fileCount)];
+
+          }, err => {
+            this.snackMessage.open('Error loading virtual bucket file count graph', 'x', {verticalPosition: 'top'});
+          });
+
+      }, err => {
+        this.snackMessage.open('Error loading application graphs', 'x', {verticalPosition: 'top'});
+      });
+
+
+
+  }
+
+  getFileSize() {
+    return DisplayFileCountInfo.getFileSize(this.vbFilesSizeAndCount.fileSize);
+  }
+
+  getFileUnits() {
+    return DisplayFileCountInfo.getFileUnits(this.vbFilesSizeAndCount.fileSize);
   }
 
 }
