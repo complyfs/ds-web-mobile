@@ -3,6 +3,7 @@ import { Label, MultiDataSet } from 'ng2-charts';
 import { ChartType } from 'chart.js';
 import { RestService } from '../../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { VirtualBucket } from '../../../../objects/virtual-bucket';
 
 @Component({
   selector: 'app-vb-files-per-vb',
@@ -13,6 +14,7 @@ export class VbFilesPerVbComponent implements OnInit {
 
   apps: any[];
   graphData: any;
+  virtualBuckets: VirtualBucket[];
   @Input() applicationId;
 
   doughnutChartLabels: Label[] = null; // ['BMW', 'Ford', 'Tesla'];
@@ -33,23 +35,32 @@ export class VbFilesPerVbComponent implements OnInit {
     this.loadData();
   }
 
-  loadData() {
-    const params: any = {  }; // only param is tenantId, added on server
-    if ( this.applicationId ) { params.applicationId = this.applicationId; }
+  async loadData() {
+    try {
+      const r = await this.restService.adminGetVirtualBuckets({applicationId: this.applicationId}).toPromise();
+      this.virtualBuckets = r.hits;
 
-    // Now we can get the stats
-    this.restService.adminVbSizeAndCount(params)
-      .subscribe( r => {
-        this.graphData = r.sort( (a, b) => b.fileCount - a.fileCount);
+      const params: any = {  }; // only param is tenantId, added on server
+      if ( this.applicationId ) { params.applicationId = this.applicationId; }
 
-        this.doughnutChartLabels = this.graphData.map ( i => i._id);
+      // Now we can get the stats
+      this.restService.adminVbSizeAndCount(params)
+        .subscribe( r => {
+          this.graphData = r.sort( (a, b) => b.fileCount - a.fileCount);
 
-        this.doughnutChartData = [this.graphData.map ( i => i.fileCount)];
+          this.doughnutChartLabels = this.graphData.map ( i => {
+            const vbs = this.virtualBuckets.filter(vb => vb._id === i._id);
+            return vbs[0].virtualBucketName
+          });
 
-      }, err => {
-        this.snackMessage.open('Error loading virtual bucket file count graph', 'x', {verticalPosition: 'top'});
-      });
+          this.doughnutChartData = [this.graphData.map ( i => i.fileCount)];
 
+        }, err => {
+          this.snackMessage.open('Error loading virtual bucket file count graph', 'x', {verticalPosition: 'top'});
+        });
+    } catch (e) {
+      this.snackMessage.open('Error oening page', 'x', {verticalPosition: 'top'});
+    }
   }
 
 }
