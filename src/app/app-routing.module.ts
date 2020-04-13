@@ -23,6 +23,7 @@ import { TestPageComponent } from './admin/test-page/test-page.component';
 import { BucketMonitoringComponent } from './admin/bucket-monitoring/bucket-monitoring.component';
 import { ApplicationJobsComponent } from './components/application/application-jobs/application-jobs.component';
 import { ApplicationDetailComponent } from './components/application/application-detail/application-detail.component';
+import { BmDetailComponent } from './components/bucket-monitor/bm-detail/bm-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/private', pathMatch: 'full' },
@@ -43,6 +44,7 @@ const routes: Routes = [
       { path: 'applications', component: ApplicationsComponent },
       { path: 'vbapp/:applicationId', component: ApplicationDetailComponent },
       { path: 'bucketmonitoring', component: BucketMonitoringComponent },
+      { path: 'bm/:bucketMonitorId', component: BmDetailComponent },
       { path: 'appjobs', component: ApplicationJobsComponent },
       { path: 'credentials', component: ProviderCredentialsComponent },
       { path: 'profile', component: ProfileComponent },

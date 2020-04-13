@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-subtitle>
+    <span *ngIf="fileCountOrSize==='fileCount'">File Counts</span>
+    <span *ngIf="fileCountOrSize==='fileSize'">File Size</span>
+  </mat-card-subtitle>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%" fxLayoutAlign="space-between" *ngIf="graphData">
+    <div fxFlex="100%">
+      <div *ngIf="graphData" class="chart-wrapper">
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
+
+      <div *ngIf="!graphData"><mat-spinner></mat-spinner></div>
+    </div>
+  </div>
+
+</mat-card>

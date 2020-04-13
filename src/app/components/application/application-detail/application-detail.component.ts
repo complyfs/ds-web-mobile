@@ -91,6 +91,6 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
   }
 
   gotoDashboard() {
-    this.router.navigate(['/private']);
+    this.router.navigate(['/private/applications']);
   }
 }

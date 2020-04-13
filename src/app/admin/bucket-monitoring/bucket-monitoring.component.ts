@@ -6,6 +6,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {PageEvent} from "@angular/material/paginator";
 import {DsApplication} from "../../objects/ds-application";
 import {finalize} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-bucket-monitoring',
@@ -35,7 +36,8 @@ export class BucketMonitoringComponent implements OnInit {
   };
 
   constructor(private restService: RestService,
-              private snackMessage: MatSnackBar) { }
+              private snackMessage: MatSnackBar,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.loadProviderCredentials();
@@ -118,7 +120,8 @@ export class BucketMonitoringComponent implements OnInit {
   }
 
   select(clickedItem) {
-    this.selected = clickedItem;
+    //this.selected = clickedItem;
+    this.router.navigate(['/private/bm', clickedItem._id]);
   }
 
   bucketsSelected($event) {

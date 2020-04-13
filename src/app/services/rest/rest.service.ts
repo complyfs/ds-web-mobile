@@ -255,4 +255,7 @@ export class RestService {
     return this.http.post(environment.restServiceURL + '/admin/getJobs', params);
   }
 
+  adminBmFilesOverTime(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/bmFilesOverTime', params);
+  }
 }

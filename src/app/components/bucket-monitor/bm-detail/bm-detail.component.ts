@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
   selector: 'app-bm-detail',
@@ -14,10 +15,17 @@ export class BmDetailComponent implements OnInit {
   bucketMonitor: any;
 
   constructor(private restService: RestService,
-              private snackMessage: MatSnackBar) { }
+              private snackMessage: MatSnackBar,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.loadData();
+    this.route.params
+      .subscribe((params: Params) => {
+        this.bucketMonitorId = params.bucketMonitorId;
+
+        this.loadData();
+      });
   }
 
   loadData() {
@@ -47,4 +55,7 @@ export class BmDetailComponent implements OnInit {
       });
   }
 
+  gotoDashboard() {
+    this.router.navigate(['/private/bucketmonitoring']);
+  }
 }

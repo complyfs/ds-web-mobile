@@ -77,6 +77,7 @@ import { VbFilesPerProviderComponent } from './components/application/graphs/vb-
 import { VbSizePerProviderComponent } from './components/application/graphs/vb-size-per-provider/vb-size-per-provider.component';
 import { VbFilesPerVbComponent } from './components/application/graphs/vb-files-per-vb/vb-files-per-vb.component';
 import { ApplicationJobsComponent } from './components/application/application-jobs/application-jobs.component';
+import { BmFilesOverTimeComponent } from './components/bucket-monitor/graphs/bm-files-over-time/bm-files-over-time.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +145,7 @@ import { ApplicationJobsComponent } from './components/application/application-j
     VbSizePerProviderComponent,
     VbFilesPerVbComponent,
     ApplicationJobsComponent,
+    BmFilesOverTimeComponent,
   ],
   imports: [
     BrowserModule,
