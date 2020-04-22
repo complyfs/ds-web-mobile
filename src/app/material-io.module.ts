@@ -86,7 +86,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     MatSlideToggleModule,
     MatStepperModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTooltipModule
   ],
 })
 export class MaterialIoModule { }
