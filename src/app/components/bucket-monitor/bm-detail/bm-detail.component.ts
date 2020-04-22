@@ -54,8 +54,4 @@ export class BmDetailComponent implements OnInit {
         this.snackMessage.open('Error deleting bucket monitor', 'x', {verticalPosition: 'top'});
       });
   }
-
-  gotoDashboard() {
-    this.router.navigate(['/private/bucketmonitoring']);
-  }
 }

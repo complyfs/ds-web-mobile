@@ -89,8 +89,4 @@ export class ApplicationDetailComponent implements OnInit, OnChanges {
     console.log(this.selectedTabIndex);
     //this.activateCenteredTab();
   }
-
-  gotoDashboard() {
-    this.router.navigate(['/private/applications']);
-  }
 }

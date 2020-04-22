@@ -1,5 +1,5 @@
 <mat-card>
-  <div class="dashboard-link"><a (click)="gotoDashboard()">Dashboard</a> > <span *ngIf="bucketMonitor">{{bucketMonitor.providerBucket}}</span></div>
+  <div class="dashboard-link"><a [routerLink]="['/private/bucketmonitoring']">Dashboard</a> > <span *ngIf="bucketMonitor">{{bucketMonitor.providerBucket}}</span></div>
   <mat-card-title>Selected Bucket Monitor: <span *ngIf="bucketMonitor">{{bucketMonitor.providerBucket}}</span></mat-card-title>
 
   <div *ngIf="bucketMonitor">
