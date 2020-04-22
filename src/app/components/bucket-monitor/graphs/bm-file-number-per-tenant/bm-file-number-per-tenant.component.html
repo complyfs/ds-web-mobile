@@ -17,8 +17,9 @@
   <div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="space-between" *ngIf="graphData">
     <div fxFlex="100%">
       <div fxLayout="row" >
-        <div fxFlex="75%" class="text-truncate"><strong>Bucket Name</strong></div>
-        <div fxFlex="25%" class="text-truncate float-right"><strong>File Count</strong></div>
+        <div fxFlex="60%" class="text-truncate"><strong>Storeage Name</strong></div>
+        <div fxFlex="20%" class="text-truncate float-right"><strong>Provider</strong></div>
+        <div fxFlex="20%" class="text-truncate float-right"><strong>Count</strong></div>
       </div>
     </div>
   </div>
@@ -26,8 +27,9 @@
   <div fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="space-between" *ngIf="graphData">
     <div fxFlex="100%">
       <div fxLayout="row" *ngFor="let bucket of getPagedBuckets()">
-        <div fxFlex="75%" class="text-truncate">{{bucket._id.providerBucket}}</div>
-        <div fxFlex="25%" class="text-truncate float-right">{{bucket.fileCount}}</div>
+        <div fxFlex="60%" class="text-truncate">{{bucket._id.providerBucket}}</div>
+        <div fxFlex="20%" class="text-truncate">{{bucket._id.provider}}</div>
+        <div fxFlex="20%" class="text-truncate float-right">{{bucket.fileCount}}</div>
       </div>
     </div>
   </div>
