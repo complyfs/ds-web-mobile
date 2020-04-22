@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
-import {environment} from "../../../environments/environment";
-import {RestService} from "../../services/rest/rest.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {PageEvent} from "@angular/material/paginator";
-import {DsApplication} from "../../objects/ds-application";
-import {finalize} from "rxjs/operators";
-import {Router} from "@angular/router";
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { RestService } from '../../services/rest/rest.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
+import { DsApplication } from '../../objects/ds-application';
+import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bucket-monitoring',
@@ -120,7 +120,7 @@ export class BucketMonitoringComponent implements OnInit {
   }
 
   select(clickedItem) {
-    //this.selected = clickedItem;
+    // this.selected = clickedItem;
     this.router.navigate(['/private/bm', clickedItem._id]);
   }
 
@@ -129,7 +129,7 @@ export class BucketMonitoringComponent implements OnInit {
   }
 
   startInventoryBucket(bucketMonitorId) {
-    this.restService.adminBmInventoryBucket({bucketMonitorId: bucketMonitorId})
+    this.restService.adminBmInventoryBucket({bucketMonitorId})
       .subscribe( r => {
         this.snackMessage.open('Inventory of the bucket started', null, {duration: environment.snackBarDuration, verticalPosition: 'bottom'});
       }, err => {
