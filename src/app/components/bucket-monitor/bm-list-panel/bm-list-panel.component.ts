@@ -5,6 +5,7 @@ import { Color, Label, MultiDataSet } from 'ng2-charts';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DisplayFileCountInfo } from '../../../objects/display-file-count-info/display-file-count-info';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bm-list-panel',
@@ -15,12 +16,13 @@ export class BmListPanelComponent implements OnInit {
 
   @Input() bucketMonitor: any;
   bucketData: any;
+  loading = false;
 
   lineChartData: ChartDataSets[] = [
-    { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
+    { data: [85, 72, 78, 75, 77, 75], label: '' },
   ];
 
-  lineChartLabels: Label[] = ['2019-08-01', '2019-09-01', '2019-10-01', '2019-11-01', '2019-12-01', '2020-01-01'];
+  lineChartLabels: Label[] = [];
 
   lineChartOptions = {
     responsive: true,
@@ -66,11 +68,13 @@ export class BmListPanelComponent implements OnInit {
   loadData() {
     const params: any = { bucketMonitorId: this.bucketMonitor._id }; // only param is tenantId, added on server
 
+    this.loading = true;
     this.restService.adminBmFileStats(params)
+      .pipe( finalize( () => { this.loading = false; }))
       .subscribe( r => {
         this.bucketData = r[0];
 
-        console.log('bucketData', JSON.stringify(this.bucketData, null, 4));
+        //console.log('bucketData', JSON.stringify(this.bucketData, null, 4));
 
         /*
         this.doughnutChartLabels = this.graphData.map ( i => i._id.providerBucket);

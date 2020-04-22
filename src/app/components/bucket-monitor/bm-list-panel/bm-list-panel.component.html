@@ -14,12 +14,19 @@
       </div>
     </div>
     <div fxFlex="15%">
-      <div fxLayout="column" fxLayout.lt-sm="row" fxLayoutGap.lt-sm="10%" fxLayoutAlign="center center" *ngIf="!bucketData">
-        <div fxFlex="0 0 auto" class="weekday">Empty</div>
+      <div *ngIf="loading">
+        <div fxLayout="column" fxLayout.lt-sm="row" fxLayoutGap.lt-sm="10%" fxLayoutAlign="center center" *ngIf="!bucketData">
+          <div fxFlex="0 0 auto"><mat-spinner [diameter]="50"></mat-spinner></div>
+        </div>
       </div>
-      <div fxLayout="column" fxLayout.lt-sm="row" fxLayoutGap.lt-sm="10%" fxLayoutAlign="center center" *ngIf="bucketData">
-        <div fxFlex="0 0 auto" class="weekday">{{getFileSize(bucketData.size)|number:'1.1-2'}}</div>
-        <div fxFlex="0 0 auto" class="monthday">{{getFileUnits(bucketData.size)}}</div>
+      <div *ngIf="!loading">
+        <div fxLayout="column" fxLayout.lt-sm="row" fxLayoutGap.lt-sm="10%" fxLayoutAlign="center center" *ngIf="!bucketData">
+          <div fxFlex="0 0 auto" class="weekday">Empty</div>
+        </div>
+        <div fxLayout="column" fxLayout.lt-sm="row" fxLayoutGap.lt-sm="10%" fxLayoutAlign="center center" *ngIf="bucketData">
+          <div fxFlex="0 0 auto" class="weekday">{{getFileSize(bucketData.size)|number:'1.1-2'}}</div>
+          <div fxFlex="0 0 auto" class="monthday">{{getFileUnits(bucketData.size)}}</div>
+        </div>
       </div>
     </div>
   </div>
