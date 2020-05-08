@@ -9,6 +9,10 @@ events {
 
 http {
 
+  # to solve this issue: https://github.com/angular/angular/issues/30835
+  # use this includes: https://medium.com/bb-tutorials-and-thoughts/how-to-serve-angular-application-with-nginx-and-docker-3af45be5b854
+  include /etc/nginx/mime.types;
+
   map $http_upgrade $connection_upgrade {
       default upgrade;
       '' close;
