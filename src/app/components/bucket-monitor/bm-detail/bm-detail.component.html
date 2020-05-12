@@ -8,16 +8,16 @@
       <div fxFlex="50%">
         <div fxLayout="column" fxLayout.lt-sm="column" fxLayoutAlign="space-around">
           <div fxFlex="100%">
-            <app-text-field-display [label]="'Name:'" [(value)]="bucketMonitor.providerBucket" [readOnly]="false"></app-text-field-display>
+            <app-text-field-display [label]="'Name:'" [(value)]="bucketMonitor.providerBucket" [readOnly]="true"></app-text-field-display>
           </div>
           <div fxFlex="100%">
-            <app-text-field-display [label]="'Provider:'" [(value)]="bucketMonitor.provider" [readOnly]="false"></app-text-field-display>
+            <app-text-field-display [label]="'Provider:'" [(value)]="bucketMonitor.provider" [readOnly]="true"></app-text-field-display>
           </div>
           <div fxFlex="100%">
-            <app-text-field-display [label]="'Last Inventory:'" [(value)]="bucketMonitor.lasctInventory" [readOnly]="false"></app-text-field-display>
+            <app-text-field-display [label]="'Last Inventory:'" [(value)]="bucketMonitor.lastInventory" [readOnly]="true"></app-text-field-display>
           </div>
           <div fxFlex="100%">
-            <app-text-field-display [label]="'Bucket Monitor Status:'" [(value)]="bucketMonitor.status" [readOnly]="false"></app-text-field-display>
+            <app-text-field-display [label]="'Bucket Monitor Status:'" [(value)]="bucketMonitor.status" [readOnly]="true"></app-text-field-display>
           </div>
         </div>
       </div>
