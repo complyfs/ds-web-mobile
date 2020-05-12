@@ -7,22 +7,13 @@ export class DisplayFileCountInfo {
   public static fileSizeToDisplay(fileSize: number) {
     return {
       size: DisplayFileCountInfo.getFileSize(fileSize),
-      units: DisplayFileCountInfo.getFileUnits(fileSize)
+      units: DisplayFileCountInfo.getFileUnits(fileSize),
+      divisor: DisplayFileCountInfo.getDivisor(fileSize)
     };
   }
 
   public static getFileSize(fileSize: number) {
-    if (fileSize < DisplayFileCountInfo.kb) {
-      return fileSize;
-    } else if (fileSize < DisplayFileCountInfo.mb) {
-      return fileSize / DisplayFileCountInfo.kb;
-    } else if (fileSize < DisplayFileCountInfo.gb) {
-      return fileSize / DisplayFileCountInfo.mb;
-    } else if (fileSize < DisplayFileCountInfo.tb) {
-      return fileSize / DisplayFileCountInfo.gb;
-    } else {
-      return fileSize / DisplayFileCountInfo.tb;
-    }
+    return fileSize / DisplayFileCountInfo.getDivisor(fileSize);
   }
 
   public static getFileUnits(fileSize: number) {
@@ -36,6 +27,20 @@ export class DisplayFileCountInfo {
       return 'GB';
     } else {
       return 'TB';
+    }
+  }
+
+  public static getDivisor(fileSize: number) {
+    if (fileSize < DisplayFileCountInfo.kb) {
+      return 1;
+    } else if (fileSize < DisplayFileCountInfo.mb) {
+      return DisplayFileCountInfo.kb;
+    } else if (fileSize < DisplayFileCountInfo.gb) {
+      return DisplayFileCountInfo.mb;
+    } else if (fileSize < DisplayFileCountInfo.tb) {
+      return DisplayFileCountInfo.gb;
+    } else {
+      return DisplayFileCountInfo.tb;
     }
   }
 }
