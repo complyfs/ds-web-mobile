@@ -258,4 +258,8 @@ export class RestService {
   adminBmFilesOverTime(params: any): Observable <any> {
     return this.http.post(environment.restServiceURL + '/admin/bmFilesOverTime', params);
   }
+
+  adminBmHistoryMaxPerTime(params: any): Observable <any> {
+    return this.http.post(environment.restServiceURL + '/admin/bmHistoryMaxPerTime', params);
+  }
 }
