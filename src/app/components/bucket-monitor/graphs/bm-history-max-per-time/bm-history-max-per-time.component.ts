@@ -99,8 +99,6 @@ export class BmHistoryMaxPerTimeComponent implements OnInit {
       .subscribe( r => {
         this.graphData = r;
 
-        console.log('max per time', JSON.stringify(this.graphData, null, 4));
-
         const maxStorageSize = this.graphData.reduce((max, item) => {
           return item.size > max ? item.size : max;
         }, 0);
