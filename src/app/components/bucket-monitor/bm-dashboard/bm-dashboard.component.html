@@ -19,6 +19,24 @@
     </div>
 
     <div fxFlex="50%">
+      <app-bm-history-max-per-time [fileCountOrSize]="'fileCount'"></app-bm-history-max-per-time>
+    </div>
+
+    <div fxFlex="50%">
+      <app-bm-history-max-per-time [fileCountOrSize]="'size'"></app-bm-history-max-per-time>
+    </div>
+
+    <div fxFlex="100%">
+      <app-bm-history-max-per-time-per-bucket-monitor [fileCountOrSize]="'fileCount'"></app-bm-history-max-per-time-per-bucket-monitor>
+    </div>
+
+
+<!--
+    <div fxFlex="100%">
+      <app-bm-history-max-per-time-per-bucket-monitor [fileCountOrSize]="'size'"></app-bm-history-max-per-time-per-bucket-monitor>
+    </div>-->
+
+    <div fxFlex="50%">
       <app-bm-file-aging-per-tenant></app-bm-file-aging-per-tenant>
     </div>
 
@@ -26,12 +44,5 @@
       <app-bm-most-recent-file-per-tenant></app-bm-most-recent-file-per-tenant>
     </div>
 
-    <div fxFlex="50%">
-      <app-bm-history-max-per-time [fileCountOrSize]="'fileCount'"></app-bm-history-max-per-time>
-    </div>
-
-    <div fxFlex="50%">
-      <app-bm-history-max-per-time [fileCountOrSize]="'size'"></app-bm-history-max-per-time>
-    </div>
   </div>
 </mat-card>
