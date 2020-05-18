@@ -69,7 +69,8 @@ export class BmFileAgingPerTenantComponent implements OnInit {
         this.lineChartLabels = this.graphData.map( i => i._id);
         this.lineChartData = [{
           data: this.graphData.map( i => i.count),
-          label: 'Last modification Date'
+          label: 'Last modification Date',
+          lineTension: 0.1
         }];
 
       }, err => {
