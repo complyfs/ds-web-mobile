@@ -79,6 +79,7 @@ import { VbFilesPerVbComponent } from './components/application/graphs/vb-files-
 import { ApplicationJobsComponent } from './components/application/application-jobs/application-jobs.component';
 import { BmFilesOverTimeComponent } from './components/bucket-monitor/graphs/bm-files-over-time/bm-files-over-time.component';
 import { BmHistoryMaxPerTimeComponent } from './components/bucket-monitor/graphs/bm-history-max-per-time/bm-history-max-per-time.component';
+import { BmHistoryMaxPerTimePerBucketMonitorComponent } from './components/bucket-monitor/graphs/bm-history-max-per-time-per-bucket-monitor/bm-history-max-per-time-per-bucket-monitor.component';
 
 @NgModule({
   declarations: [
@@ -148,6 +149,7 @@ import { BmHistoryMaxPerTimeComponent } from './components/bucket-monitor/graphs
     ApplicationJobsComponent,
     BmFilesOverTimeComponent,
     BmHistoryMaxPerTimeComponent,
+    BmHistoryMaxPerTimePerBucketMonitorComponent,
   ],
   imports: [
     BrowserModule,

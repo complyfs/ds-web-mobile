@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-subtitle>
+    <span *ngIf="fileCountOrSize==='fileCount'">File Counts</span>
+    <span *ngIf="fileCountOrSize==='size'">Storage Size</span>
+  </mat-card-subtitle>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around">
+    <div fxFlex="100%">
+      <div class="chart-wrapper" >
+        <canvas #chartCanvas baseChart id="chartCanvas"
+                [datasets]="chartDatasets"
+                [labels]="barChartLabels"
+                [chartType]="chartType"
+                [options]="chartOptions"
+                [colors]="chartColors"
+                height="100%" width="100%"></canvas>
+      </div>
+    </div>
+  </div>
+</mat-card>
