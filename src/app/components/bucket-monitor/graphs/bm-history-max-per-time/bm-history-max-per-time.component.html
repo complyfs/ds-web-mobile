@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-subtitle>
-    <span *ngIf="fileCountOrSize==='fileCount'">File Counts</span>
-    <span *ngIf="fileCountOrSize==='size'">Storage Size</span>
+    <span *ngIf="fileCountOrSize==='fileCount'">Historical File Counts</span>
+    <span *ngIf="fileCountOrSize==='size'">Historical Storage Size</span>
   </mat-card-subtitle>
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="5%" fxLayoutAlign="space-between" *ngIf="graphData">
     <div fxFlex="100%">

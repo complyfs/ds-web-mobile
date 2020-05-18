@@ -105,7 +105,9 @@ export class BmHistoryMaxPerTimeComponent implements OnInit {
 
         this.fileDisplayInfo = DisplayFileCountInfo.fileSizeToDisplay(maxStorageSize);
 
-        this.lineChartLabels = this.graphData.map( i => new Date(i._id));
+        this.lineChartLabels = this.graphData.map( i =>
+          new Date(i._id.dateFromParts.year, i._id.dateFromParts.month - 1, i._id.dateFromParts.day ));
+
         this.lineChartData = [{
           data: this.graphData.map( i => {
             if (this.fileCountOrSize === 'fileCount') {
